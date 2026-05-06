@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Chatbot from "@/components/Chatbot";
+import CallbackWidget from "@/components/CallbackWidget";
 import ClientProviders from "@/components/ClientProviders";
 
 const geist = Geist({
@@ -33,6 +34,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <Chatbot />
+          <CallbackWidget />
         </ClientProviders>
       </body>
     </html>
