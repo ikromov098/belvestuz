@@ -42,9 +42,9 @@ export const translations = {
       step3: 'Получите одобрение',
     },
     trust: {
-      badge1: 'Без скрытых комиссий',
-      badge2: 'Одобрение за 1 день',
-      badge3: '0% первоначальный взнос',
+      badge1: '✓ Одобрение за 1 день',
+      badge2: '✓ Менеджер свяжется с вами',
+      badge3: '✓ Бесплатная консультация',
     },
     halal: {
       sectionLabel: 'Исламские финансы',
@@ -159,9 +159,9 @@ export const translations = {
       step3: 'Tasdiqlash oling',
     },
     trust: {
-      badge1: "Yashirin to'lovlar yo'q",
-      badge2: '1 kunda tasdiqlash',
-      badge3: "0% boshlang'ich to'lov",
+      badge1: "✓ 1 kunda tasdiqlash",
+      badge2: "✓ Menejer siz bilan bog'lanadi",
+      badge3: "✓ Bepul maslahat",
     },
     halal: {
       sectionLabel: 'Islom moliyasi',
@@ -276,9 +276,9 @@ export const translations = {
       step3: 'Get approved',
     },
     trust: {
-      badge1: 'No hidden fees',
-      badge2: '1-day approval',
-      badge3: '0% down payment',
+      badge1: '✓ Approval in 1 day',
+      badge2: '✓ Manager will contact you',
+      badge3: '✓ Free consultation',
     },
     halal: {
       sectionLabel: 'Islamic Finance',

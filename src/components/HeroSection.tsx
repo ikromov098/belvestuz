@@ -37,8 +37,10 @@ export default function HeroSection() {
         >
           {t.header.apply}
         </Link>
-        <Link
-          href="/catalog"
+        <a
+          href="https://t.me/belvest_info"
+          target="_blank"
+          rel="noopener noreferrer"
           className="px-7 py-3 rounded-xl text-sm font-semibold border"
           style={{
             borderColor: 'rgba(232,223,200,0.40)',
@@ -46,8 +48,8 @@ export default function HeroSection() {
             backgroundColor: 'transparent',
           }}
         >
-          {t.buttons.learnMore}
-        </Link>
+          Написать в Telegram
+        </a>
       </div>
     </div>
   );
