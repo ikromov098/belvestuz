@@ -493,10 +493,11 @@ function HomeDashboard() {
 
               {/* Actions */}
               <div className="flex gap-2.5">
-                <button className="flex-1 py-2.5 rounded-xl text-sm font-bold transition-opacity hover:opacity-90"
-                  style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
-                  Оплатить
-                </button>
+                <a href="tel:+998774809999"
+                  className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-center transition-colors"
+                  style={{ border: '1.5px solid #0D5C54', color: '#0D5C54', backgroundColor: 'transparent' }}>
+                  Связаться с менеджером
+                </a>
                 <button className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-colors"
                   style={{ border: '1.5px solid #0D5C54', color: '#0D5C54', backgroundColor: 'transparent' }}>
                   Подробнее

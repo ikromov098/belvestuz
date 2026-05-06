@@ -260,11 +260,29 @@ function SuccessScreen({ appNumber }: { appNumber: string }) {
         <h2 className="text-2xl font-extrabold mb-2" style={{ color: '#E8DFC8' }}>Ваша заявка принята!</h2>
         <p className="text-base font-bold mb-1.5" style={{ color: '#C9A84C' }}>Номер заявки: {appNumber}</p>
         <p className="text-sm mb-8" style={{ color: 'rgba(232,223,200,0.70)' }}>
-          Мы свяжемся с вами в течение 1 рабочего дня
+          Наш менеджер свяжется с вами в течение 1 рабочего дня
         </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
+          <a
+            href="https://t.me/belvest_info"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-150"
+            style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
+          >
+            Telegram @belvest_info
+          </a>
+          <a
+            href="tel:+998774809999"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm border transition-all duration-150"
+            style={{ borderColor: 'rgba(232,223,200,0.45)', color: '#E8DFC8' }}
+          >
+            Позвонить +998 77 480-99-99
+          </a>
+        </div>
         <Link href="/"
-          className="inline-flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-sm transition-all duration-150"
-          style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
+          className="inline-flex items-center gap-2 px-8 py-3 rounded-xl font-semibold text-sm transition-all duration-150"
+          style={{ color: 'rgba(232,223,200,0.60)' }}>
           Вернуться на главную
         </Link>
       </motion.div>
