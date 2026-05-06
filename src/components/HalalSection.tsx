@@ -1,0 +1,79 @@
+'use client';
+
+import React from 'react';
+import { useLanguage } from '@/context/LanguageContext';
+
+export default function HalalSection() {
+  const { t } = useLanguage();
+
+  const rows = [
+    t.halal.row1,
+    t.halal.row2,
+    t.halal.row3,
+    t.halal.row4,
+    t.halal.row5,
+  ];
+
+  return (
+    <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F4EFE4' }}>
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
+            {t.halal.sectionLabel}
+          </p>
+          <h2 className="text-3xl font-extrabold mb-3" style={{ color: '#0D1F1D' }}>
+            {t.halal.title}
+          </h2>
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mt-2"
+            style={{ backgroundColor: '#0D5C54', color: '#E8DFC8' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"
+                fill="#C9A84C"/>
+            </svg>
+            <span className="text-xs font-semibold tracking-wide">{t.halal.badge}</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          {/* Header row */}
+          <div className="col-span-1" />
+          <div className="text-center py-2 rounded-t-xl font-bold text-sm" style={{ backgroundColor: '#e0e0e0', color: '#555' }}>
+            {t.halal.bankCol}
+          </div>
+          <div className="text-center py-2 rounded-t-xl font-bold text-sm" style={{ backgroundColor: '#0D5C54', color: '#E8DFC8' }}>
+            {t.halal.belvestCol}
+          </div>
+
+          {/* Rows */}
+          {rows.map((label, i) => (
+            <React.Fragment key={`row-${i}`}>
+              <div
+                className="flex items-center px-3 py-3 text-sm font-medium"
+                style={{
+                  color: '#0D1F1D',
+                  backgroundColor: i % 2 === 0 ? '#fff' : '#F4EFE4',
+                  borderRadius: '8px 0 0 8px',
+                }}>
+                {label}
+              </div>
+              <div
+                className="flex items-center justify-center py-3"
+                style={{ backgroundColor: i % 2 === 0 ? '#fff' : '#F4EFE4' }}>
+                <span className="text-lg" style={{ color: '#C62828' }}>✗</span>
+              </div>
+              <div
+                className="flex items-center justify-center py-3"
+                style={{
+                  backgroundColor: i % 2 === 0 ? 'rgba(13,92,84,0.06)' : 'rgba(13,92,84,0.10)',
+                  borderRadius: '0 8px 8px 0',
+                }}>
+                <span className="text-lg" style={{ color: '#0D5C54' }}>✓</span>
+              </div>
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

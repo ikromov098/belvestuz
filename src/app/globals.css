@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F4EFE4;
+  --foreground: #0D1F1D;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* BELVEST brand tokens */
+  --color-belvest-primary: #0D5C54;
+  --color-belvest-dark: #094840;
+  --color-belvest-light: #1A7A70;
+  --color-belvest-cream: #E8DFC8;
+  --color-belvest-cream-light: #F4EFE4;
+  --color-belvest-gold: #C9A84C;
+  --color-belvest-gold-hover: #A8892E;
+  --color-belvest-text: #0D1F1D;
+  --color-belvest-text-secondary: #4A6B67;
+  --color-belvest-border: #D4C9B0;
+  --color-belvest-success: #2E7D32;
+  --color-belvest-warning: #E6A817;
+  --color-belvest-danger: #C62828;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+/* Belvest styled range slider */
+.belvest-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 9999px;
+  outline: none;
+  cursor: pointer;
+}
+
+.belvest-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #C9A84C;
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.25);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.belvest-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #C9A84C;
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+.belvest-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* Footer link hover — no JS required */
+.footer-link {
+  color: rgba(232, 223, 200, 0.65);
+  transition: color 150ms ease;
+}
+.footer-link:hover {
+  color: #E8DFC8;
+}
+
+.footer-link-sm {
+  color: rgba(232, 223, 200, 0.60);
+  transition: color 150ms ease;
+}
+.footer-link-sm:hover {
+  color: rgba(232, 223, 200, 0.92);
+}
+
+/* Catalog skeleton shimmer */
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #f4efe4 25%, #ddf0ea 50%, #f4efe4 75%);
+  background-size: 200% 100%;
+  animation: belvest-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes belvest-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
