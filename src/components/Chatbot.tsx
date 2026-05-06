@@ -26,6 +26,16 @@ const MOCK_RESPONSES: Record<string, string> = {
 
 function getReply(text: string): string {
   const lower = text.toLowerCase();
+
+  if (lower.includes('оплат') || lower.includes('платеж') || lower.includes('платёж'))
+    return 'Оплата производится через банк или в офисе. Тел: +998 77 480-99-99';
+  if (lower.includes('заявк'))
+    return 'Подайте заявку на сайте или напишите @belvest_info в Telegram';
+  if (lower.includes('офис') || lower.includes('адрес'))
+    return 'Ташкент, Узбекистан. Карта: https://yandex.uz/maps/org/8069766461/ Тел: +998 77 480-99-99';
+  if (lower.includes('консультац'))
+    return 'Напишите @belvest_info или позвоните +998 77 480-99-99';
+
   for (const [key, val] of Object.entries(MOCK_RESPONSES)) {
     if (lower.includes(key.split(' ')[1] ?? key)) return val;
   }
