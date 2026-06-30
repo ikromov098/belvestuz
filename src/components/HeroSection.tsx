@@ -31,6 +31,31 @@ function HeroMark() {
   );
 }
 
+function CornerChevrons() {
+  return (
+    <svg
+      viewBox="0 0 300 300"
+      aria-hidden="true"
+      className="absolute pointer-events-none select-none"
+      style={{
+        left: '-90px',
+        bottom: '-90px',
+        width: 320,
+        height: 320,
+        opacity: 0.95,
+      }}
+    >
+      <polyline points="270,30 50,165 270,300" fill="none" stroke="#FFF0CC" strokeWidth="22" strokeOpacity="0.08" strokeLinejoin="miter" strokeLinecap="square" />
+      <polyline points="240,48 78,165 240,282" fill="none" stroke="#16685B" strokeWidth="20" strokeOpacity="0.14" strokeLinejoin="miter" strokeLinecap="square" />
+      <polyline points="210,66 106,165 210,264" fill="none" stroke="#548870" strokeWidth="18" strokeOpacity="0.18" strokeLinejoin="miter" strokeLinecap="square" />
+      <polyline points="180,84 134,165 180,246" fill="none" stroke="#16685B" strokeWidth="16" strokeOpacity="0.22" strokeLinejoin="miter" strokeLinecap="square" />
+      <g transform="translate(120 165) rotate(-10) scale(0.9) translate(-13 -10.5)">
+        <path d={STAR_PATH} fill="#FFF0CC" opacity="0.18" />
+      </g>
+    </svg>
+  );
+}
+
 export default function HeroSection() {
   const { t } = useLanguage();
 
@@ -40,6 +65,7 @@ export default function HeroSection() {
       style={{ backgroundColor: '#004445' }}
     >
       <HeroMark />
+      <CornerChevrons />
       <p
         className="relative z-10 text-xs font-semibold uppercase tracking-widest mb-3"
         style={{ color: 'rgba(255,240,204,0.65)' }}
