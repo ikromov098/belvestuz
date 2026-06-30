@@ -66,15 +66,15 @@ const PRODUCTS: Product[] = [
 
 const BADGE_STYLE: Record<BadgeType, { backgroundColor: string; color: string }> = {
   'Хит':      { backgroundColor: '#C9A84C', color: '#0D1F1D' },
-  'Лизинг':   { backgroundColor: '#0D5C54', color: '#E8DFC8' },
+  'Лизинг':   { backgroundColor: '#004445', color: '#FFF0CC' },
   'Акция':    { backgroundColor: '#C62828', color: '#ffffff' },
   'Трейд-ин': { backgroundColor: '#6B3FA0', color: '#ffffff' },
-  'Новинка':  { backgroundColor: '#1A7A70', color: '#ffffff' },
+  'Новинка':  { backgroundColor: '#16685B', color: '#ffffff' },
 };
 
 const SERVICE_PILL: Record<Service, { backgroundColor: string; color: string }> = {
-  'Рассрочка': { backgroundColor: 'rgba(13,92,84,0.10)', color: '#0D5C54' },
-  'Лизинг':   { backgroundColor: '#0D5C54',              color: '#E8DFC8' },
+  'Рассрочка': { backgroundColor: 'rgba(0,68,69,0.10)', color: '#004445' },
+  'Лизинг':   { backgroundColor: '#004445',              color: '#FFF0CC' },
   'Трейд-ин': { backgroundColor: 'rgba(107,63,160,0.12)', color: '#6B3FA0' },
 };
 
@@ -91,9 +91,9 @@ function ProductCard({ product }: { product: Product }) {
   const [hovered, setHovered] = useState(false);
   const [ctaHovered, setCtaHovered] = useState(false);
 
-  const ctaBg   = product.isB2B ? '#0D5C54' : '#C9A84C';
-  const ctaBgHov = product.isB2B ? '#094840' : '#A8892E';
-  const ctaColor = product.isB2B ? '#E8DFC8' : '#0D1F1D';
+  const ctaBg   = product.isB2B ? '#004445' : '#C9A84C';
+  const ctaBgHov = product.isB2B ? '#003332' : '#A8892E';
+  const ctaColor = product.isB2B ? '#FFF0CC' : '#0D1F1D';
 
   const svcName = (s: string) => {
     const map: Record<string, string> = {
@@ -109,9 +109,9 @@ function ProductCard({ product }: { product: Product }) {
       className="flex flex-col rounded-xl overflow-hidden transition-all duration-200"
       style={{
         backgroundColor: '#ffffff',
-        border: `1.5px solid ${hovered ? '#0D5C54' : '#D4C9B0'}`,
+        border: `1.5px solid ${hovered ? '#004445' : '#16685B'}`,
         boxShadow: hovered
-          ? '0 10px 32px rgba(13,92,84,0.16)'
+          ? '0 10px 32px rgba(0,68,69,0.16)'
           : '0 1px 4px rgba(0,0,0,0.06)',
       }}
       onMouseEnter={() => setHovered(true)}
@@ -157,7 +157,7 @@ function ProductCard({ product }: { product: Product }) {
           <p className="text-base font-extrabold" style={{ color: '#0D1F1D' }}>
             {fmt(product.price)} сум
           </p>
-          <p className="text-sm font-bold" style={{ color: '#0D5C54' }}>
+          <p className="text-sm font-bold" style={{ color: '#004445' }}>
             {t.catalog.from} {fmt(product.monthlyMin)} сум/мес
           </p>
         </div>
@@ -227,7 +227,7 @@ function FilterSidebar({
   return (
     <div
       className="rounded-xl p-5 flex flex-col gap-5"
-      style={{ backgroundColor: '#ffffff', border: '1px solid #D4C9B0' }}
+      style={{ backgroundColor: '#ffffff', border: '1px solid #16685B' }}
     >
       <div className="flex items-center justify-between">
         <h3 className="font-bold" style={{ color: '#0D1F1D' }}>{t.catalog.filters}</h3>
@@ -255,7 +255,7 @@ function FilterSidebar({
                 checked={activeServices.includes(s)}
                 onChange={() => onToggleService(s)}
                 className="w-4 h-4 rounded cursor-pointer"
-                style={{ accentColor: '#0D5C54' }}
+                style={{ accentColor: '#004445' }}
               />
               <span className="text-sm" style={{ color: '#0D1F1D' }}>{svcName(s)}</span>
             </label>
@@ -268,7 +268,7 @@ function FilterSidebar({
         <h4 className="text-xs font-semibold uppercase mb-3" style={{ color: '#C9A84C', letterSpacing: '0.08em' }}>
           {t.catalog.maxPrice}
         </h4>
-        <p className="text-sm font-bold mb-2" style={{ color: '#0D5C54' }}>
+        <p className="text-sm font-bold mb-2" style={{ color: '#004445' }}>
           до {fmt(priceMax)} сум
         </p>
         <input
@@ -279,7 +279,7 @@ function FilterSidebar({
           value={priceMax}
           onChange={(e) => onPriceMax(Number(e.target.value))}
           className="belvest-slider w-full"
-          style={{ background: `linear-gradient(to right,#0D5C54 ${pct}%,#D4C9B0 ${pct}%)` }}
+          style={{ background: `linear-gradient(to right,#004445 ${pct}%,#16685B ${pct}%)` }}
         />
       </div>
 
@@ -296,7 +296,7 @@ function FilterSidebar({
                 checked={activeBrands.includes(b)}
                 onChange={() => onToggleBrand(b)}
                 className="w-4 h-4 rounded cursor-pointer"
-                style={{ accentColor: '#0D5C54' }}
+                style={{ accentColor: '#004445' }}
               />
               <span className="text-sm" style={{ color: '#0D1F1D' }}>{b}</span>
             </label>
@@ -311,7 +311,7 @@ function FilterSidebar({
           checked={inStockOnly}
           onChange={onStockToggle}
           className="w-4 h-4 rounded cursor-pointer"
-          style={{ accentColor: '#0D5C54' }}
+          style={{ accentColor: '#004445' }}
         />
         <span className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>
           {t.catalog.inStockOnly}
@@ -325,7 +325,7 @@ function FilterSidebar({
 
 function SkeletonCard() {
   return (
-    <div className="rounded-xl overflow-hidden" style={{ border: '1.5px solid #D4C9B0', backgroundColor: '#fff' }}>
+    <div className="rounded-xl overflow-hidden" style={{ border: '1.5px solid #16685B', backgroundColor: '#fff' }}>
       <div className="skeleton-shimmer" style={{ height: 192 }} />
       <div className="p-4 flex flex-col gap-3">
         <div className="skeleton-shimmer rounded" style={{ height: 12, width: '40%' }} />
@@ -415,17 +415,17 @@ function CatalogPageInner() {
   return (
     <div>
       {/* ── Page header ── */}
-      <div style={{ backgroundColor: '#0D5C54' }} className="py-10 px-4 sm:px-6 lg:px-8">
+      <div style={{ backgroundColor: '#004445' }} className="py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <nav className="flex items-center gap-1.5 mb-3 text-xs" style={{ color: 'rgba(232,223,200,0.55)' }}>
-            <Link href="/" style={{ color: 'rgba(232,223,200,0.55)' }}>{t.catalog.breadcrumbHome}</Link>
+          <nav className="flex items-center gap-1.5 mb-3 text-xs" style={{ color: 'rgba(255,240,204,0.55)' }}>
+            <Link href="/" style={{ color: 'rgba(255,240,204,0.55)' }}>{t.catalog.breadcrumbHome}</Link>
             <ChevronRight size={12} />
-            <span style={{ color: '#E8DFC8' }}>{t.catalog.title}</span>
+            <span style={{ color: '#FFF0CC' }}>{t.catalog.title}</span>
           </nav>
-          <h1 className="text-3xl font-extrabold mb-1" style={{ color: '#E8DFC8' }}>
+          <h1 className="text-3xl font-extrabold mb-1" style={{ color: '#FFF0CC' }}>
             {t.catalog.title}
           </h1>
-          <p style={{ color: 'rgba(232,223,200,0.70)' }}>
+          <p style={{ color: 'rgba(255,240,204,0.70)' }}>
             {t.catalog.subtitle}
           </p>
         </div>
@@ -434,8 +434,8 @@ function CatalogPageInner() {
       {/* ── Category hero banner ── */}
       <div
         style={{
-          backgroundColor: '#0D5C54',
-          borderBottom: '1px solid rgba(232,223,200,0.15)',
+          backgroundColor: '#004445',
+          borderBottom: '1px solid rgba(255,240,204,0.15)',
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -448,9 +448,9 @@ function CatalogPageInner() {
                   onClick={() => setActiveCategory(id)}
                   className="flex flex-col items-center gap-1.5 px-5 py-3 rounded-xl flex-shrink-0 transition-all duration-150 cursor-pointer"
                   style={{
-                    backgroundColor: active ? 'rgba(201,168,76,0.15)' : 'rgba(232,223,200,0.07)',
+                    backgroundColor: active ? 'rgba(201,168,76,0.15)' : 'rgba(255,240,204,0.07)',
                     border: `2px solid ${active ? '#C9A84C' : 'transparent'}`,
-                    color:  active ? '#C9A84C' : 'rgba(232,223,200,0.70)',
+                    color:  active ? '#C9A84C' : 'rgba(255,240,204,0.70)',
                   }}
                 >
                   <Icon size={22} />
@@ -484,14 +484,14 @@ function CatalogPageInner() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="w-full pl-10 pr-4 py-2.5 rounded-lg text-sm outline-none"
-                  style={{ border: '1px solid #D4C9B0', backgroundColor: '#ffffff', color: '#0D1F1D' }}
+                  style={{ border: '1px solid #16685B', backgroundColor: '#ffffff', color: '#0D1F1D' }}
                 />
               </div>
 
               {/* Mobile filter toggle */}
               <button
                 className="lg:hidden flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold cursor-pointer flex-shrink-0"
-                style={{ border: '1px solid #D4C9B0', backgroundColor: '#ffffff', color: '#0D1F1D' }}
+                style={{ border: '1px solid #16685B', backgroundColor: '#ffffff', color: '#0D1F1D' }}
                 onClick={() => setMobileSidebar((v) => !v)}
               >
                 <SlidersHorizontal size={15} />
@@ -524,7 +524,7 @@ function CatalogPageInner() {
                 {activeCategory !== 'all' && (
                   <span
                     className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold cursor-pointer"
-                    style={{ backgroundColor: 'rgba(13,92,84,0.10)', color: '#0D5C54' }}
+                    style={{ backgroundColor: 'rgba(0,68,69,0.10)', color: '#004445' }}
                     onClick={() => setActiveCategory('all')}
                   >
                     {catName(activeCategory)} <X size={11} />
@@ -534,7 +534,7 @@ function CatalogPageInner() {
                   <span
                     key={s}
                     className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold cursor-pointer"
-                    style={{ backgroundColor: 'rgba(13,92,84,0.10)', color: '#0D5C54' }}
+                    style={{ backgroundColor: 'rgba(0,68,69,0.10)', color: '#004445' }}
                     onClick={() => toggleService(s)}
                   >
                     {s} <X size={11} />
@@ -544,7 +544,7 @@ function CatalogPageInner() {
                   <span
                     key={b}
                     className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold cursor-pointer"
-                    style={{ backgroundColor: 'rgba(13,92,84,0.10)', color: '#0D5C54' }}
+                    style={{ backgroundColor: 'rgba(0,68,69,0.10)', color: '#004445' }}
                     onClick={() => toggleBrand(b)}
                   >
                     {b} <X size={11} />
@@ -553,7 +553,7 @@ function CatalogPageInner() {
                 {inStockOnly && (
                   <span
                     className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold cursor-pointer"
-                    style={{ backgroundColor: 'rgba(13,92,84,0.10)', color: '#0D5C54' }}
+                    style={{ backgroundColor: 'rgba(0,68,69,0.10)', color: '#004445' }}
                     onClick={() => setInStockOnly(false)}
                   >
                     {t.catalog.inStock} <X size={11} />

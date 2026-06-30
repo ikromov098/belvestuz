@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F4EFE4;
+  --background: #FFFFFF;
   --foreground: #0D1F1D;
 }
 
@@ -10,25 +10,29 @@
   --color-foreground: var(--foreground);
 
   /* BELVEST brand tokens */
-  --color-belvest-primary: #0D5C54;
-  --color-belvest-dark: #094840;
-  --color-belvest-light: #1A7A70;
-  --color-belvest-cream: #E8DFC8;
-  --color-belvest-cream-light: #F4EFE4;
+  --color-belvest-primary: #004445;
+  --color-belvest-dark: #003332;
+  --color-belvest-light: #16685B;
+  --color-belvest-teal: #16685B;
+  --color-belvest-green: #548870;
+  --color-belvest-cream: #FFF0CC;
+  --color-belvest-cream-light: #FFFFFF;
+  --color-belvest-white: #FFFFFF;
   --color-belvest-gold: #C9A84C;
   --color-belvest-gold-hover: #A8892E;
   --color-belvest-text: #0D1F1D;
   --color-belvest-text-secondary: #4A6B67;
-  --color-belvest-border: #D4C9B0;
+  --color-belvest-border: #16685B;
   --color-belvest-success: #2E7D32;
   --color-belvest-warning: #E6A817;
   --color-belvest-danger: #C62828;
+  --font-sans: 'General Sans', sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'General Sans', sans-serif;
   line-height: 1.7;
 }
 
@@ -77,24 +81,24 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Footer link hover — no JS required */
 .footer-link {
-  color: rgba(232, 223, 200, 0.65);
+  color: rgba(255, 240, 204, 0.65);
   transition: color 150ms ease;
 }
 .footer-link:hover {
-  color: #E8DFC8;
+  color: #FFF0CC;
 }
 
 .footer-link-sm {
-  color: rgba(232, 223, 200, 0.60);
+  color: rgba(255, 240, 204, 0.60);
   transition: color 150ms ease;
 }
 .footer-link-sm:hover {
-  color: rgba(232, 223, 200, 0.92);
+  color: rgba(255, 240, 204, 0.92);
 }
 
 /* Catalog skeleton shimmer */
 .skeleton-shimmer {
-  background: linear-gradient(90deg, #f4efe4 25%, #ddf0ea 50%, #f4efe4 75%);
+  background: linear-gradient(90deg, #ffffff 25%, #ddf0ea 50%, #ffffff 75%);
   background-size: 200% 100%;
   animation: belvest-shimmer 1.5s ease-in-out infinite;
 }

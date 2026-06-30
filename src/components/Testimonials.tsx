@@ -34,7 +34,7 @@ const container = {
 
 export default function Testimonials() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F4EFE4' }}>
+    <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
@@ -60,7 +60,7 @@ export default function Testimonials() {
               key={t.name}
               variants={card}
               className="bg-white rounded-2xl p-6 flex flex-col"
-              style={{ boxShadow: '0 2px 16px rgba(0,0,0,0.07)', border: '1px solid #D4C9B0' }}
+              style={{ boxShadow: '0 2px 16px rgba(0,0,0,0.07)', border: '1px solid #16685B' }}
             >
               <div className="flex gap-0.5 mb-4">
                 {Array.from({ length: t.rating }).map((_, i) => (
@@ -70,10 +70,10 @@ export default function Testimonials() {
               <p className="text-sm leading-relaxed flex-1 mb-5" style={{ color: '#4A6B67' }}>
                 &ldquo;{t.text}&rdquo;
               </p>
-              <div className="flex items-center gap-3 pt-4" style={{ borderTop: '1px solid #F4EFE4' }}>
+              <div className="flex items-center gap-3 pt-4" style={{ borderTop: '1px solid #FFFFFF' }}>
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
-                  style={{ backgroundColor: '#0D5C54', color: '#E8DFC8' }}
+                  style={{ backgroundColor: '#004445', color: '#FFF0CC' }}
                 >
                   {t.name.charAt(0)}
                 </div>

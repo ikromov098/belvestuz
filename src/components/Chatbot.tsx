@@ -49,11 +49,11 @@ function now() {
 function TypingDots() {
   return (
     <div className="flex items-end gap-1.5 px-4 py-3 rounded-2xl rounded-bl-sm"
-      style={{ backgroundColor: '#0D5C54', width: 56 }}>
+      style={{ backgroundColor: '#004445', width: 56 }}>
       {[0, 1, 2].map((i) => (
         <span key={i} style={{
           width: 7, height: 7, borderRadius: '50%',
-          backgroundColor: 'rgba(232,223,200,0.7)',
+          backgroundColor: 'rgba(255,240,204,0.7)',
           display: 'inline-block',
           animation: `belvest-bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
         }} />
@@ -113,8 +113,8 @@ export default function Chatbot() {
     <>
       <style>{`
         @keyframes belvest-pulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(13,92,84,0.55); }
-          50% { box-shadow: 0 0 0 10px rgba(13,92,84,0); }
+          0%, 100% { box-shadow: 0 0 0 0 rgba(0,68,69,0.55); }
+          50% { box-shadow: 0 0 0 10px rgba(0,68,69,0); }
         }
         @keyframes belvest-bounce {
           0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
@@ -126,7 +126,7 @@ export default function Chatbot() {
           to   { opacity: 1; transform: translateY(0) scale(1); }
         }
         .chat-messages::-webkit-scrollbar { width: 4px; }
-        .chat-messages::-webkit-scrollbar-thumb { background: rgba(13,92,84,0.2); border-radius: 9999px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: rgba(0,68,69,0.2); border-radius: 9999px; }
       `}</style>
 
       {/* Floating button */}
@@ -140,15 +140,15 @@ export default function Chatbot() {
             className="flex items-center justify-center rounded-full shadow-lg"
             style={{
               width: 56, height: 56,
-              backgroundColor: '#0D5C54',
+              backgroundColor: '#004445',
               animation: 'belvest-pulse 2.4s ease-in-out infinite',
             }}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="#E8DFC8" />
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="#FFF0CC" />
             </svg>
           </div>
-          <span className="text-xs font-semibold" style={{ color: '#0D5C54' }}>Чат</span>
+          <span className="text-xs font-semibold" style={{ color: '#004445' }}>Чат</span>
         </button>
       )}
 
@@ -156,27 +156,23 @@ export default function Chatbot() {
       {open && (
         <div
           className="chat-panel fixed bottom-6 right-6 z-50 flex flex-col rounded-2xl overflow-hidden"
-          style={{ width: 380, height: 520, boxShadow: '0 20px 60px rgba(0,0,0,0.22)', backgroundColor: '#F4EFE4' }}
+          style={{ width: 380, height: 520, boxShadow: '0 20px 60px rgba(0,0,0,0.22)', backgroundColor: '#FFFFFF' }}
         >
           {/* Header */}
-          <div className="flex items-center gap-3 px-4 py-3 shrink-0" style={{ backgroundColor: '#0D5C54' }}>
+          <div className="flex items-center gap-3 px-4 py-3 shrink-0" style={{ backgroundColor: '#004445' }}>
             <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-              style={{ backgroundColor: 'rgba(232,223,200,0.15)' }}>
-              <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
-                {[0, 60, 120, 180, 240, 300].map((deg) => (
-                  <g key={deg} transform={`rotate(${deg} 11 11)`}>
-                    <ellipse cx="11" cy="5.5" rx="2.2" ry="4.5" fill="#E8DFC8" />
-                  </g>
-                ))}
-                <circle cx="11" cy="11" r="2.4" fill="#E8DFC8" />
+              style={{ backgroundColor: 'rgba(255,240,204,0.15)' }}>
+              <svg width="14" height="17" viewBox="0 0 26 32" fill="none" style={{ color: '#FFF0CC' }}>
+                <path d="M13 0L15.5 5L20 2.5L18.5 7.5L24 8L19.5 11L23 15L18 14.5L18.5 19.5L14.5 16.5L13 21L11.5 16.5L7.5 19.5L8 14.5L3 15L6.5 11L2 8L7.5 7.5L6 2.5L10.5 5L13 0Z" fill="currentColor"/>
+                <rect x="11" y="20" width="4" height="8" fill="currentColor"/>
               </svg>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold truncate" style={{ color: '#E8DFC8' }}>Belvest Ассистент</p>
-              <p className="text-xs" style={{ color: 'rgba(232,223,200,0.6)' }}>Онлайн</p>
+              <p className="text-sm font-bold truncate" style={{ color: '#FFF0CC' }}>Belvest Ассистент</p>
+              <p className="text-xs" style={{ color: 'rgba(255,240,204,0.6)' }}>Онлайн</p>
             </div>
             <button onClick={() => setOpen(false)} aria-label="Закрыть" className="shrink-0 cursor-pointer"
-              style={{ color: 'rgba(232,223,200,0.7)' }}>
+              style={{ color: 'rgba(255,240,204,0.7)' }}>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
               </svg>
@@ -191,7 +187,7 @@ export default function Chatbot() {
                   <div
                     className="px-4 py-2.5 rounded-2xl text-sm leading-relaxed"
                     style={msg.role === 'assistant'
-                      ? { backgroundColor: '#0D5C54', color: '#E8DFC8', borderBottomLeftRadius: 4 }
+                      ? { backgroundColor: '#004445', color: '#FFF0CC', borderBottomLeftRadius: 4 }
                       : { backgroundColor: '#C9A84C', color: '#0D1F1D', borderBottomRightRadius: 4 }}
                   >
                     {msg.content}
@@ -214,9 +210,9 @@ export default function Chatbot() {
               {QUICK_REPLIES.map((q) => (
                 <button key={q} onClick={() => send(q)}
                   className="text-xs px-3 py-1.5 rounded-full border cursor-pointer transition-colors"
-                  style={{ borderColor: '#0D5C54', color: '#0D5C54', backgroundColor: 'transparent' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0D5C54'; e.currentTarget.style.color = '#E8DFC8'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#0D5C54'; }}
+                  style={{ borderColor: '#004445', color: '#004445', backgroundColor: 'transparent' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#004445'; e.currentTarget.style.color = '#FFF0CC'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#004445'; }}
                 >
                   {q}
                 </button>
@@ -225,8 +221,8 @@ export default function Chatbot() {
           )}
 
           {/* Input */}
-          <div className="px-4 pb-4 pt-2 shrink-0 border-t" style={{ borderColor: '#D4C9B0' }}>
-            <div className="flex items-end gap-2 rounded-xl px-3 py-2" style={{ backgroundColor: '#fff', border: '1px solid #D4C9B0' }}>
+          <div className="px-4 pb-4 pt-2 shrink-0 border-t" style={{ borderColor: '#16685B' }}>
+            <div className="flex items-end gap-2 rounded-xl px-3 py-2" style={{ backgroundColor: '#fff', border: '1px solid #16685B' }}>
               <textarea
                 ref={inputRef}
                 rows={1}
@@ -241,10 +237,10 @@ export default function Chatbot() {
                 onClick={() => send(input)}
                 disabled={!input.trim() || typing}
                 className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-opacity cursor-pointer"
-                style={{ backgroundColor: '#0D5C54', opacity: input.trim() && !typing ? 1 : 0.4 }}
+                style={{ backgroundColor: '#004445', opacity: input.trim() && !typing ? 1 : 0.4 }}
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M13 1L1 7l5 2 2 5 5-13z" fill="#E8DFC8" />
+                  <path d="M13 1L1 7l5 2 2 5 5-13z" fill="#FFF0CC" />
                 </svg>
               </button>
             </div>

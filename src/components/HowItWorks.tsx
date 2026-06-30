@@ -25,13 +25,13 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#094840' }}>
+    <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#003332' }}>
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
             {t.howItWorks.title}
           </p>
-          <h2 className="text-3xl font-extrabold" style={{ color: '#E8DFC8' }}>
+          <h2 className="text-3xl font-extrabold" style={{ color: '#FFF0CC' }}>
             Три шага до вашей покупки
           </h2>
         </div>
@@ -71,10 +71,10 @@ export default function HowItWorks() {
               >
                 {s.n}
               </div>
-              <h3 className="text-base font-extrabold mb-2" style={{ color: '#E8DFC8' }}>
+              <h3 className="text-base font-extrabold mb-2" style={{ color: '#FFF0CC' }}>
                 {s.title}
               </h3>
-              <p className="text-sm leading-relaxed" style={{ color: 'rgba(232,223,200,0.60)' }}>
+              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,240,204,0.60)' }}>
                 {s.sub}
               </p>
             </div>

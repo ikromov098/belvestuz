@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Chatbot from "@/components/Chatbot";
 import CallbackWidget from "@/components/CallbackWidget";
 import ClientProviders from "@/components/ClientProviders";
-
-const geist = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Belvest — Лизинг, рассрочка и трейд-ин в Узбекистане",
@@ -24,11 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={`${geist.variable} h-full antialiased`}>
-      <body
-        className="min-h-full flex flex-col"
-        style={{ fontFamily: 'var(--font-geist-sans), Arial, sans-serif' }}
-      >
+    <html lang="ru" className="h-full antialiased">
+      <head>
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+      </head>
+      <body className="min-h-full flex flex-col">
         <ClientProviders>
           <Header />
           <main className="flex-1">{children}</main>

@@ -81,10 +81,10 @@ export default function AboutPage() {
   ];
 
   return (
-    <div style={{ backgroundColor: '#F4EFE4', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}>
 
       {/* Hero */}
-      <section style={{ backgroundColor: '#0D5C54', paddingTop: '80px', paddingBottom: '80px' }}>
+      <section style={{ backgroundColor: '#004445', paddingTop: '80px', paddingBottom: '80px' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p
             className="text-xs font-semibold uppercase tracking-widest mb-3"
@@ -94,11 +94,11 @@ export default function AboutPage() {
           </p>
           <h1
             className="text-4xl sm:text-5xl font-extrabold mb-5"
-            style={{ color: '#E8DFC8', lineHeight: 1.15 }}
+            style={{ color: '#FFF0CC', lineHeight: 1.15 }}
           >
             {t.about.heroTitle}
           </h1>
-          <p className="text-base sm:text-lg" style={{ color: 'rgba(232,223,200,0.75)', maxWidth: 560, margin: '0 auto' }}>
+          <p className="text-base sm:text-lg" style={{ color: 'rgba(255,240,204,0.75)', maxWidth: 560, margin: '0 auto' }}>
             {t.about.heroSubtitle}
           </p>
         </div>
@@ -131,7 +131,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section style={{ backgroundColor: '#094840', padding: '56px 16px' }}>
+      <section style={{ backgroundColor: '#003332', padding: '56px 16px' }}>
         <motion.div
           className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8"
           variants={stagger}
@@ -141,10 +141,10 @@ export default function AboutPage() {
         >
           {STATS.map((s) => (
             <motion.div key={s.label} variants={fadeUp} className="text-center">
-              <p className="text-3xl sm:text-4xl font-extrabold" style={{ color: '#E8DFC8' }}>
+              <p className="text-3xl sm:text-4xl font-extrabold" style={{ color: '#FFF0CC' }}>
                 {s.value}
               </p>
-              <p className="mt-1 text-sm font-medium" style={{ color: 'rgba(232,223,200,0.65)' }}>
+              <p className="mt-1 text-sm font-medium" style={{ color: 'rgba(255,240,204,0.65)' }}>
                 {s.label}
               </p>
             </motion.div>
@@ -179,12 +179,12 @@ export default function AboutPage() {
                 style={{
                   backgroundColor: '#fff',
                   boxShadow: '0 2px 16px rgba(0,0,0,0.07)',
-                  border: '1px solid #D4C9B0',
+                  border: '1px solid #16685B',
                 }}
               >
                 <div
                   className="w-16 h-16 rounded-full flex items-center justify-center text-lg font-bold mb-4 shrink-0"
-                  style={{ backgroundColor: '#0D5C54', color: '#E8DFC8' }}
+                  style={{ backgroundColor: '#004445', color: '#FFF0CC' }}
                 >
                   {member.name.split(' ').map((w) => w[0]).join('')}
                 </div>
@@ -221,7 +221,7 @@ export default function AboutPage() {
                 key={item.title}
                 variants={fadeUp}
                 className="flex flex-col items-center text-center p-6 rounded-2xl"
-                style={{ backgroundColor: '#F4EFE4' }}
+                style={{ backgroundColor: '#FFFFFF' }}
               >
                 <div className="mb-4">{item.icon}</div>
                 <h3 className="text-lg font-bold mb-2" style={{ color: '#0D1F1D' }}>{item.title}</h3>
@@ -233,13 +233,13 @@ export default function AboutPage() {
       </section>
 
       {/* Contact block */}
-      <section style={{ backgroundColor: '#0D5C54', padding: '72px 16px' }}>
+      <section style={{ backgroundColor: '#004445', padding: '72px 16px' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
               {t.about.contactLabel}
             </p>
-            <h2 className="text-3xl font-extrabold" style={{ color: '#E8DFC8' }}>
+            <h2 className="text-3xl font-extrabold" style={{ color: '#FFF0CC' }}>
               {t.about.contactTitle}
             </h2>
           </div>
@@ -270,13 +270,13 @@ export default function AboutPage() {
               <div
                 key={c.label}
                 className="rounded-2xl p-5"
-                style={{ backgroundColor: 'rgba(232,223,200,0.08)', border: '1px solid rgba(232,223,200,0.15)' }}
+                style={{ backgroundColor: 'rgba(255,240,204,0.08)', border: '1px solid rgba(255,240,204,0.15)' }}
               >
                 <p className="text-2xl mb-2">{c.icon}</p>
-                <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: 'rgba(232,223,200,0.55)' }}>
+                <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,240,204,0.55)' }}>
                   {c.label}
                 </p>
-                <p className="text-sm font-medium whitespace-pre-line" style={{ color: '#E8DFC8' }}>
+                <p className="text-sm font-medium whitespace-pre-line" style={{ color: '#FFF0CC' }}>
                   {c.value}
                 </p>
               </div>

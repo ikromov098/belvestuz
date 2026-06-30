@@ -42,7 +42,7 @@ function ChevronIcon({ open }: { open: boolean }) {
       height="20"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="#0D5C54"
+      stroke="#004445"
       strokeWidth="2"
       strokeLinecap="round"
       style={{
@@ -62,33 +62,33 @@ export default function FaqPage() {
   return (
     <div>
       {/* Hero */}
-      <div style={{ backgroundColor: '#0D5C54' }} className="py-20 px-4 sm:px-6 lg:px-8">
+      <div style={{ backgroundColor: '#004445' }} className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(232,223,200,0.55)' }}>
-            <Link href="/" style={{ color: 'rgba(232,223,200,0.55)' }}>Главная</Link>
+          <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(255,240,204,0.55)' }}>
+            <Link href="/" style={{ color: 'rgba(255,240,204,0.55)' }}>Главная</Link>
             <span>›</span>
-            <span style={{ color: '#E8DFC8' }}>FAQ</span>
+            <span style={{ color: '#FFF0CC' }}>FAQ</span>
           </nav>
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
             Вопросы и ответы
           </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#E8DFC8' }}>
+          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
             Часто задаваемые вопросы
           </h1>
-          <p className="text-lg" style={{ color: 'rgba(232,223,200,0.75)', maxWidth: 480 }}>
+          <p className="text-lg" style={{ color: 'rgba(255,240,204,0.75)', maxWidth: 480 }}>
             Всё, что вы хотели знать о наших продуктах и исламских финансах
           </p>
         </div>
       </div>
 
       {/* Accordion */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F4EFE4' }}>
+      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-3xl mx-auto flex flex-col gap-3">
           {FAQS.map((faq, i) => (
             <div
               key={i}
               className="rounded-xl overflow-hidden"
-              style={{ border: '1px solid #D4C9B0' }}
+              style={{ border: '1px solid #16685B' }}
             >
               <button
                 onClick={() => setOpen(open === i ? null : i)}
@@ -114,8 +114,8 @@ export default function FaqPage() {
                       className="px-5 py-4 text-sm leading-relaxed"
                       style={{
                         color: '#4A6B67',
-                        backgroundColor: '#F4EFE4',
-                        borderTop: '1px solid #D4C9B0',
+                        backgroundColor: '#FFFFFF',
+                        borderTop: '1px solid #16685B',
                       }}
                     >
                       {faq.a}
@@ -129,12 +129,12 @@ export default function FaqPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ backgroundColor: '#094840' }} className="py-16 px-4 text-center">
+      <section style={{ backgroundColor: '#003332' }} className="py-16 px-4 text-center">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl font-extrabold mb-3" style={{ color: '#E8DFC8' }}>
+          <h2 className="text-2xl font-extrabold mb-3" style={{ color: '#FFF0CC' }}>
             Остались вопросы?
           </h2>
-          <p className="text-sm mb-6" style={{ color: 'rgba(232,223,200,0.70)' }}>
+          <p className="text-sm mb-6" style={{ color: 'rgba(255,240,204,0.70)' }}>
             Наши специалисты ответят на любые вопросы
           </p>
           <Link

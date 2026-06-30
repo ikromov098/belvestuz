@@ -31,27 +31,27 @@ export default function ShariaPage() {
   return (
     <div>
       {/* Hero */}
-      <div style={{ backgroundColor: '#0D5C54' }} className="py-20 px-4 sm:px-6 lg:px-8">
+      <div style={{ backgroundColor: '#004445' }} className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(232,223,200,0.55)' }}>
-            <Link href="/" style={{ color: 'rgba(232,223,200,0.55)' }}>Главная</Link>
+          <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(255,240,204,0.55)' }}>
+            <Link href="/" style={{ color: 'rgba(255,240,204,0.55)' }}>Главная</Link>
             <span>›</span>
-            <span style={{ color: '#E8DFC8' }}>Шариатский совет</span>
+            <span style={{ color: '#FFF0CC' }}>Шариатский совет</span>
           </nav>
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
             Исламское соответствие
           </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#E8DFC8', maxWidth: 640 }}>
+          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC', maxWidth: 640 }}>
             Шариатский Наблюдательный Совет
           </h1>
-          <p className="text-lg" style={{ color: 'rgba(232,223,200,0.75)', maxWidth: 520 }}>
+          <p className="text-lg" style={{ color: 'rgba(255,240,204,0.75)', maxWidth: 520 }}>
             Все продукты Belvest проверены и одобрены независимыми исламскими учёными
           </p>
         </div>
       </div>
 
       {/* Scholar cards */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F4EFE4' }}>
+      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
@@ -67,11 +67,11 @@ export default function ShariaPage() {
               <div
                 key={s.name}
                 className="bg-white rounded-xl p-6 flex flex-col"
-                style={{ border: '1px solid #D4C9B0', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
+                style={{ border: '1px solid #16685B', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
               >
                 <div
                   className="w-14 h-14 rounded-full flex items-center justify-center text-lg font-bold mb-4 shrink-0"
-                  style={{ backgroundColor: '#0D5C54', color: '#E8DFC8' }}
+                  style={{ backgroundColor: '#004445', color: '#FFF0CC' }}
                 >
                   {initials(s.name)}
                 </div>
@@ -100,7 +100,7 @@ export default function ShariaPage() {
           <div
             className="rounded-2xl p-8 text-center"
             style={{
-              backgroundColor: 'rgba(13,92,84,0.04)',
+              backgroundColor: 'rgba(0,68,69,0.04)',
               border: '2px solid #C9A84C',
             }}
           >

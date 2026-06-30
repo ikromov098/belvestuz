@@ -83,13 +83,9 @@ const SECTION_TITLES: Record<NavKey, string> = {
 
 function LogoMark({ color }: { color: string }) {
   return (
-    <svg width="16" height="16" viewBox="0 0 22 22" fill="none" aria-hidden>
-      {[0,60,120,180,240,300].map(deg => (
-        <g key={deg} transform={`rotate(${deg} 11 11)`}>
-          <ellipse cx="11" cy="5.5" rx="2.2" ry="4.5" fill={color} />
-        </g>
-      ))}
-      <circle cx="11" cy="11" r="2.4" fill={color} />
+    <svg width="13" height="16" viewBox="0 0 26 32" fill="none" aria-hidden style={{ color }}>
+      <path d="M13 0L15.5 5L20 2.5L18.5 7.5L24 8L19.5 11L23 15L18 14.5L18.5 19.5L14.5 16.5L13 21L11.5 16.5L7.5 19.5L8 14.5L3 15L6.5 11L2 8L7.5 7.5L6 2.5L10.5 5L13 0Z" fill="currentColor"/>
+      <rect x="11" y="20" width="4" height="8" fill="currentColor"/>
     </svg>
   );
 }
@@ -111,20 +107,20 @@ function PhoneScreen({ onNext }: { onNext: (phone: string) => void }) {
 
   return (
     <div className="flex items-center justify-center min-h-screen px-4 py-12"
-      style={{ backgroundColor: '#F4EFE4' }}>
+      style={{ backgroundColor: '#FFFFFF' }}>
       <div className="w-full max-w-sm">
         <div className="flex justify-center mb-8 gap-2.5 select-none items-center">
-          <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: 24, color: '#0D5C54' }}>
+          <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: 24, color: '#004445' }}>
             BELVEST
           </span>
-          <LogoMark color="#0D5C54" />
+          <LogoMark color="#004445" />
         </div>
 
         <div className="bg-white rounded-2xl p-8"
-          style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.09)', border: '1px solid #D4C9B0' }}>
+          style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.09)', border: '1px solid #16685B' }}>
           <div className="flex items-center justify-center w-12 h-12 rounded-xl mb-5 mx-auto"
-            style={{ backgroundColor: 'rgba(13,92,84,0.08)' }}>
-            <Smartphone size={22} color="#0D5C54" />
+            style={{ backgroundColor: 'rgba(0,68,69,0.08)' }}>
+            <Smartphone size={22} color="#004445" />
           </div>
 
           <h1 className="text-xl font-extrabold text-center mb-1" style={{ color: '#0D1F1D' }}>
@@ -139,10 +135,10 @@ function PhoneScreen({ onNext }: { onNext: (phone: string) => void }) {
             Номер телефона
           </label>
           <div className="flex rounded-xl overflow-hidden mb-5"
-            style={{ border: '1.5px solid #D4C9B0' }}>
+            style={{ border: '1.5px solid #16685B' }}>
             <div className="flex items-center px-3.5 shrink-0"
-              style={{ backgroundColor: '#F4EFE4', borderRight: '1.5px solid #D4C9B0' }}>
-              <span className="text-sm font-bold" style={{ color: '#0D5C54' }}>+998</span>
+              style={{ backgroundColor: '#FFFFFF', borderRight: '1.5px solid #16685B' }}>
+              <span className="text-sm font-bold" style={{ color: '#004445' }}>+998</span>
             </div>
             <input
               type="tel"
@@ -160,7 +156,7 @@ function PhoneScreen({ onNext }: { onNext: (phone: string) => void }) {
             onClick={() => ready && onNext(phone.trim())}
             className="w-full py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2"
             style={{
-              backgroundColor: '#0D5C54', color: '#E8DFC8',
+              backgroundColor: '#004445', color: '#FFF0CC',
               opacity: ready ? 1 : 0.45,
               cursor: ready ? 'pointer' : 'default',
             }}
@@ -171,7 +167,7 @@ function PhoneScreen({ onNext }: { onNext: (phone: string) => void }) {
 
         <p className="text-center text-xs mt-4" style={{ color: '#4A6B67' }}>
           Нажимая «Получить SMS-код», вы соглашаетесь с{' '}
-          <span style={{ color: '#0D5C54', textDecoration: 'underline', cursor: 'pointer' }}>
+          <span style={{ color: '#004445', textDecoration: 'underline', cursor: 'pointer' }}>
             условиями использования
           </span>
         </p>
@@ -211,23 +207,23 @@ function CodeScreen({ phone, onBack, onSuccess }: {
 
   return (
     <div className="flex items-center justify-center min-h-screen px-4 py-12"
-      style={{ backgroundColor: '#F4EFE4' }}>
+      style={{ backgroundColor: '#FFFFFF' }}>
       <div className="w-full max-w-sm">
         <div className="flex justify-center mb-8 gap-2.5 select-none items-center">
-          <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: 24, color: '#0D5C54' }}>
+          <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: 24, color: '#004445' }}>
             BELVEST
           </span>
-          <LogoMark color="#0D5C54" />
+          <LogoMark color="#004445" />
         </div>
 
         <div className="bg-white rounded-2xl p-8"
-          style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.09)', border: '1px solid #D4C9B0' }}>
+          style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.09)', border: '1px solid #16685B' }}>
           <h1 className="text-xl font-extrabold text-center mb-1" style={{ color: '#0D1F1D' }}>
             Введите код из SMS
           </h1>
           <p className="text-sm text-center mb-7" style={{ color: '#4A6B67' }}>
             Код отправлен на{' '}
-            <strong style={{ color: '#0D5C54' }}>+998 {phone}</strong>
+            <strong style={{ color: '#004445' }}>+998 {phone}</strong>
           </p>
 
           <div ref={containerRef} className="flex gap-2.5 justify-center mb-2">
@@ -243,7 +239,7 @@ function CodeScreen({ phone, onBack, onSuccess }: {
                 className="text-center text-xl font-bold rounded-xl outline-none transition-all"
                 style={{
                   width: 46, height: 54,
-                  border: d ? '2px solid #C9A84C' : '1.5px solid #D4C9B0',
+                  border: d ? '2px solid #C9A84C' : '1.5px solid #16685B',
                   backgroundColor: d ? 'rgba(201,168,76,0.06)' : '#fff',
                   color: '#0D1F1D',
                 }}
@@ -253,7 +249,7 @@ function CodeScreen({ phone, onBack, onSuccess }: {
 
           <p className="text-center text-xs mb-6 mt-3" style={{ color: '#4A6B67' }}>
             Не получили код?{' '}
-            <span style={{ color: '#0D5C54', cursor: 'pointer', fontWeight: 600 }}>
+            <span style={{ color: '#004445', cursor: 'pointer', fontWeight: 600 }}>
               Отправить повторно
             </span>
           </p>
@@ -262,7 +258,7 @@ function CodeScreen({ phone, onBack, onSuccess }: {
             onClick={() => filled >= 4 && onSuccess()}
             className="w-full py-3.5 rounded-xl text-sm font-bold"
             style={{
-              backgroundColor: '#0D5C54', color: '#E8DFC8',
+              backgroundColor: '#004445', color: '#FFF0CC',
               opacity: filled >= 4 ? 1 : 0.45,
               cursor: filled >= 4 ? 'pointer' : 'default',
             }}
@@ -289,14 +285,14 @@ function Sidebar({ active, onNav }: { active: NavKey; onNav: (k: NavKey) => void
   return (
     <aside className="hidden md:flex flex-col shrink-0 overflow-y-auto"
       style={{
-        width: 240, backgroundColor: '#094840',
+        width: 240, backgroundColor: '#003332',
         position: 'sticky', top: 0, height: '100vh',
       }}>
       <div className="px-6 pt-7 pb-6 flex items-center gap-2.5 select-none">
-        <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: 17, color: '#E8DFC8' }}>
+        <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: 17, color: '#FFF0CC' }}>
           BELVEST
         </span>
-        <LogoMark color="#E8DFC8" />
+        <LogoMark color="#FFF0CC" />
       </div>
 
       <nav className="flex-1 px-3 pb-4">
@@ -309,33 +305,33 @@ function Sidebar({ active, onNav }: { active: NavKey; onNav: (k: NavKey) => void
               className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg mb-0.5 text-sm text-left transition-colors"
               style={{
                 borderLeft: `3px solid ${on ? '#C9A84C' : 'transparent'}`,
-                color: on ? '#E8DFC8' : 'rgba(232,223,200,0.50)',
-                backgroundColor: on ? 'rgba(232,223,200,0.08)' : 'transparent',
+                color: on ? '#FFF0CC' : 'rgba(255,240,204,0.50)',
+                backgroundColor: on ? 'rgba(255,240,204,0.08)' : 'transparent',
                 fontWeight: on ? 600 : 400,
               }}
             >
-              <Icon size={17} color={on ? '#C9A84C' : 'rgba(232,223,200,0.40)'} />
+              <Icon size={17} color={on ? '#C9A84C' : 'rgba(255,240,204,0.40)'} />
               {label}
             </button>
           );
         })}
       </nav>
 
-      <div className="px-5 py-4" style={{ borderTop: '1px solid rgba(232,223,200,0.12)' }}>
+      <div className="px-5 py-4" style={{ borderTop: '1px solid rgba(255,240,204,0.12)' }}>
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
             style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
             АК
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold truncate" style={{ color: '#E8DFC8' }}>
+            <p className="text-sm font-semibold truncate" style={{ color: '#FFF0CC' }}>
               Алишер Каримов
             </p>
-            <p className="text-xs truncate" style={{ color: 'rgba(232,223,200,0.45)' }}>
+            <p className="text-xs truncate" style={{ color: 'rgba(255,240,204,0.45)' }}>
               +998 99 123-45-67
             </p>
           </div>
-          <LogOut size={15} color="rgba(232,223,200,0.35)" style={{ cursor: 'pointer', flexShrink: 0 }} />
+          <LogOut size={15} color="rgba(255,240,204,0.35)" style={{ cursor: 'pointer', flexShrink: 0 }} />
         </div>
       </div>
     </aside>
@@ -347,15 +343,15 @@ function Sidebar({ active, onNav }: { active: NavKey; onNav: (k: NavKey) => void
 function MobileTopBar() {
   return (
     <div className="md:hidden flex items-center justify-between px-4 py-3 shrink-0"
-      style={{ backgroundColor: '#094840' }}>
+      style={{ backgroundColor: '#003332' }}>
       <div className="flex items-center gap-2.5 select-none">
-        <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: 16, color: '#E8DFC8' }}>
+        <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: 16, color: '#FFF0CC' }}>
           BELVEST
         </span>
-        <LogoMark color="#E8DFC8" />
+        <LogoMark color="#FFF0CC" />
       </div>
       <div className="flex items-center gap-3">
-        <Bell size={18} color="rgba(232,223,200,0.65)" />
+        <Bell size={18} color="rgba(255,240,204,0.65)" />
         <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
           style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
           АК
@@ -370,7 +366,7 @@ function MobileTopBar() {
 function MobileTabBar({ active, onNav }: { active: NavKey; onNav: (k: NavKey) => void }) {
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 flex"
-      style={{ backgroundColor: '#094840', borderTop: '1px solid rgba(232,223,200,0.12)' }}>
+      style={{ backgroundColor: '#003332', borderTop: '1px solid rgba(255,240,204,0.12)' }}>
       {MOBILE_NAV.map(({ key, label, Icon }) => {
         const on = key === active;
         return (
@@ -379,9 +375,9 @@ function MobileTabBar({ active, onNav }: { active: NavKey; onNav: (k: NavKey) =>
             onClick={() => onNav(key)}
             className="flex-1 flex flex-col items-center justify-center py-2 gap-0.5"
           >
-            <Icon size={20} color={on ? '#C9A84C' : 'rgba(232,223,200,0.40)'} />
+            <Icon size={20} color={on ? '#C9A84C' : 'rgba(255,240,204,0.40)'} />
             <span className="text-[10px] font-medium"
-              style={{ color: on ? '#C9A84C' : 'rgba(232,223,200,0.40)' }}>
+              style={{ color: on ? '#C9A84C' : 'rgba(255,240,204,0.40)' }}>
               {label.split(' ')[0]}
             </span>
           </button>
@@ -404,7 +400,7 @@ function HomeDashboard() {
       {/* Greeting */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-7">
         <div>
-          <h1 className="text-2xl font-extrabold" style={{ color: '#0D5C54' }}>
+          <h1 className="text-2xl font-extrabold" style={{ color: '#004445' }}>
             Добро пожаловать, Алишер
           </h1>
           <p className="text-sm mt-0.5" style={{ color: '#4A6B67' }}>Личный кабинет клиента</p>
@@ -421,12 +417,12 @@ function HomeDashboard() {
           { label: 'Выплачено всего',    value: `${fmt(2_100_000)} сум`,     sub: 'за всё время',    Icon: TrendingUp  },
         ].map(({ label, value, sub, Icon }) => (
           <div key={label} className="bg-white rounded-xl p-4"
-            style={{ borderLeft: '4px solid #0D5C54', boxShadow: '0 1px 8px rgba(0,0,0,0.06)' }}>
+            style={{ borderLeft: '4px solid #004445', boxShadow: '0 1px 8px rgba(0,0,0,0.06)' }}>
             <div className="flex items-start justify-between gap-2 mb-2">
               <p className="text-xs font-medium leading-tight" style={{ color: '#4A6B67' }}>{label}</p>
               <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                style={{ backgroundColor: 'rgba(13,92,84,0.08)' }}>
-                <Icon size={15} color="#0D5C54" />
+                style={{ backgroundColor: 'rgba(0,68,69,0.08)' }}>
+                <Icon size={15} color="#004445" />
               </div>
             </div>
             <p className="text-base font-extrabold leading-snug" style={{ color: '#0D1F1D' }}>{value}</p>
@@ -454,7 +450,7 @@ function HomeDashboard() {
                       Активен
                     </span>
                     <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold"
-                      style={{ backgroundColor: 'rgba(13,92,84,0.08)', color: '#0D5C54' }}>
+                      style={{ backgroundColor: 'rgba(0,68,69,0.08)', color: '#004445' }}>
                       {c.type}
                     </span>
                   </div>
@@ -468,24 +464,24 @@ function HomeDashboard() {
               <div className="mb-4">
                 <div className="flex justify-between text-xs mb-1.5">
                   <span style={{ color: '#4A6B67' }}>Прогресс погашения</span>
-                  <span style={{ color: '#0D5C54', fontWeight: 700 }}>{c.progress}%</span>
+                  <span style={{ color: '#004445', fontWeight: 700 }}>{c.progress}%</span>
                 </div>
                 <div className="rounded-full overflow-hidden" style={{ height: 7, backgroundColor: '#E9E4DA' }}>
                   <div className="h-full rounded-full"
-                    style={{ width: `${c.progress}%`, backgroundColor: '#0D5C54' }} />
+                    style={{ width: `${c.progress}%`, backgroundColor: '#004445' }} />
                 </div>
               </div>
 
               {/* Next payment */}
               <div className="flex items-center justify-between px-4 py-3 rounded-xl mb-4"
-                style={{ backgroundColor: '#F4EFE4' }}>
+                style={{ backgroundColor: '#FFFFFF' }}>
                 <div>
                   <p className="text-xs" style={{ color: '#4A6B67' }}>Следующий платёж</p>
                   <p className="text-sm font-bold" style={{ color: '#0D1F1D' }}>{c.nextDate}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-xs" style={{ color: '#4A6B67' }}>Сумма</p>
-                  <p className="text-sm font-extrabold" style={{ color: '#0D5C54' }}>
+                  <p className="text-sm font-extrabold" style={{ color: '#004445' }}>
                     {fmt(c.nextAmount)} сум
                   </p>
                 </div>
@@ -495,11 +491,11 @@ function HomeDashboard() {
               <div className="flex gap-2.5">
                 <a href="tel:+998774809999"
                   className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-center transition-colors"
-                  style={{ border: '1.5px solid #0D5C54', color: '#0D5C54', backgroundColor: 'transparent' }}>
+                  style={{ border: '1.5px solid #004445', color: '#004445', backgroundColor: 'transparent' }}>
                   Связаться с менеджером
                 </a>
                 <button className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-colors"
-                  style={{ border: '1.5px solid #0D5C54', color: '#0D5C54', backgroundColor: 'transparent' }}>
+                  style={{ border: '1.5px solid #004445', color: '#004445', backgroundColor: 'transparent' }}>
                   Подробнее
                 </button>
               </div>
@@ -516,13 +512,13 @@ function HomeDashboard() {
             {UPCOMING.map((p, i) => (
               <div key={i}
                 className="flex items-center gap-3 py-3.5"
-                style={{ borderBottom: i < UPCOMING.length - 1 ? '1px solid #F4EFE4' : 'none' }}>
+                style={{ borderBottom: i < UPCOMING.length - 1 ? '1px solid #FFFFFF' : 'none' }}>
                 <div className="flex items-center justify-center w-10 h-10 rounded-full shrink-0"
                   style={{
-                    backgroundColor: i === 0 ? '#0D5C54' : 'rgba(13,92,84,0.08)',
+                    backgroundColor: i === 0 ? '#004445' : 'rgba(0,68,69,0.08)',
                   }}>
                   <span className="text-xs font-extrabold"
-                    style={{ color: i === 0 ? '#E8DFC8' : '#0D5C54' }}>
+                    style={{ color: i === 0 ? '#FFF0CC' : '#004445' }}>
                     {p.date.split(' ')[0]}
                   </span>
                 </div>
@@ -530,14 +526,14 @@ function HomeDashboard() {
                   <p className="text-sm font-semibold truncate" style={{ color: '#0D1F1D' }}>{p.label}</p>
                   <p className="text-xs" style={{ color: '#4A6B67' }}>{p.date}</p>
                 </div>
-                <p className="text-xs font-extrabold shrink-0" style={{ color: '#0D5C54' }}>
+                <p className="text-xs font-extrabold shrink-0" style={{ color: '#004445' }}>
                   {fmt(p.amount)}<br />
                   <span style={{ color: '#4A6B67', fontWeight: 400 }}>сум</span>
                 </p>
               </div>
             ))}
 
-            <div className="mt-2 pt-3" style={{ borderTop: '1px solid #F4EFE4' }}>
+            <div className="mt-2 pt-3" style={{ borderTop: '1px solid #FFFFFF' }}>
               <div className="flex justify-between items-center text-xs">
                 <span style={{ color: '#4A6B67' }}>Итого (3 платежа)</span>
                 <span className="font-extrabold" style={{ color: '#0D1F1D' }}>
@@ -549,11 +545,11 @@ function HomeDashboard() {
 
           {/* Reminder */}
           <div className="rounded-xl p-4"
-            style={{ backgroundColor: 'rgba(13,92,84,0.06)', border: '1px solid rgba(13,92,84,0.15)' }}>
+            style={{ backgroundColor: 'rgba(0,68,69,0.06)', border: '1px solid rgba(0,68,69,0.15)' }}>
             <div className="flex gap-2.5">
-              <Bell size={15} color="#0D5C54" style={{ marginTop: 1, flexShrink: 0 }} />
+              <Bell size={15} color="#004445" style={{ marginTop: 1, flexShrink: 0 }} />
               <div>
-                <p className="text-xs font-semibold mb-1" style={{ color: '#0D5C54' }}>Напоминание</p>
+                <p className="text-xs font-semibold mb-1" style={{ color: '#004445' }}>Напоминание</p>
                 <p className="text-xs leading-relaxed" style={{ color: '#4A6B67' }}>
                   До следующего платежа осталось 13 дней. Убедитесь, что на счёте достаточно средств.
                 </p>
@@ -581,7 +577,7 @@ function HomeDashboard() {
             </p>
           </div>
           <button className="text-xs font-semibold shrink-0 flex items-center gap-0.5"
-            style={{ color: '#0D5C54' }}>
+            style={{ color: '#004445' }}>
             Подробнее <ChevronRight size={12} />
           </button>
         </div>
@@ -597,7 +593,7 @@ function HomeDashboard() {
                 <div key={i} className="flex-1 mx-2"
                   style={{
                     height: 2, marginTop: 6,
-                    backgroundColor: active ? '#0D5C54' : '#E5E7EB',
+                    backgroundColor: active ? '#004445' : '#E5E7EB',
                     transition: 'background-color 0.3s',
                   }}
                 />
@@ -611,19 +607,19 @@ function HomeDashboard() {
                 <div className="flex items-center justify-center rounded-full"
                   style={{
                     width: 32, height: 32,
-                    backgroundColor: step.done ? '#0D5C54' : '#fff',
+                    backgroundColor: step.done ? '#004445' : '#fff',
                     border: step.done
                       ? 'none'
                       : step.current
                       ? '2.5px solid #C9A84C'
-                      : '2px solid #D4C9B0',
+                      : '2px solid #16685B',
                   }}>
                   {step.done ? (
                     <Checkmark />
                   ) : step.current ? (
                     <div className="rounded-full" style={{ width: 10, height: 10, backgroundColor: '#C9A84C' }} />
                   ) : (
-                    <div className="rounded-full" style={{ width: 8, height: 8, backgroundColor: '#D4C9B0' }} />
+                    <div className="rounded-full" style={{ width: 8, height: 8, backgroundColor: '#16685B' }} />
                   )}
                 </div>
 
@@ -631,7 +627,7 @@ function HomeDashboard() {
                   style={{
                     fontSize: 10,
                     maxWidth: 70,
-                    color: step.done ? '#0D5C54' : step.current ? '#B07A00' : '#9CA3AF',
+                    color: step.done ? '#004445' : step.current ? '#B07A00' : '#9CA3AF',
                     fontWeight: step.done || step.current ? 600 : 400,
                   }}>
                   {step.label}
@@ -652,8 +648,8 @@ function PlaceholderSection({ title }: { title: string }) {
     <div className="flex items-center justify-center h-full p-8 pb-28 md:pb-8" style={{ minHeight: 400 }}>
       <div className="text-center">
         <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-          style={{ backgroundColor: 'rgba(13,92,84,0.08)' }}>
-          <FileText size={28} color="#0D5C54" />
+          style={{ backgroundColor: 'rgba(0,68,69,0.08)' }}>
+          <FileText size={28} color="#004445" />
         </div>
         <h2 className="text-xl font-extrabold mb-2" style={{ color: '#0D1F1D' }}>{title}</h2>
         <p className="text-sm" style={{ color: '#4A6B67' }}>Раздел в разработке</p>
@@ -684,7 +680,7 @@ export default function PortalPage() {
   }
 
   return (
-    <div className="flex" style={{ minHeight: '100vh', backgroundColor: '#F4EFE4' }}>
+    <div className="flex" style={{ minHeight: '100vh', backgroundColor: '#FFFFFF' }}>
       <Sidebar active={activeNav} onNav={setActiveNav} />
 
       <div className="flex-1 flex flex-col min-w-0">
@@ -700,8 +696,8 @@ export default function PortalPage() {
           </div>
           <div className="flex items-center gap-3">
             <button className="relative p-2 rounded-lg"
-              style={{ backgroundColor: 'rgba(13,92,84,0.06)' }}>
-              <Bell size={17} color="#0D5C54" />
+              style={{ backgroundColor: 'rgba(0,68,69,0.06)' }}>
+              <Bell size={17} color="#004445" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full"
                 style={{ backgroundColor: '#C9A84C' }} />
             </button>
@@ -716,7 +712,7 @@ export default function PortalPage() {
         </div>
 
         {/* Main content */}
-        <main className="flex-1 overflow-y-auto" style={{ backgroundColor: '#F4EFE4' }}>
+        <main className="flex-1 overflow-y-auto" style={{ backgroundColor: '#FFFFFF' }}>
           {activeNav === 'home'
             ? <HomeDashboard />
             : <PlaceholderSection title={SECTION_TITLES[activeNav]} />

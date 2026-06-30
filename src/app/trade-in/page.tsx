@@ -41,20 +41,20 @@ export default function TradeInPage() {
   return (
     <div>
       {/* Hero */}
-      <div style={{ backgroundColor: '#0D5C54' }} className="py-20 px-4 sm:px-6 lg:px-8">
+      <div style={{ backgroundColor: '#004445' }} className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(232,223,200,0.55)' }}>
-            <Link href="/" style={{ color: 'rgba(232,223,200,0.55)' }}>Главная</Link>
+          <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(255,240,204,0.55)' }}>
+            <Link href="/" style={{ color: 'rgba(255,240,204,0.55)' }}>Главная</Link>
             <span>›</span>
-            <span style={{ color: '#E8DFC8' }}>Трейд-ин</span>
+            <span style={{ color: '#FFF0CC' }}>Трейд-ин</span>
           </nav>
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
             Обмен старого на новое
           </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#E8DFC8', maxWidth: 580 }}>
+          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC', maxWidth: 580 }}>
             Обменяйте старое на новое
           </h1>
-          <p className="text-lg mb-8" style={{ color: 'rgba(232,223,200,0.75)', maxWidth: 480 }}>
+          <p className="text-lg mb-8" style={{ color: 'rgba(255,240,204,0.75)', maxWidth: 480 }}>
             Сдайте ваш старый товар и получите скидку на покупку нового — быстро, честно, выгодно
           </p>
           <Link href="/apply?service=tradein"
@@ -66,7 +66,7 @@ export default function TradeInPage() {
       </div>
 
       {/* Interactive Estimator */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F4EFE4' }}>
+      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Онлайн-оценка</p>
@@ -74,7 +74,7 @@ export default function TradeInPage() {
             <p className="text-sm mt-2" style={{ color: '#4A6B67' }}>Предварительная оценка — точная стоимость после осмотра в офисе</p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 sm:p-8" style={{ border: '1px solid #D4C9B0', boxShadow: '0 2px 20px rgba(0,0,0,0.07)' }}>
+          <div className="bg-white rounded-2xl p-6 sm:p-8" style={{ border: '1px solid #16685B', boxShadow: '0 2px 20px rgba(0,0,0,0.07)' }}>
             {/* Category selection */}
             <div className="mb-7">
               <p className="text-sm font-semibold mb-3" style={{ color: '#0D1F1D' }}>1. Выберите категорию товара</p>
@@ -86,7 +86,7 @@ export default function TradeInPage() {
                       onClick={() => setSelectedCategory(active ? null : cat.id)}
                       className="flex flex-col items-center gap-1.5 p-3 rounded-xl transition-all"
                       style={{
-                        border: `2px solid ${active ? '#C9A84C' : '#D4C9B0'}`,
+                        border: `2px solid ${active ? '#C9A84C' : '#16685B'}`,
                         backgroundColor: active ? 'rgba(201,168,76,0.07)' : '#fff',
                       }}>
                       <span className="text-2xl">{cat.emoji}</span>
@@ -110,10 +110,10 @@ export default function TradeInPage() {
                       onClick={() => setSelectedCondition(cond.id)}
                       className="flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl text-left transition-all"
                       style={{
-                        border: `2px solid ${active ? '#0D5C54' : '#D4C9B0'}`,
-                        backgroundColor: active ? 'rgba(13,92,84,0.05)' : '#fff',
+                        border: `2px solid ${active ? '#004445' : '#16685B'}`,
+                        backgroundColor: active ? 'rgba(0,68,69,0.05)' : '#fff',
                       }}>
-                      <span className="text-sm font-bold" style={{ color: active ? '#0D5C54' : '#0D1F1D' }}>
+                      <span className="text-sm font-bold" style={{ color: active ? '#004445' : '#0D1F1D' }}>
                         {cond.label}
                       </span>
                       <span className="text-xs" style={{ color: '#4A6B67' }}>{cond.desc}</span>
@@ -128,7 +128,7 @@ export default function TradeInPage() {
               <div className="mb-7">
                 <div className="flex justify-between text-sm mb-2">
                   <span style={{ color: '#4A6B67' }}>Примерная стоимость товара</span>
-                  <span className="font-bold" style={{ color: '#0D5C54' }}>{fmt(ownPrice)} сум</span>
+                  <span className="font-bold" style={{ color: '#004445' }}>{fmt(ownPrice)} сум</span>
                 </div>
                 <input
                   type="range"
@@ -139,7 +139,7 @@ export default function TradeInPage() {
                   onChange={e => setOwnPrice(Number(e.target.value))}
                   className="belvest-slider w-full"
                   style={{
-                    background: `linear-gradient(to right, #C9A84C ${((ownPrice - 500_000) / (30_000_000 - 500_000)) * 100}%, #D4C9B0 0%)`,
+                    background: `linear-gradient(to right, #C9A84C ${((ownPrice - 500_000) / (30_000_000 - 500_000)) * 100}%, #16685B 0%)`,
                   }}
                 />
                 <div className="flex justify-between text-xs mt-1" style={{ color: '#9CA3AF' }}>
@@ -151,10 +151,10 @@ export default function TradeInPage() {
 
             {/* Result */}
             <div className="rounded-xl p-5 flex items-center justify-between gap-4"
-              style={{ backgroundColor: '#F4EFE4', border: '1px solid #D4C9B0' }}>
+              style={{ backgroundColor: '#FFFFFF', border: '1px solid #16685B' }}>
               <div>
                 <p className="text-sm" style={{ color: '#4A6B67' }}>Предварительная оценка трейд-ин</p>
-                <p className="text-3xl font-extrabold mt-0.5" style={{ color: '#0D5C54' }}>
+                <p className="text-3xl font-extrabold mt-0.5" style={{ color: '#004445' }}>
                   {fmt(estimatedValue)} <span className="text-base font-semibold">сум</span>
                 </p>
                 <p className="text-xs mt-1" style={{ color: '#4A6B67' }}>
@@ -172,11 +172,11 @@ export default function TradeInPage() {
       </section>
 
       {/* How it works */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#094840' }}>
+      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#003332' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Как это работает</p>
-            <h2 className="text-3xl font-extrabold" style={{ color: '#E8DFC8' }}>Три шага к новому товару</h2>
+            <h2 className="text-3xl font-extrabold" style={{ color: '#FFF0CC' }}>Три шага к новому товару</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {HOW_STEPS.map(s => (
@@ -185,8 +185,8 @@ export default function TradeInPage() {
                   style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
                   {s.n}
                 </div>
-                <h3 className="text-sm font-extrabold mb-2" style={{ color: '#E8DFC8' }}>{s.title}</h3>
-                <p className="text-xs leading-relaxed" style={{ color: 'rgba(232,223,200,0.60)' }}>{s.sub}</p>
+                <h3 className="text-sm font-extrabold mb-2" style={{ color: '#FFF0CC' }}>{s.title}</h3>
+                <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,240,204,0.60)' }}>{s.sub}</p>
               </div>
             ))}
           </div>
@@ -204,7 +204,7 @@ export default function TradeInPage() {
           <div className="flex flex-wrap justify-center gap-4">
             {CATEGORIES.map(c => (
               <div key={c.id} className="flex items-center gap-2 px-5 py-3 rounded-xl"
-                style={{ backgroundColor: '#F4EFE4', border: '1px solid #D4C9B0' }}>
+                style={{ backgroundColor: '#FFFFFF', border: '1px solid #16685B' }}>
                 <span className="text-xl">{c.emoji}</span>
                 <span className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>{c.name}</span>
               </div>
@@ -214,12 +214,12 @@ export default function TradeInPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ backgroundColor: '#0D5C54' }} className="py-20 px-4 text-center">
+      <section style={{ backgroundColor: '#004445' }} className="py-20 px-4 text-center">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-extrabold mb-4" style={{ color: '#E8DFC8' }}>
+          <h2 className="text-3xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
             Оцените ваш товар прямо сейчас
           </h2>
-          <p className="text-base mb-8" style={{ color: 'rgba(232,223,200,0.70)' }}>
+          <p className="text-base mb-8" style={{ color: 'rgba(255,240,204,0.70)' }}>
             Приезжайте в наш офис или оставьте заявку — оценим бесплатно за 15 минут
           </p>
           <Link href="/apply?service=tradein"

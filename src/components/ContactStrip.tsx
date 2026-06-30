@@ -14,12 +14,12 @@ function InstagramIcon({ size = 24 }: { size?: number }) {
 
 export default function ContactStrip() {
   return (
-    <section style={{ backgroundColor: '#094840' }} className="py-16 px-4 sm:px-6 lg:px-8">
+    <section style={{ backgroundColor: '#003332' }} className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto text-center">
         <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
           Связаться с нами
         </p>
-        <h2 className="text-3xl font-extrabold mb-8" style={{ color: '#E8DFC8' }}>
+        <h2 className="text-3xl font-extrabold mb-8" style={{ color: '#FFF0CC' }}>
           Мы всегда на связи
         </h2>
 
@@ -30,9 +30,9 @@ export default function ContactStrip() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-150"
-            style={{ backgroundColor: 'rgba(232,223,200,0.10)', color: '#E8DFC8', border: '1px solid rgba(232,223,200,0.25)' }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(232,223,200,0.18)')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(232,223,200,0.10)')}
+            style={{ backgroundColor: 'rgba(255,240,204,0.10)', color: '#FFF0CC', border: '1px solid rgba(255,240,204,0.25)' }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255,240,204,0.18)')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255,240,204,0.10)')}
           >
             <InstagramIcon size={18} />
             @belvest.uz
@@ -56,27 +56,27 @@ export default function ContactStrip() {
           <a
             href="tel:+998774809999"
             className="inline-flex items-center gap-2 text-base font-bold transition-colors duration-150"
-            style={{ color: '#E8DFC8' }}
+            style={{ color: '#FFF0CC' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = '#C9A84C')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = '#E8DFC8')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#FFF0CC')}
           >
             <Phone size={16} />
             +998 77 480-99-99
           </a>
-          <span style={{ color: 'rgba(232,223,200,0.30)' }} className="hidden sm:inline">•</span>
+          <span style={{ color: 'rgba(255,240,204,0.30)' }} className="hidden sm:inline">•</span>
           <a
             href="tel:+998774802222"
             className="inline-flex items-center gap-2 text-base font-bold transition-colors duration-150"
-            style={{ color: '#E8DFC8' }}
+            style={{ color: '#FFF0CC' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = '#C9A84C')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = '#E8DFC8')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#FFF0CC')}
           >
             <Phone size={16} />
             +998 77 480-22-22
           </a>
         </div>
 
-        <p className="text-sm" style={{ color: 'rgba(232,223,200,0.55)' }}>
+        <p className="text-sm" style={{ color: 'rgba(255,240,204,0.55)' }}>
           Пн–Сб: 9:00 — 18:00
         </p>
       </div>

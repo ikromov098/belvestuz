@@ -3,16 +3,12 @@ import Link from 'next/link';
 function BelvестLogo() {
   return (
     <div className="flex items-center gap-2.5 select-none">
-      <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: '22px', color: '#E8DFC8', lineHeight: 1 }}>
+      <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: '22px', color: '#FFF0CC', lineHeight: 1 }}>
         BELVEST
       </span>
-      <svg width="20" height="20" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        {[0, 60, 120, 180, 240, 300].map((deg) => (
-          <g key={deg} transform={`rotate(${deg} 11 11)`}>
-            <ellipse cx="11" cy="5.5" rx="2.2" ry="4.5" fill="#E8DFC8" />
-          </g>
-        ))}
-        <circle cx="11" cy="11" r="2.4" fill="#E8DFC8" />
+      <svg width="17" height="21" viewBox="0 0 26 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ color: '#FFF0CC' }}>
+        <path d="M13 0L15.5 5L20 2.5L18.5 7.5L24 8L19.5 11L23 15L18 14.5L18.5 19.5L14.5 16.5L13 21L11.5 16.5L7.5 19.5L8 14.5L3 15L6.5 11L2 8L7.5 7.5L6 2.5L10.5 5L13 0Z" fill="currentColor"/>
+        <rect x="11" y="20" width="4" height="8" fill="currentColor"/>
       </svg>
     </div>
   );
@@ -52,12 +48,12 @@ const COLUMNS = [
 
 export default function Footer() {
   return (
-    <footer style={{ backgroundColor: '#094840' }}>
+    <footer style={{ backgroundColor: '#003332' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
         {/* Top row */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-10">
           <BelvестLogo />
-          <p className="text-sm" style={{ color: 'rgba(232,223,200,0.65)', maxWidth: '320px' }}>
+          <p className="text-sm" style={{ color: 'rgba(255,240,204,0.65)', maxWidth: '320px' }}>
             Надёжный финансовый партнёр в Узбекистане
           </p>
         </div>
@@ -89,7 +85,7 @@ export default function Footer() {
               Контакты
             </h4>
             <ul className="flex flex-col gap-2.5">
-              <li className="text-sm" style={{ color: 'rgba(232,223,200,0.65)' }}>
+              <li className="text-sm" style={{ color: 'rgba(255,240,204,0.65)' }}>
                 Ташкент, Узбекистан
               </li>
               <li>
@@ -118,16 +114,16 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t" style={{ borderColor: 'rgba(232,223,200,0.20)' }}>
+      <div className="border-t" style={{ borderColor: 'rgba(255,240,204,0.20)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs" style={{ color: 'rgba(232,223,200,0.60)' }}>
+          <p className="text-xs" style={{ color: 'rgba(255,240,204,0.60)' }}>
             © 2025 Belvest. Все права защищены.
           </p>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="footer-link-sm text-xs">
               Политика конфиденциальности
             </Link>
-            <span style={{ color: 'rgba(232,223,200,0.30)' }}>•</span>
+            <span style={{ color: 'rgba(255,240,204,0.30)' }}>•</span>
             <Link href="/terms" className="footer-link-sm text-xs">
               Условия использования
             </Link>

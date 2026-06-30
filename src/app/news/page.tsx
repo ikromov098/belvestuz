@@ -79,9 +79,9 @@ const ARTICLES: Article[] = [
 const CATEGORIES: Category[] = ['Все', 'Новости компании', 'Исламские финансы', 'Гиды и советы'];
 
 const CATEGORY_ACCENT: Record<Exclude<Category, 'Все'>, string> = {
-  'Новости компании': '#0D5C54',
+  'Новости компании': '#004445',
   'Исламские финансы': '#C9A84C',
-  'Гиды и советы': '#1A7A70',
+  'Гиды и советы': '#16685B',
 };
 
 function ArticleModal({ article, onClose }: { article: Article; onClose: () => void }) {
@@ -105,9 +105,9 @@ function ArticleModal({ article, onClose }: { article: Article; onClose: () => v
         <button
           onClick={onClose}
           className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-150 cursor-pointer"
-          style={{ backgroundColor: '#F4EFE4', color: '#4A6B67' }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#E8DFC8')}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#F4EFE4')}
+          style={{ backgroundColor: '#FFFFFF', color: '#4A6B67' }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFF0CC')}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
         >
           <X size={16} />
         </button>
@@ -137,7 +137,7 @@ function ArticleCard({ article, onRead }: { article: Article; onRead: () => void
       className="bg-white rounded-xl flex flex-col overflow-hidden"
       style={{
         boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-        border: '1px solid #D4C9B0',
+        border: '1px solid #16685B',
         borderTop: `3px solid ${accent}`,
       }}
     >
@@ -151,7 +151,7 @@ function ArticleCard({ article, onRead }: { article: Article; onRead: () => void
           </span>
           <span className="text-xs" style={{ color: '#4A6B67' }}>{article.date}</span>
         </div>
-        <h3 className="text-sm font-extrabold leading-snug" style={{ color: '#0D5C54' }}>
+        <h3 className="text-sm font-extrabold leading-snug" style={{ color: '#004445' }}>
           {article.title}
         </h3>
         <p className="text-sm leading-relaxed flex-1" style={{ color: '#4A6B67' }}>
@@ -182,27 +182,27 @@ export default function NewsPage() {
   return (
     <div>
       {/* Hero */}
-      <div style={{ backgroundColor: '#0D5C54' }} className="py-20 px-4 sm:px-6 lg:px-8">
+      <div style={{ backgroundColor: '#004445' }} className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(232,223,200,0.55)' }}>
-            <Link href="/" style={{ color: 'rgba(232,223,200,0.55)' }}>Главная</Link>
+          <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(255,240,204,0.55)' }}>
+            <Link href="/" style={{ color: 'rgba(255,240,204,0.55)' }}>Главная</Link>
             <span>›</span>
-            <span style={{ color: '#E8DFC8' }}>Новости</span>
+            <span style={{ color: '#FFF0CC' }}>Новости</span>
           </nav>
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
             Блог и новости
           </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#E8DFC8' }}>
+          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
             Новости и статьи
           </h1>
-          <p className="text-lg" style={{ color: 'rgba(232,223,200,0.75)', maxWidth: 480 }}>
+          <p className="text-lg" style={{ color: 'rgba(255,240,204,0.75)', maxWidth: 480 }}>
             Исламские финансы, новости компании и полезные материалы
           </p>
         </div>
       </div>
 
       {/* Category filter */}
-      <div style={{ backgroundColor: '#094840', borderBottom: '1px solid rgba(232,223,200,0.10)' }}>
+      <div style={{ backgroundColor: '#003332', borderBottom: '1px solid rgba(255,240,204,0.10)' }}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-wrap gap-2">
             {CATEGORIES.map((cat) => {
@@ -213,8 +213,8 @@ export default function NewsPage() {
                   onClick={() => setActiveCategory(cat)}
                   className="px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 cursor-pointer"
                   style={{
-                    backgroundColor: active ? '#C9A84C' : 'rgba(232,223,200,0.10)',
-                    color: active ? '#0D1F1D' : 'rgba(232,223,200,0.75)',
+                    backgroundColor: active ? '#C9A84C' : 'rgba(255,240,204,0.10)',
+                    color: active ? '#0D1F1D' : 'rgba(255,240,204,0.75)',
                     border: `1px solid ${active ? '#C9A84C' : 'transparent'}`,
                   }}
                 >
@@ -227,7 +227,7 @@ export default function NewsPage() {
       </div>
 
       {/* Articles grid */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F4EFE4' }}>
+      <section className="py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((article) => (
@@ -242,12 +242,12 @@ export default function NewsPage() {
       </section>
 
       {/* Subscribe */}
-      <section style={{ backgroundColor: '#0D5C54' }} className="py-16 px-4 text-center">
+      <section style={{ backgroundColor: '#004445' }} className="py-16 px-4 text-center">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl font-extrabold mb-2" style={{ color: '#E8DFC8' }}>
+          <h2 className="text-2xl font-extrabold mb-2" style={{ color: '#FFF0CC' }}>
             Подпишитесь на новости
           </h2>
-          <p className="text-sm mb-8" style={{ color: 'rgba(232,223,200,0.70)' }}>
+          <p className="text-sm mb-8" style={{ color: 'rgba(255,240,204,0.70)' }}>
             Узнавайте первыми об акциях и новых продуктах
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -268,8 +268,8 @@ export default function NewsPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-semibold border transition-all duration-150"
-              style={{ borderColor: 'rgba(232,223,200,0.40)', color: '#E8DFC8' }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(232,223,200,0.08)')}
+              style={{ borderColor: 'rgba(255,240,204,0.40)', color: '#FFF0CC' }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255,240,204,0.08)')}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
             >
               <InstagramIcon size={16} />

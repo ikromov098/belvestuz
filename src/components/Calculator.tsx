@@ -50,12 +50,12 @@ function CardHeader({ icon, title, gold }: { icon: React.ReactNode; title: strin
   return (
     <div
       className="flex items-center gap-3 px-6 py-4 rounded-t-2xl"
-      style={{ backgroundColor: gold ? '#C9A84C' : '#0D5C54' }}
+      style={{ backgroundColor: gold ? '#C9A84C' : '#004445' }}
     >
-      <span style={{ color: gold ? '#0D1F1D' : '#E8DFC8' }}>{icon}</span>
+      <span style={{ color: gold ? '#0D1F1D' : '#FFF0CC' }}>{icon}</span>
       <span
         className="text-base font-bold tracking-wide"
-        style={{ color: gold ? '#0D1F1D' : '#E8DFC8', letterSpacing: '0.04em' }}
+        style={{ color: gold ? '#0D1F1D' : '#FFF0CC', letterSpacing: '0.04em' }}
       >
         {title}
       </span>
@@ -76,14 +76,14 @@ interface SliderRowProps {
 function SliderRow({ label, value, min, max, step, display, onChange }: SliderRowProps) {
   const pct = ((value - min) / (max - min)) * 100;
   const trackStyle = {
-    background: `linear-gradient(to right, #0D5C54 ${pct}%, #D4C9B0 ${pct}%)`,
+    background: `linear-gradient(to right, #004445 ${pct}%, #16685B ${pct}%)`,
   };
 
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
         <span className="text-sm font-semibold" style={{ color: '#4A6B67' }}>{label}</span>
-        <span className="text-sm font-bold" style={{ color: '#0D5C54' }}>{display}</span>
+        <span className="text-sm font-bold" style={{ color: '#004445' }}>{display}</span>
       </div>
       <input
         type="range"
@@ -124,7 +124,7 @@ function InstallmentCalculator() {
   return (
     <div
       className="rounded-2xl shadow-xl overflow-hidden"
-      style={{ border: '1px solid #D4C9B0', backgroundColor: '#ffffff' }}
+      style={{ border: '1px solid #16685B', backgroundColor: '#ffffff' }}
     >
       <CardHeader
         icon={isLeasing ? <RefreshCw size={20} /> : <ShoppingCart size={20} />}
@@ -132,16 +132,16 @@ function InstallmentCalculator() {
       />
 
       {/* Tabs */}
-      <div className="flex border-b" style={{ borderColor: '#D4C9B0' }}>
+      <div className="flex border-b" style={{ borderColor: '#16685B' }}>
         {(['installment', 'leasing'] as Tab[]).map((tabVal) => (
           <button
             key={tabVal}
             onClick={() => setTab(tabVal)}
             className="flex-1 py-3 text-sm font-semibold transition-all duration-150 cursor-pointer"
             style={{
-              color: tab === tabVal ? '#0D5C54' : '#4A6B67',
-              borderBottom: tab === tabVal ? '2px solid #0D5C54' : '2px solid transparent',
-              backgroundColor: tab === tabVal ? 'rgba(13,92,84,0.05)' : 'transparent',
+              color: tab === tabVal ? '#004445' : '#4A6B67',
+              borderBottom: tab === tabVal ? '2px solid #004445' : '2px solid transparent',
+              backgroundColor: tab === tabVal ? 'rgba(0,68,69,0.05)' : 'transparent',
             }}
           >
             {tabVal === 'installment' ? t.services.installment : t.services.leasing}
@@ -182,9 +182,9 @@ function InstallmentCalculator() {
                   onClick={() => setTerm(t)}
                   className="px-4 py-1.5 rounded-full text-sm font-semibold border transition-all duration-150 cursor-pointer"
                   style={{
-                    backgroundColor: active ? '#C9A84C' : '#F4EFE4',
-                    color: active ? '#0D1F1D' : '#0D5C54',
-                    borderColor: active ? '#C9A84C' : '#0D5C54',
+                    backgroundColor: active ? '#C9A84C' : '#FFFFFF',
+                    color: active ? '#0D1F1D' : '#004445',
+                    borderColor: active ? '#C9A84C' : '#004445',
                   }}
                 >
                   {t}
@@ -197,12 +197,12 @@ function InstallmentCalculator() {
         {/* Result */}
         <div
           className="rounded-xl p-5 text-center"
-          style={{ backgroundColor: 'rgba(13,92,84,0.06)', border: '1px solid rgba(13,92,84,0.12)' }}
+          style={{ backgroundColor: 'rgba(0,68,69,0.06)', border: '1px solid rgba(0,68,69,0.12)' }}
         >
           <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: '#4A6B67' }}>
             {t.calculator.monthlyPayment}
           </p>
-          <p className="text-4xl font-extrabold leading-none" style={{ color: '#0D5C54' }}>
+          <p className="text-4xl font-extrabold leading-none" style={{ color: '#004445' }}>
             {fmt(monthly)}{' '}
             <span className="text-2xl font-bold" style={{ color: '#C9A84C' }}>сум</span>
           </p>
@@ -229,7 +229,7 @@ function InstallmentCalculator() {
             <span
               key={badge}
               className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold"
-              style={{ backgroundColor: 'rgba(13,92,84,0.10)', color: '#0D5C54' }}
+              style={{ backgroundColor: 'rgba(0,68,69,0.10)', color: '#004445' }}
             >
               <CheckCircle size={12} />
               {badge}
@@ -253,7 +253,7 @@ function TradeInEstimator() {
   return (
     <div
       className="rounded-2xl shadow-xl overflow-hidden"
-      style={{ border: '1px solid #D4C9B0', backgroundColor: '#ffffff' }}
+      style={{ border: '1px solid #16685B', backgroundColor: '#ffffff' }}
     >
       <CardHeader
         icon={<ArrowRight size={20} />}
@@ -276,9 +276,9 @@ function TradeInEstimator() {
             onChange={(e) => setCategory(e.target.value)}
             className="w-full px-4 py-2.5 rounded-lg text-sm border outline-none cursor-pointer"
             style={{
-              borderColor: '#D4C9B0',
+              borderColor: '#16685B',
               color: category ? '#0D1F1D' : '#4A6B67',
-              backgroundColor: '#F4EFE4',
+              backgroundColor: '#FFFFFF',
             }}
           >
             <option value="" disabled>Выберите категорию...</option>
@@ -317,7 +317,7 @@ function TradeInEstimator() {
         >
           <div className="flex justify-between items-center mb-3">
             <span className="text-sm" style={{ color: '#4A6B67' }}>Стоимость вашего товара:</span>
-            <span className="text-base font-bold" style={{ color: '#0D5C54' }}>
+            <span className="text-base font-bold" style={{ color: '#004445' }}>
               {fmt(estimate)} <span style={{ color: '#C9A84C' }}>сум</span>
             </span>
           </div>
@@ -356,7 +356,7 @@ function TradeInEstimator() {
 
 export default function CalculatorSection() {
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F4EFE4' }}>
+    <section className="py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="max-w-6xl mx-auto">
         {/* Section heading */}
         <div className="text-center mb-10">

@@ -99,38 +99,38 @@ export default function ContactsPage() {
   return (
     <div>
       {/* Hero */}
-      <div style={{ backgroundColor: '#0D5C54' }} className="py-20 px-4 sm:px-6 lg:px-8">
+      <div style={{ backgroundColor: '#004445' }} className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(232,223,200,0.55)' }}>
-            <Link href="/" style={{ color: 'rgba(232,223,200,0.55)' }}>Главная</Link>
+          <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(255,240,204,0.55)' }}>
+            <Link href="/" style={{ color: 'rgba(255,240,204,0.55)' }}>Главная</Link>
             <span>›</span>
-            <span style={{ color: '#E8DFC8' }}>Контакты</span>
+            <span style={{ color: '#FFF0CC' }}>Контакты</span>
           </nav>
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
             Контакты
           </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#E8DFC8' }}>
+          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
             Мы всегда на связи
           </h1>
-          <p className="text-lg" style={{ color: 'rgba(232,223,200,0.75)', maxWidth: 480 }}>
+          <p className="text-lg" style={{ color: 'rgba(255,240,204,0.75)', maxWidth: 480 }}>
             Свяжитесь с нами любым удобным способом — ответим быстро
           </p>
         </div>
       </div>
 
       {/* Contact cards */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F4EFE4' }}>
+      <section className="py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {CONTACT_CARDS.map((card) => (
               <div
                 key={card.label}
                 className="bg-white rounded-2xl p-5 flex flex-col gap-3"
-                style={{ border: '1px solid #D4C9B0', boxShadow: '0 1px 8px rgba(0,0,0,0.05)' }}
+                style={{ border: '1px solid #16685B', boxShadow: '0 1px 8px rgba(0,0,0,0.05)' }}
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: 'rgba(13,92,84,0.10)', color: '#0D5C54' }}
+                  style={{ backgroundColor: 'rgba(0,68,69,0.10)', color: '#004445' }}
                 >
                   {card.icon}
                 </div>
@@ -162,9 +162,9 @@ export default function ContactsPage() {
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <div
                 className="w-16 h-16 rounded-full flex items-center justify-center mb-5"
-                style={{ backgroundColor: 'rgba(13,92,84,0.10)' }}
+                style={{ backgroundColor: 'rgba(0,68,69,0.10)' }}
               >
-                <CheckCircle size={36} style={{ color: '#0D5C54' }} />
+                <CheckCircle size={36} style={{ color: '#004445' }} />
               </div>
               <h3 className="text-xl font-extrabold mb-2" style={{ color: '#0D1F1D' }}>Спасибо!</h3>
               <p className="text-sm" style={{ color: '#4A6B67', maxWidth: 340 }}>
@@ -182,15 +182,15 @@ export default function ContactsPage() {
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     className="px-4 py-2.5 rounded-lg text-sm outline-none"
-                    style={{ border: '1px solid #D4C9B0', backgroundColor: '#F4EFE4', color: '#0D1F1D' }}
+                    style={{ border: '1px solid #16685B', backgroundColor: '#FFFFFF', color: '#0D1F1D' }}
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label className="text-sm font-semibold" style={{ color: '#4A6B67' }}>Телефон</label>
-                  <div className="flex rounded-lg overflow-hidden" style={{ border: '1px solid #D4C9B0' }}>
+                  <div className="flex rounded-lg overflow-hidden" style={{ border: '1px solid #16685B' }}>
                     <span
                       className="px-3 flex items-center text-sm font-semibold shrink-0"
-                      style={{ backgroundColor: '#E8E0D0', color: '#4A6B67', borderRight: '1px solid #D4C9B0' }}
+                      style={{ backgroundColor: '#E8E0D0', color: '#4A6B67', borderRight: '1px solid #16685B' }}
                     >
                       +998
                     </span>
@@ -200,7 +200,7 @@ export default function ContactsPage() {
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       className="flex-1 px-3 py-2.5 text-sm outline-none"
-                      style={{ backgroundColor: '#F4EFE4', color: '#0D1F1D' }}
+                      style={{ backgroundColor: '#FFFFFF', color: '#0D1F1D' }}
                     />
                   </div>
                 </div>
@@ -213,8 +213,8 @@ export default function ContactsPage() {
                   onChange={(e) => setForm({ ...form, topic: e.target.value })}
                   className="px-4 py-2.5 rounded-lg text-sm outline-none cursor-pointer"
                   style={{
-                    border: '1px solid #D4C9B0',
-                    backgroundColor: '#F4EFE4',
+                    border: '1px solid #16685B',
+                    backgroundColor: '#FFFFFF',
                     color: form.topic ? '#0D1F1D' : '#4A6B67',
                   }}
                 >
@@ -233,7 +233,7 @@ export default function ContactsPage() {
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   className="px-4 py-2.5 rounded-lg text-sm outline-none resize-none"
-                  style={{ border: '1px solid #D4C9B0', backgroundColor: '#F4EFE4', color: '#0D1F1D' }}
+                  style={{ border: '1px solid #16685B', backgroundColor: '#FFFFFF', color: '#0D1F1D' }}
                 />
               </div>
 
@@ -256,7 +256,7 @@ export default function ContactsPage() {
       </section>
 
       {/* Yandex Map */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F4EFE4' }}>
+      <section className="py-12 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-5xl mx-auto">
           <div className="rounded-2xl overflow-hidden" style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.10)' }}>
             <iframe
@@ -278,7 +278,7 @@ export default function ContactsPage() {
           <div className="flex items-center gap-3 mb-8">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-              style={{ backgroundColor: 'rgba(13,92,84,0.10)', color: '#0D5C54' }}
+              style={{ backgroundColor: 'rgba(0,68,69,0.10)', color: '#004445' }}
             >
               <Clock size={20} />
             </div>
@@ -289,21 +289,21 @@ export default function ContactsPage() {
           </div>
           <div
             className="rounded-2xl overflow-hidden"
-            style={{ border: '1px solid #D4C9B0' }}
+            style={{ border: '1px solid #16685B' }}
           >
             {HOURS.map((row, i) => (
               <div
                 key={row.day}
                 className="flex items-center justify-between px-5 py-4"
                 style={{
-                  backgroundColor: i % 2 === 0 ? '#fff' : '#F4EFE4',
+                  backgroundColor: i % 2 === 0 ? '#fff' : '#FFFFFF',
                   borderBottom: i < HOURS.length - 1 ? '1px solid #E8E0D0' : 'none',
                 }}
               >
                 <span className="text-sm font-medium" style={{ color: '#0D1F1D' }}>{row.day}</span>
                 <span
                   className="text-sm font-bold"
-                  style={{ color: row.closed ? '#C62828' : '#0D5C54' }}
+                  style={{ color: row.closed ? '#C62828' : '#004445' }}
                 >
                   {row.time}
                 </span>

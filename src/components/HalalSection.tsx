@@ -15,7 +15,7 @@ export default function HalalSection() {
   ];
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F4EFE4' }}>
+    <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
@@ -26,7 +26,7 @@ export default function HalalSection() {
           </h2>
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mt-2"
-            style={{ backgroundColor: '#0D5C54', color: '#E8DFC8' }}>
+            style={{ backgroundColor: '#004445', color: '#FFF0CC' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"
                 fill="#C9A84C"/>
@@ -41,7 +41,7 @@ export default function HalalSection() {
           <div className="text-center py-2 rounded-t-xl font-bold text-sm" style={{ backgroundColor: '#e0e0e0', color: '#555' }}>
             {t.halal.bankCol}
           </div>
-          <div className="text-center py-2 rounded-t-xl font-bold text-sm" style={{ backgroundColor: '#0D5C54', color: '#E8DFC8' }}>
+          <div className="text-center py-2 rounded-t-xl font-bold text-sm" style={{ backgroundColor: '#004445', color: '#FFF0CC' }}>
             {t.halal.belvestCol}
           </div>
 
@@ -52,23 +52,23 @@ export default function HalalSection() {
                 className="flex items-center px-3 py-3 text-sm font-medium"
                 style={{
                   color: '#0D1F1D',
-                  backgroundColor: i % 2 === 0 ? '#fff' : '#F4EFE4',
+                  backgroundColor: i % 2 === 0 ? '#fff' : '#FFFFFF',
                   borderRadius: '8px 0 0 8px',
                 }}>
                 {label}
               </div>
               <div
                 className="flex items-center justify-center py-3"
-                style={{ backgroundColor: i % 2 === 0 ? '#fff' : '#F4EFE4' }}>
+                style={{ backgroundColor: i % 2 === 0 ? '#fff' : '#FFFFFF' }}>
                 <span className="text-lg" style={{ color: '#C62828' }}>✗</span>
               </div>
               <div
                 className="flex items-center justify-center py-3"
                 style={{
-                  backgroundColor: i % 2 === 0 ? 'rgba(13,92,84,0.06)' : 'rgba(13,92,84,0.10)',
+                  backgroundColor: i % 2 === 0 ? 'rgba(0,68,69,0.06)' : 'rgba(0,68,69,0.10)',
                   borderRadius: '0 8px 8px 0',
                 }}>
-                <span className="text-lg" style={{ color: '#0D5C54' }}>✓</span>
+                <span className="text-lg" style={{ color: '#004445' }}>✓</span>
               </div>
             </React.Fragment>
           ))}

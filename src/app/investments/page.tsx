@@ -90,20 +90,20 @@ export default function InvestmentsPage() {
   return (
     <div>
       {/* Hero */}
-      <div style={{ backgroundColor: '#0D5C54' }} className="py-20 px-4 sm:px-6 lg:px-8">
+      <div style={{ backgroundColor: '#004445' }} className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(232,223,200,0.55)' }}>
-            <Link href="/" style={{ color: 'rgba(232,223,200,0.55)' }}>Главная</Link>
+          <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(255,240,204,0.55)' }}>
+            <Link href="/" style={{ color: 'rgba(255,240,204,0.55)' }}>Главная</Link>
             <span>›</span>
-            <span style={{ color: '#E8DFC8' }}>Инвестиции</span>
+            <span style={{ color: '#FFF0CC' }}>Инвестиции</span>
           </nav>
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
             Доходные вложения
           </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#E8DFC8', maxWidth: 600 }}>
+          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC', maxWidth: 600 }}>
             Инвестируйте с Belvest
           </h1>
-          <p className="text-lg mb-8" style={{ color: 'rgba(232,223,200,0.75)', maxWidth: 500 }}>
+          <p className="text-lg mb-8" style={{ color: 'rgba(255,240,204,0.75)', maxWidth: 500 }}>
             Участвуйте в распределении прибыли до 18% в год по принципам Мудараба — прозрачно и этично
           </p>
           <Link href="/apply?service=investment"
@@ -115,19 +115,19 @@ export default function InvestmentsPage() {
       </div>
 
       {/* Stats bar */}
-      <div style={{ backgroundColor: '#094840' }}>
+      <div style={{ backgroundColor: '#003332' }}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-2 md:grid-cols-4 gap-6">
           {STATS.map(s => (
             <div key={s.label} className="text-center">
               <p className="text-xl font-extrabold" style={{ color: '#C9A84C' }}>{s.value}</p>
-              <p className="text-xs mt-0.5" style={{ color: 'rgba(232,223,200,0.60)' }}>{s.label}</p>
+              <p className="text-xs mt-0.5" style={{ color: 'rgba(255,240,204,0.60)' }}>{s.label}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Plans */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#F4EFE4' }}>
+      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Инвестиционные планы</p>
@@ -141,7 +141,7 @@ export default function InvestmentsPage() {
               <div key={plan.id}
                 className="bg-white rounded-2xl p-6 flex flex-col relative"
                 style={{
-                  border: plan.recommended ? '2px solid #C9A84C' : '1px solid #D4C9B0',
+                  border: plan.recommended ? '2px solid #C9A84C' : '1px solid #16685B',
                   boxShadow: plan.recommended ? '0 4px 24px rgba(201,168,76,0.15)' : '0 1px 8px rgba(0,0,0,0.05)',
                 }}>
                 {plan.recommended && (
@@ -155,7 +155,7 @@ export default function InvestmentsPage() {
                   от {fmt(plan.minAmount)} сум
                 </p>
                 <div className="flex items-baseline gap-1 mb-1">
-                  <span className="text-4xl font-extrabold" style={{ color: '#0D5C54' }}>{plan.rate}%</span>
+                  <span className="text-4xl font-extrabold" style={{ color: '#004445' }}>{plan.rate}%</span>
                   <span className="text-sm" style={{ color: '#4A6B67' }}>прогн. прибыль</span>
                 </div>
                 <p className="text-xs mb-5" style={{ color: '#4A6B67' }}>
@@ -165,8 +165,8 @@ export default function InvestmentsPage() {
                   {plan.features.map(f => (
                     <li key={f} className="flex items-start gap-2 text-xs" style={{ color: '#4A6B67' }}>
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 mt-0.5">
-                        <circle cx="7" cy="7" r="7" fill={plan.recommended ? '#C9A84C' : '#0D5C54'} opacity="0.12"/>
-                        <path d="M4 7l2 2 4-4" stroke={plan.recommended ? '#C9A84C' : '#0D5C54'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        <circle cx="7" cy="7" r="7" fill={plan.recommended ? '#C9A84C' : '#004445'} opacity="0.12"/>
+                        <path d="M4 7l2 2 4-4" stroke={plan.recommended ? '#C9A84C' : '#004445'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                       {f}
                     </li>
@@ -176,7 +176,7 @@ export default function InvestmentsPage() {
                   className="block text-center py-2.5 rounded-xl text-sm font-bold"
                   style={plan.recommended
                     ? { backgroundColor: '#C9A84C', color: '#0D1F1D' }
-                    : { border: '1.5px solid #0D5C54', color: '#0D5C54', backgroundColor: 'transparent' }
+                    : { border: '1.5px solid #004445', color: '#004445', backgroundColor: 'transparent' }
                   }>
                   Подробнее
                 </Link>
@@ -196,22 +196,22 @@ export default function InvestmentsPage() {
           <div className="flex flex-col gap-3">
             {FAQS.map((faq, i) => (
               <div key={i} className="rounded-xl overflow-hidden"
-                style={{ border: '1px solid #D4C9B0' }}>
+                style={{ border: '1px solid #16685B' }}>
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full flex items-center justify-between px-5 py-4 text-left"
-                  style={{ backgroundColor: openFaq === i ? '#F4EFE4' : '#fff' }}>
+                  style={{ backgroundColor: openFaq === i ? '#FFFFFF' : '#fff' }}>
                   <span className="text-sm font-semibold pr-4" style={{ color: '#0D1F1D' }}>{faq.q}</span>
                   <svg
                     width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="#0D5C54" strokeWidth="2" strokeLinecap="round"
+                    stroke="#004445" strokeWidth="2" strokeLinecap="round"
                     style={{ transform: openFaq === i ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s', flexShrink: 0 }}>
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </button>
                 {openFaq === i && (
                   <div className="px-5 py-4 text-sm leading-relaxed"
-                    style={{ color: '#4A6B67', backgroundColor: '#F4EFE4', borderTop: '1px solid #D4C9B0' }}>
+                    style={{ color: '#4A6B67', backgroundColor: '#FFFFFF', borderTop: '1px solid #16685B' }}>
                     {faq.a}
                   </div>
                 )}
@@ -222,12 +222,12 @@ export default function InvestmentsPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ backgroundColor: '#094840' }} className="py-20 px-4 text-center">
+      <section style={{ backgroundColor: '#003332' }} className="py-20 px-4 text-center">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-extrabold mb-4" style={{ color: '#E8DFC8' }}>
+          <h2 className="text-3xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
             Готовы начать инвестировать?
           </h2>
-          <p className="text-base mb-8" style={{ color: 'rgba(232,223,200,0.70)' }}>
+          <p className="text-base mb-8" style={{ color: 'rgba(255,240,204,0.70)' }}>
             Оставьте заявку — наш менеджер расскажет о деталях и поможет выбрать оптимальный план
           </p>
           <Link href="/apply?service=investment"

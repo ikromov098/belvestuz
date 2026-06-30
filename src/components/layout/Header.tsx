@@ -16,34 +16,23 @@ function BelvестLogo() {
           fontWeight: 800,
           letterSpacing: '0.15em',
           fontSize: '24px',
-          color: '#E8DFC8',
+          color: '#FFF0CC',
           lineHeight: 1,
         }}
       >
         BELVEST
       </span>
       <svg
-        width="24"
-        height="28"
-        viewBox="0 0 28 32"
+        width="22"
+        height="27"
+        viewBox="0 0 26 32"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
+        style={{ color: '#FFF0CC' }}
       >
-        {/* 8-petal rosette crown — petals at radius 5 from center (14,9) */}
-        <circle cx="14"   cy="4"    r="3.5" fill="#E8DFC8" />
-        <circle cx="17.5" cy="5.5"  r="3.5" fill="#E8DFC8" />
-        <circle cx="19"   cy="9"    r="3.5" fill="#E8DFC8" />
-        <circle cx="17.5" cy="12.5" r="3.5" fill="#E8DFC8" />
-        <circle cx="14"   cy="14"   r="3.5" fill="#E8DFC8" />
-        <circle cx="10.5" cy="12.5" r="3.5" fill="#E8DFC8" />
-        <circle cx="9"    cy="9"    r="3.5" fill="#E8DFC8" />
-        <circle cx="10.5" cy="5.5"  r="3.5" fill="#E8DFC8" />
-        <circle cx="14"   cy="9"    r="5"   fill="#E8DFC8" />
-        {/* Trunk */}
-        <rect x="12" y="17" width="4" height="5" fill="#E8DFC8" />
-        {/* Upward-pointing base — tip at top, wide at bottom */}
-        <polygon points="14,22 6,32 22,32" fill="#E8DFC8" />
+        <path d="M13 0L15.5 5L20 2.5L18.5 7.5L24 8L19.5 11L23 15L18 14.5L18.5 19.5L14.5 16.5L13 21L11.5 16.5L7.5 19.5L8 14.5L3 15L6.5 11L2 8L7.5 7.5L6 2.5L10.5 5L13 0Z" fill="currentColor"/>
+        <rect x="11" y="20" width="4" height="8" fill="currentColor"/>
       </svg>
     </Link>
   );
@@ -82,7 +71,7 @@ export default function Header() {
   return (
     <>
       <header
-        style={{ backgroundColor: '#0D5C54' }}
+        style={{ backgroundColor: '#004445' }}
         className={`sticky top-0 z-50 transition-shadow duration-200 ${
           scrolled ? 'shadow-[0_2px_16px_rgba(0,0,0,0.25)]' : 'shadow-none'
         }`}
@@ -90,11 +79,11 @@ export default function Header() {
         {/* Sharia compliance bar */}
         <div
           className="w-full text-center py-1.5 px-4"
-          style={{ backgroundColor: '#1a6b5a' }}
+          style={{ backgroundColor: '#16685B' }}
         >
           <p
             className="text-xs tracking-widest"
-            style={{ color: 'rgba(232,223,200,0.85)', letterSpacing: '0.08em' }}
+            style={{ color: 'rgba(255,240,204,0.85)', letterSpacing: '0.08em' }}
           >
             ✓ Соответствует нормам Шариата &nbsp;•&nbsp; Без Риба &nbsp;•&nbsp; Халяль финансирование
           </p>
@@ -111,9 +100,9 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 className="px-3 py-1.5 text-sm font-medium rounded transition-colors duration-150"
-                style={{ color: 'rgba(232,223,200,0.70)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#E8DFC8')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(232,223,200,0.70)')}
+                style={{ color: 'rgba(255,240,204,0.70)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#FFF0CC')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,240,204,0.70)')}
               >
                 {link.label}
               </Link>
@@ -133,9 +122,9 @@ export default function Header() {
                     onClick={() => setLang(value)}
                     className="px-2.5 py-1 text-xs font-semibold rounded-full border transition-all duration-150 cursor-pointer"
                     style={{
-                      borderColor: 'rgba(232,223,200,0.45)',
-                      color: isActive ? '#0D5C54' : 'rgba(232,223,200,0.80)',
-                      backgroundColor: isActive ? '#E8DFC8' : 'transparent',
+                      borderColor: 'rgba(255,240,204,0.45)',
+                      color: isActive ? '#004445' : 'rgba(255,240,204,0.80)',
+                      backgroundColor: isActive ? '#FFF0CC' : 'transparent',
                       letterSpacing: '0.05em',
                     }}
                   >
@@ -149,13 +138,13 @@ export default function Header() {
             <Link
               href="/portal"
               className="px-4 py-1.5 text-sm font-medium rounded-full border transition-all duration-150"
-              style={{ borderColor: 'rgba(232,223,200,0.50)', color: '#E8DFC8' }}
+              style={{ borderColor: 'rgba(255,240,204,0.50)', color: '#FFF0CC' }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#E8DFC8';
-                e.currentTarget.style.backgroundColor = 'rgba(232,223,200,0.08)';
+                e.currentTarget.style.borderColor = '#FFF0CC';
+                e.currentTarget.style.backgroundColor = 'rgba(255,240,204,0.08)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(232,223,200,0.50)';
+                e.currentTarget.style.borderColor = 'rgba(255,240,204,0.50)';
                 e.currentTarget.style.backgroundColor = 'transparent';
               }}
             >
@@ -183,18 +172,18 @@ export default function Header() {
             <span
               className="block w-6 h-0.5 transition-all duration-200 origin-center"
               style={{
-                backgroundColor: '#E8DFC8',
+                backgroundColor: '#FFF0CC',
                 transform: mobileOpen ? 'rotate(45deg) translateY(7px)' : 'none',
               }}
             />
             <span
               className="block w-6 h-0.5 transition-all duration-200"
-              style={{ backgroundColor: '#E8DFC8', opacity: mobileOpen ? 0 : 1 }}
+              style={{ backgroundColor: '#FFF0CC', opacity: mobileOpen ? 0 : 1 }}
             />
             <span
               className="block w-6 h-0.5 transition-all duration-200 origin-center"
               style={{
-                backgroundColor: '#E8DFC8',
+                backgroundColor: '#FFF0CC',
                 transform: mobileOpen ? 'rotate(-45deg) translateY(-7px)' : 'none',
               }}
             />
@@ -204,22 +193,22 @@ export default function Header() {
         {/* Mobile dropdown */}
         <div
           className="lg:hidden overflow-hidden transition-all duration-300 ease-in-out"
-          style={{ maxHeight: mobileOpen ? '480px' : '0px', backgroundColor: '#0D5C54' }}
+          style={{ maxHeight: mobileOpen ? '480px' : '0px', backgroundColor: '#004445' }}
         >
-          <div className="px-4 pb-5 pt-2 flex flex-col gap-1 border-t border-[rgba(232,223,200,0.15)]">
+          <div className="px-4 pb-5 pt-2 flex flex-col gap-1 border-t border-[rgba(255,240,204,0.15)]">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
                 className="py-2.5 px-3 text-sm font-medium rounded transition-colors duration-150"
-                style={{ color: 'rgba(232,223,200,0.80)' }}
+                style={{ color: 'rgba(255,240,204,0.80)' }}
               >
                 {link.label}
               </Link>
             ))}
 
-            <div className="mt-3 pt-3 border-t border-[rgba(232,223,200,0.15)] flex items-center gap-2">
+            <div className="mt-3 pt-3 border-t border-[rgba(255,240,204,0.15)] flex items-center gap-2">
               {LANG_VALUES.map((value, i) => {
                 const label = LANGUAGES[i];
                 const isActive = lang === value;
@@ -229,9 +218,9 @@ export default function Header() {
                     onClick={() => setLang(value)}
                     className="px-3 py-1 text-xs font-semibold rounded-full border cursor-pointer"
                     style={{
-                      borderColor: 'rgba(232,223,200,0.45)',
-                      color: isActive ? '#0D5C54' : 'rgba(232,223,200,0.80)',
-                      backgroundColor: isActive ? '#E8DFC8' : 'transparent',
+                      borderColor: 'rgba(255,240,204,0.45)',
+                      color: isActive ? '#004445' : 'rgba(255,240,204,0.80)',
+                      backgroundColor: isActive ? '#FFF0CC' : 'transparent',
                     }}
                   >
                     {label}
@@ -245,7 +234,7 @@ export default function Header() {
                 href="/portal"
                 onClick={() => setMobileOpen(false)}
                 className="w-full text-center py-2.5 text-sm font-medium rounded-full border"
-                style={{ borderColor: 'rgba(232,223,200,0.50)', color: '#E8DFC8' }}
+                style={{ borderColor: 'rgba(255,240,204,0.50)', color: '#FFF0CC' }}
               >
                 {t.header.cabinet}
               </Link>
