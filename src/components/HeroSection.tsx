@@ -3,88 +3,33 @@
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 
-const STAR_PATH =
-  'M13 0L15.5 5L20 2.5L18.5 7.5L24 8L19.5 11L23 15L18 14.5L18.5 19.5L14.5 16.5L13 21L11.5 16.5L7.5 19.5L8 14.5L3 15L6.5 11L2 8L7.5 7.5L6 2.5L10.5 5L13 0Z';
-
-function HeroMark() {
-  return (
-    <svg
-      viewBox="0 0 26 21"
-      aria-hidden="true"
-      className="absolute pointer-events-none select-none"
-      style={{
-        right: '-60px',
-        bottom: '-80px',
-        width: 420,
-        height: 340,
-        opacity: 0.9,
-      }}
-    >
-      <g transform="translate(13 10.5) rotate(15) translate(-13 -10.5)" opacity="0.10">
-        <path d={STAR_PATH} fill="#16685B" transform="translate(13 10.5) scale(1.9) translate(-13 -10.5)" />
-      </g>
-      <g transform="translate(13 10.5) rotate(-12) translate(-13 -10.5)" opacity="0.16">
-        <path d={STAR_PATH} fill="#548870" transform="translate(13 10.5) scale(1.35) translate(-13 -10.5)" />
-      </g>
-      <path d={STAR_PATH} fill="#FFF0CC" opacity="0.14" />
-    </svg>
-  );
-}
-
-function CornerChevrons() {
-  return (
-    <svg
-      viewBox="0 0 300 300"
-      aria-hidden="true"
-      className="absolute pointer-events-none select-none"
-      style={{
-        left: '-90px',
-        bottom: '-90px',
-        width: 320,
-        height: 320,
-        opacity: 0.95,
-      }}
-    >
-      <polyline points="270,30 50,165 270,300" fill="none" stroke="#FFF0CC" strokeWidth="22" strokeOpacity="0.08" strokeLinejoin="miter" strokeLinecap="square" />
-      <polyline points="240,48 78,165 240,282" fill="none" stroke="#16685B" strokeWidth="20" strokeOpacity="0.14" strokeLinejoin="miter" strokeLinecap="square" />
-      <polyline points="210,66 106,165 210,264" fill="none" stroke="#548870" strokeWidth="18" strokeOpacity="0.18" strokeLinejoin="miter" strokeLinecap="square" />
-      <polyline points="180,84 134,165 180,246" fill="none" stroke="#16685B" strokeWidth="16" strokeOpacity="0.22" strokeLinejoin="miter" strokeLinecap="square" />
-      <g transform="translate(120 165) rotate(-10) scale(0.9) translate(-13 -10.5)">
-        <path d={STAR_PATH} fill="#FFF0CC" opacity="0.18" />
-      </g>
-    </svg>
-  );
-}
-
 export default function HeroSection() {
   const { t } = useLanguage();
 
   return (
     <div
-      className="relative flex flex-col items-center justify-center py-20 sm:py-28 text-center px-4 overflow-hidden"
+      className="flex flex-col items-center justify-center py-20 sm:py-28 text-center px-4"
       style={{ backgroundColor: '#004445' }}
     >
-      <HeroMark />
-      <CornerChevrons />
       <p
-        className="relative z-10 text-xs font-semibold uppercase tracking-widest mb-3"
+        className="text-xs font-semibold uppercase tracking-widest mb-3"
         style={{ color: 'rgba(255,240,204,0.65)' }}
       >
         Узбекистан · Belvest
       </p>
       <h1
-        className="relative z-10 text-3xl sm:text-5xl font-extrabold mb-4"
+        className="text-3xl sm:text-5xl font-extrabold mb-4"
         style={{ color: '#FFF0CC', letterSpacing: '0.02em', maxWidth: 620 }}
       >
         {t.hero.title}
       </h1>
       <p
         style={{ color: 'rgba(255,240,204,0.75)', maxWidth: 420, fontSize: 17 }}
-        className="relative z-10 mb-8"
+        className="mb-8"
       >
         {t.hero.subtitle}
       </p>
-      <div className="relative z-10 flex flex-col sm:flex-row gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         <Link
           href="/apply"
           className="px-7 py-3 rounded-xl text-sm font-bold"
