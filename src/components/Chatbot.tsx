@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import BelvestIcon from '@/components/BelvestIcon';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -162,10 +163,7 @@ export default function Chatbot() {
           <div className="flex items-center gap-3 px-4 py-3 shrink-0" style={{ backgroundColor: '#004445' }}>
             <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
               style={{ backgroundColor: 'rgba(255,240,204,0.15)' }}>
-              <svg width="14" height="17" viewBox="0 0 26 32" fill="none" style={{ color: '#FFF0CC' }}>
-                <path d="M13 0L15.5 5L20 2.5L18.5 7.5L24 8L19.5 11L23 15L18 14.5L18.5 19.5L14.5 16.5L13 21L11.5 16.5L7.5 19.5L8 14.5L3 15L6.5 11L2 8L7.5 7.5L6 2.5L10.5 5L13 0Z" fill="currentColor"/>
-                <rect x="11" y="20" width="4" height="8" fill="currentColor"/>
-              </svg>
+              <BelvestIcon className="w-[14px] h-[17px] text-belvest-cream" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-bold truncate" style={{ color: '#FFF0CC' }}>Belvest Ассистент</p>

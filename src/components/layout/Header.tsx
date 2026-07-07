@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import type { Lang } from '@/data/translations';
+import BelvestIcon from '@/components/BelvestIcon';
 
 const LANGUAGES: Lang[] = ['UZ' as Lang, 'RU' as Lang, 'EN' as Lang];
 const LANG_VALUES: Lang[] = ['uz', 'ru', 'en'];
@@ -22,18 +23,7 @@ function BelvестLogo() {
       >
         BELVEST
       </span>
-      <svg
-        width="22"
-        height="27"
-        viewBox="0 0 26 32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-        style={{ color: '#FFF0CC' }}
-      >
-        <path d="M13 0L15.5 5L20 2.5L18.5 7.5L24 8L19.5 11L23 15L18 14.5L18.5 19.5L14.5 16.5L13 21L11.5 16.5L7.5 19.5L8 14.5L3 15L6.5 11L2 8L7.5 7.5L6 2.5L10.5 5L13 0Z" fill="currentColor"/>
-        <rect x="11" y="20" width="4" height="8" fill="currentColor"/>
-      </svg>
+      <BelvestIcon className="w-6 h-7 text-belvest-cream" />
     </Link>
   );
 }

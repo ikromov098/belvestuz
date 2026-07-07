@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import BelvestIcon from '@/components/BelvestIcon';
 
 function BelvестLogo() {
   return (
@@ -6,10 +7,7 @@ function BelvестLogo() {
       <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: '22px', color: '#FFF0CC', lineHeight: 1 }}>
         BELVEST
       </span>
-      <svg width="17" height="21" viewBox="0 0 26 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ color: '#FFF0CC' }}>
-        <path d="M13 0L15.5 5L20 2.5L18.5 7.5L24 8L19.5 11L23 15L18 14.5L18.5 19.5L14.5 16.5L13 21L11.5 16.5L7.5 19.5L8 14.5L3 15L6.5 11L2 8L7.5 7.5L6 2.5L10.5 5L13 0Z" fill="currentColor"/>
-        <rect x="11" y="20" width="4" height="8" fill="currentColor"/>
-      </svg>
+      <BelvestIcon className="w-[17px] h-[21px] text-belvest-cream" />
     </div>
   );
 }

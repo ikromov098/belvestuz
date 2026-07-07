@@ -6,6 +6,7 @@ import {
   MessageCircle, Settings, Bell, TrendingUp, Calendar,
   ChevronRight, Smartphone, ArrowRight, ArrowLeft, LogOut,
 } from 'lucide-react';
+import BelvestIcon from '@/components/BelvestIcon';
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
 
@@ -83,10 +84,9 @@ const SECTION_TITLES: Record<NavKey, string> = {
 
 function LogoMark({ color }: { color: string }) {
   return (
-    <svg width="13" height="16" viewBox="0 0 26 32" fill="none" aria-hidden style={{ color }}>
-      <path d="M13 0L15.5 5L20 2.5L18.5 7.5L24 8L19.5 11L23 15L18 14.5L18.5 19.5L14.5 16.5L13 21L11.5 16.5L7.5 19.5L8 14.5L3 15L6.5 11L2 8L7.5 7.5L6 2.5L10.5 5L13 0Z" fill="currentColor"/>
-      <rect x="11" y="20" width="4" height="8" fill="currentColor"/>
-    </svg>
+    <span style={{ color, display: 'inline-flex' }}>
+      <BelvestIcon className="w-[13px] h-4" />
+    </span>
   );
 }
 
