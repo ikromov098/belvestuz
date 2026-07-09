@@ -13,14 +13,10 @@ type Tab = 'installment' | 'leasing';
 
 const TERMS = [3, 6, 12, 18, 24, 36];
 
-const TRADE_IN_CATEGORIES = [
-  'Смартфон',
-  'Ноутбук / ПК',
-  'Телевизор',
-  'Холодильник / стиральная машина',
-  'Кондиционер',
-  'Другая техника',
-];
+const TRADE_IN_CATEGORIES: Record<'uz' | 'ru', string[]> = {
+  ru: ['Смартфон', 'Автомобиль', 'Другая техника'],
+  uz: ['Smartfon', 'Avtomobil', 'Boshqa texnika'],
+};
 
 const TRUST_BADGES = [
   'Без скрытых комиссий',
@@ -155,8 +151,8 @@ function InstallmentCalculator() {
           label={isLeasing ? t.services.leasing : t.calculator.propertyValue}
           value={price}
           min={500_000}
-          max={50_000_000}
-          step={500_000}
+          max={5_000_000_000}
+          step={5_000_000}
           display={`${fmt(price)} сум`}
           onChange={handlePriceChange}
         />
@@ -247,8 +243,10 @@ function TradeInEstimator() {
   const [category, setCategory] = useState('');
   const [estimate, setEstimate] = useState(1_200_000);
   const [newPrice, setNewPrice] = useState(4_200_000);
+  const { lang } = useLanguage();
 
   const topay = Math.max(0, newPrice - estimate);
+  const categories = TRADE_IN_CATEGORIES[lang];
 
   return (
     <div
@@ -282,7 +280,7 @@ function TradeInEstimator() {
             }}
           >
             <option value="" disabled>Выберите категорию...</option>
-            {TRADE_IN_CATEGORIES.map((c) => (
+            {categories.map((c) => (
               <option key={c} value={c}>{c}</option>
             ))}
           </select>

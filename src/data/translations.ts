@@ -31,7 +31,7 @@ export const translations = {
     },
     calculator: {
       title:          'Калькулятор рассрочки',
-      propertyValue:  'Стоимость товара',
+      propertyValue:  'Стоимость товара + наценка Belvest',
       term:           'Срок (месяцев)',
       monthlyPayment: 'Ежемесячный платёж',
       applyButton:    'Оформить рассрочку',
@@ -155,7 +155,7 @@ export const translations = {
     },
     calculator: {
       title:          'Nasiya savdo kalkulyatori',
-      propertyValue:  'Tovar narxi',
+      propertyValue:  'Tovar narxi + Belvest ustamasi',
       term:           "Muddat (oy)",
       monthlyPayment: "Oylik to'lov",
       applyButton:    'Nasiya savdo rasmiylashtirish',
