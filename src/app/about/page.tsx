@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 
 const STATS = [
-  { value: '15 000+', label: 'клиентов' },
-  { value: '4',       label: 'услуги' },
-  { value: '1 день',  label: 'среднее одобрение' },
-  { value: 'с 2020',  label: 'на рынке' },
+  { value: '1 000+', label: 'клиентов' },
+  { value: '4',      label: 'услуги' },
+  { value: '2 часа', label: 'среднее одобрение' },
+  { value: 'с 2025', label: 'на рынке' },
 ];
 
 const TEAM = [

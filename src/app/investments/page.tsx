@@ -80,7 +80,7 @@ const FAQS = [
 const STATS = [
   { value: 'до 18%', label: 'Прогн. прибыль (Мудараба)' },
   { value: '3+ лет', label: 'На рынке Узбекистана' },
-  { value: '1 день', label: 'Срок оформления' },
+  { value: '2 часа', label: 'Срок оформления' },
 ];
 
 export default function InvestmentsPage() {

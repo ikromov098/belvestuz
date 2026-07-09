@@ -43,7 +43,7 @@ export const translations = {
       step3: 'Получите одобрение',
     },
     trust: {
-      badge1: '✓ Одобрение за 1 день',
+      badge1: '✓ Одобрение за 2 часа',
       badge2: '✓ Менеджер свяжется с вами',
       badge3: '✓ Бесплатная консультация',
     },
@@ -167,7 +167,7 @@ export const translations = {
       step3: 'Tasdiqlash oling',
     },
     trust: {
-      badge1: "✓ 1 kunda tasdiqlash",
+      badge1: "✓ 2 soatda tasdiqlash",
       badge2: "✓ Menejer siz bilan bog'lanadi",
       badge3: "✓ Bepul maslahat",
     },
