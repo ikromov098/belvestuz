@@ -6,8 +6,8 @@ import { useLanguage } from '@/context/LanguageContext';
 import type { Lang } from '@/data/translations';
 import BelvestIcon from '@/components/BelvestIcon';
 
-const LANGUAGES: Lang[] = ['UZ' as Lang, 'RU' as Lang, 'EN' as Lang];
-const LANG_VALUES: Lang[] = ['uz', 'ru', 'en'];
+const LANGUAGES = ['UZ', 'RU'] as const;
+const LANG_VALUES: Lang[] = ['uz', 'ru'];
 
 function BelvестLogo() {
   return (
@@ -56,8 +56,6 @@ export default function Header() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  const activeLangLabel = lang.toUpperCase() as typeof LANGUAGES[number];
-
   return (
     <>
       <header
@@ -75,7 +73,7 @@ export default function Header() {
             className="text-xs tracking-widest"
             style={{ color: 'rgba(255,240,204,0.85)', letterSpacing: '0.08em' }}
           >
-            ✓ Соответствует нормам Шариата &nbsp;•&nbsp; Без Риба &nbsp;•&nbsp; Халяль финансирование
+            {t.header.announcement}
           </p>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-[70px] max-[768px]:h-[60px]">
