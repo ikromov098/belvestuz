@@ -15,8 +15,21 @@ export default function CallbackWidget() {
 
   const canSubmit = name.trim().length > 1 && phone.replace(/\D/g, '').length >= 9;
 
-  function handleSubmit() {
+  // Submissions go to Formspree (email inbox delivery).
+  // Direct Telegram delivery requires a backend Telegram Bot API integration
+  // (bot token + chat ID) — to be added later.
+  async function handleSubmit() {
     if (!canSubmit) return;
+    fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      method: 'POST',
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        phone: `+998 ${phone}`,
+        service: service || 'не указана',
+        _subject: `Заказ звонка: ${name} - +998 ${phone} - ${service || 'не указана'}`,
+      }),
+    }).catch(console.error);
     setStage('success');
   }
 
