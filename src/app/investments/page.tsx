@@ -80,7 +80,6 @@ const FAQS = [
 const STATS = [
   { value: 'до 18%', label: 'Прогн. прибыль (Мудараба)' },
   { value: '3+ лет', label: 'На рынке Узбекистана' },
-  { value: '500+', label: 'Активных инвесторов' },
   { value: '1 день', label: 'Срок оформления' },
 ];
 
@@ -116,7 +115,7 @@ export default function InvestmentsPage() {
 
       {/* Stats bar */}
       <div style={{ backgroundColor: '#003332' }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
           {STATS.map(s => (
             <div key={s.label} className="text-center">
               <p className="text-xl font-extrabold" style={{ color: '#C9A84C' }}>{s.value}</p>

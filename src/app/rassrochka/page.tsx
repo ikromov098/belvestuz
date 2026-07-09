@@ -17,7 +17,6 @@ const CATEGORIES = [
 const DOCS = [
   { icon: '🪪', label: 'Паспорт гражданина Узбекистана', req: true },
   { icon: '🔢', label: 'ПИНФЛ (14 цифр)', req: true },
-  { icon: '📄', label: 'Справка о доходах (последние 3 месяца)', req: false },
   { icon: '🚘', label: 'Водительское удостоверение (для авто)', req: false },
 ];
 

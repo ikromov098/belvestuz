@@ -8,11 +8,9 @@ function fmt(n: number) {
 }
 
 const CATEGORIES = [
-  { id: 'phone',     emoji: '📱', name: 'Смартфон',        basePrice: 3_000_000 },
-  { id: 'laptop',    emoji: '💻', name: 'Ноутбук / ПК',   basePrice: 5_000_000 },
-  { id: 'tablet',    emoji: '📟', name: 'Планшет',         basePrice: 2_000_000 },
-  { id: 'tv',        emoji: '📺', name: 'Телевизор',       basePrice: 4_000_000 },
-  { id: 'appliance', emoji: '🫧', name: 'Бытовая техника', basePrice: 3_500_000 },
+  { id: 'phone', emoji: '📱', name: 'Смартфон',      basePrice: 3_000_000 },
+  { id: 'car',   emoji: '🚗', name: 'Автомобиль',    basePrice: 15_000_000 },
+  { id: 'other', emoji: '📦', name: 'Другие товары', basePrice: 3_500_000 },
 ];
 
 const CONDITIONS = [
@@ -78,7 +76,7 @@ export default function TradeInPage() {
             {/* Category selection */}
             <div className="mb-7">
               <p className="text-sm font-semibold mb-3" style={{ color: '#0D1F1D' }}>1. Выберите категорию товара</p>
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+              <div className="grid grid-cols-3 gap-3">
                 {CATEGORIES.map(cat => {
                   const active = selectedCategory === cat.id;
                   return (
