@@ -7,7 +7,7 @@ function BelvестLogo() {
       <span style={{ fontWeight: 800, letterSpacing: '0.15em', fontSize: '22px', color: '#FFF0CC', lineHeight: 1 }}>
         BELVEST
       </span>
-      <BelvestIcon className="w-[17px] h-[21px] text-belvest-cream" />
+      <BelvestIcon className="h-7 w-auto text-[#FFF0CC]" />
     </div>
   );
 }

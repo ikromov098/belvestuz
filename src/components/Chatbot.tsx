@@ -163,7 +163,7 @@ export default function Chatbot() {
           <div className="flex items-center gap-3 px-4 py-3 shrink-0" style={{ backgroundColor: '#004445' }}>
             <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
               style={{ backgroundColor: 'rgba(255,240,204,0.15)' }}>
-              <BelvestIcon className="w-[14px] h-[17px] text-belvest-cream" />
+              <BelvestIcon className="h-4 w-auto text-[#FFF0CC]" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-bold truncate" style={{ color: '#FFF0CC' }}>Belvest Ассистент</p>

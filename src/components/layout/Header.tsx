@@ -23,7 +23,7 @@ function BelvестLogo() {
       >
         BELVEST
       </span>
-      <BelvestIcon className="w-6 h-7 text-belvest-cream" />
+      <BelvestIcon className="h-8 w-auto text-[#FFF0CC]" />
     </Link>
   );
 }

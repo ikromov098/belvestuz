@@ -85,7 +85,7 @@ const SECTION_TITLES: Record<NavKey, string> = {
 function LogoMark({ color }: { color: string }) {
   return (
     <span style={{ color, display: 'inline-flex' }}>
-      <BelvestIcon className="w-[13px] h-4" />
+      <BelvestIcon className="h-4 w-auto" />
     </span>
   );
 }
