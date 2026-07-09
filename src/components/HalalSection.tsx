@@ -18,21 +18,9 @@ export default function HalalSection() {
     <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
-            {t.halal.sectionLabel}
-          </p>
           <h2 className="text-3xl font-extrabold mb-3" style={{ color: '#0D1F1D' }}>
             {t.halal.title}
           </h2>
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mt-2"
-            style={{ backgroundColor: '#004445', color: '#FFF0CC' }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"
-                fill="#C9A84C"/>
-            </svg>
-            <span className="text-xs font-semibold tracking-wide">{t.halal.badge}</span>
-          </div>
         </div>
 
         <div className="grid grid-cols-3 gap-4">
