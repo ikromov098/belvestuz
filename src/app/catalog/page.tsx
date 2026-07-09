@@ -8,6 +8,7 @@ import {
   ChevronRight, Search, X, SlidersHorizontal,
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import DevModal from '@/components/DevModal';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -86,7 +87,7 @@ function fmt(n: number) {
 
 // ─── ProductCard ──────────────────────────────────────────────────────────────
 
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({ product, onShowModal }: { product: Product; onShowModal: () => void }) {
   const { t } = useLanguage();
   const [hovered, setHovered] = useState(false);
   const [ctaHovered, setCtaHovered] = useState(false);
@@ -177,15 +178,15 @@ function ProductCard({ product }: { product: Product }) {
 
         {/* CTA */}
         <div className="mt-auto pt-1">
-          <Link
-            href={`/apply?product=${product.id}`}
-            className="block w-full text-center py-2.5 rounded-lg text-sm font-bold transition-colors duration-150"
+          <button
+            onClick={onShowModal}
+            className="block w-full text-center py-2.5 rounded-lg text-sm font-bold transition-colors duration-150 cursor-pointer"
             style={{ backgroundColor: ctaHovered ? ctaBgHov : ctaBg, color: ctaColor }}
             onMouseEnter={() => setCtaHovered(true)}
             onMouseLeave={() => setCtaHovered(false)}
           >
             {product.isB2B ? t.catalog.applyLeasing : t.catalog.applyInstallment}
-          </Link>
+          </button>
         </div>
       </div>
     </div>
@@ -348,6 +349,7 @@ function CatalogPageInner() {
   const searchParams = useSearchParams();
   const initService = searchParams.get('service') as Service | null;
 
+  const [showModal, setShowModal] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeServices, setActiveServices] = useState<Service[]>(() =>
     initService && ALL_SERVICES.includes(initService) ? [initService] : []
@@ -414,6 +416,7 @@ function CatalogPageInner() {
 
   return (
     <div>
+      {showModal && <DevModal onClose={() => setShowModal(false)} />}
       {/* ── Page header ── */}
       <div style={{ backgroundColor: '#004445' }} className="py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -445,7 +448,7 @@ function CatalogPageInner() {
               return (
                 <button
                   key={id}
-                  onClick={() => setActiveCategory(id)}
+                  onClick={() => setShowModal(true)}
                   className="flex flex-col items-center gap-1.5 px-5 py-3 rounded-xl flex-shrink-0 transition-all duration-150 cursor-pointer"
                   style={{
                     backgroundColor: active ? 'rgba(201,168,76,0.15)' : 'rgba(255,240,204,0.07)',
@@ -582,7 +585,7 @@ function CatalogPageInner() {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
-                {filtered.map((p) => <ProductCard key={p.id} product={p} />)}
+                {filtered.map((p) => <ProductCard key={p.id} product={p} onShowModal={() => setShowModal(true)} />)}
               </div>
             )}
           </div>
