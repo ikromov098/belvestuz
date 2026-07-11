@@ -102,7 +102,7 @@ export default function RassrochkaPage() {
       </section>
 
       {/* Calculator */}
-      <CalculatorSection />
+      <CalculatorSection defaultProduct="phone" />
 
       {/* Documents */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">

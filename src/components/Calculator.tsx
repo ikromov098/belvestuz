@@ -2,16 +2,46 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ShoppingCart, RefreshCw, CheckCircle, ArrowRight } from 'lucide-react';
+import { ShoppingCart, CheckCircle, ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-type Tab = 'installment' | 'leasing';
+type Product = 'carA' | 'carB' | 'phone';
+type Bracket = 'low' | 'high';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const TERMS = [3, 6, 12, 18, 24, 36];
+// Car, Option A (registered to buyer) — markup applied to remaining balance
+const CAR_A_TERMS = [6, 12, 24];
+const CAR_A_MARKUP: Record<number, number> = { 6: 0.13, 12: 0.25, 24: 0.50 };
+
+// Car, Option B (registered to Belvest until paid off)
+const CAR_B_TERMS = [13, 24];
+const CAR_B_MARKUP: Record<number, number> = { 13: 0.22, 24: 0.44 };
+
+// Phone — 54% annual markup, prorated by month: (0.54 / 12) * months
+const PHONE_TERMS = [6, 7, 8, 9, 10, 11, 12];
+const PHONE_ANNUAL_MARKUP = 0.54;
+
+// Price ranges (no live FX rate, so the $18,000 threshold is a manual toggle)
+const CAR_PRICE   = { min: 30_000_000, max: 5_000_000_000, step: 5_000_000 };
+const PHONE_PRICE = { min: 500_000,    max: 50_000_000,    step: 500_000  };
+
+function termsFor(p: Product) {
+  return p === 'phone' ? PHONE_TERMS : p === 'carB' ? CAR_B_TERMS : CAR_A_TERMS;
+}
+function priceRangeFor(p: Product) {
+  return p === 'phone' ? PHONE_PRICE : CAR_PRICE;
+}
+function minDownRateFor(p: Product, b: Bracket) {
+  return p === 'phone' ? 0.20 : b === 'high' ? 0.50 : 0.30;
+}
+function markupRateFor(p: Product, b: Bracket, term: number) {
+  if (p === 'phone') return (PHONE_ANNUAL_MARKUP / 12) * term;
+  if (p === 'carB')  return CAR_B_MARKUP[term] ?? 0;
+  return CAR_A_MARKUP[term] ?? 0;
+}
 
 const TRADE_IN_CATEGORIES: Record<'uz' | 'ru', string[]> = {
   ru: ['Смартфон', 'Автомобиль', 'Другая техника'],
@@ -31,13 +61,27 @@ function fmt(n: number) {
   return Math.round(n).toLocaleString('ru-RU');
 }
 
-/** Simple flat monthly payment (no interest for installment, ~18% annual for leasing) */
-function calcMonthly(price: number, down: number, months: number, isLeasing: boolean) {
-  const principal = price - down;
-  if (months === 0) return 0;
-  if (!isLeasing) return principal / months;
-  const r = 0.18 / 12;
-  return (principal * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
+/** Product-specific breakdown: down payment + term markup on the remaining balance. */
+function calcBreakdown(price: number, down: number, markupRate: number, term: number) {
+  const remaining = Math.max(0, price - down);
+  const totalMarkup = remaining * markupRate;
+  const totalToPay = remaining + totalMarkup;
+  const monthly = term > 0 ? totalToPay / term : 0;
+  return { remaining, totalMarkup, totalToPay, monthly };
+}
+
+function BreakdownLine({ label, value, strong }: { label: string; value: string; strong?: boolean }) {
+  return (
+    <div className="flex justify-between items-baseline gap-3">
+      <span className="text-sm" style={{ color: '#4A6B67' }}>{label}</span>
+      <span
+        className={strong ? 'text-base font-extrabold' : 'text-sm font-bold'}
+        style={{ color: strong ? '#004445' : '#0D1F1D' }}
+      >
+        {value}
+      </span>
+    </div>
+  );
 }
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
@@ -101,81 +145,206 @@ function SliderRow({ label, value, min, max, step, display, onChange }: SliderRo
 
 // ─── Main Calculator ──────────────────────────────────────────────────────────
 
-function InstallmentCalculator() {
-  const [tab, setTab] = useState<Tab>('installment');
-  const [price, setPrice] = useState(5_000_000);
-  const [down, setDown] = useState(1_000_000);
-  const [term, setTerm] = useState(12);
-  const { t } = useLanguage();
+function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: Product }) {
+  const { t, lang } = useLanguage();
 
-  const isLeasing = tab === 'leasing';
-  const monthly = calcMonthly(price, down, term, isLeasing);
-  const maxDown = Math.round(price * 0.7);
+  const initPrice = defaultProduct === 'phone' ? 4_500_000 : 200_000_000;
 
-  const handlePriceChange = (v: number) => {
-    setPrice(v);
-    if (down > Math.round(v * 0.7)) setDown(Math.round(v * 0.7));
+  const [product, setProduct] = useState<Product>(defaultProduct);
+  const [bracket, setBracket] = useState<Bracket>('low');
+  const [price, setPrice]     = useState(initPrice);
+  const [term, setTerm]       = useState(termsFor(defaultProduct)[0]);
+  const [down, setDown]       = useState(Math.round(initPrice * minDownRateFor(defaultProduct, 'low')));
+
+  // ── Derived values ──
+  const range     = priceRangeFor(product);
+  const minRate   = minDownRateFor(product, bracket);
+  const minDown   = Math.round(price * minRate);
+  const maxDown   = Math.round(price * 0.95);
+  const downStep  = product === 'phone' ? 100_000 : 1_000_000;
+  const clampedDown = Math.min(Math.max(down, minDown), maxDown);
+  const downRatePct = price > 0 ? clampedDown / price : 0;
+
+  const isCar        = product !== 'phone';
+  const markupRate   = markupRateFor(product, bracket, term);
+  const { remaining, totalMarkup, totalToPay, monthly } = calcBreakdown(price, clampedDown, markupRate, term);
+  const showInstantBadge = product === 'carA' && downRatePct >= 0.60;
+
+  // ── Handlers (re-clamp dependent state on change) ──
+  const changeProduct = (p: Product) => {
+    setProduct(p);
+    setTerm(termsFor(p)[0]);
+    const r = priceRangeFor(p);
+    const np = Math.min(Math.max(price, r.min), r.max);
+    setPrice(np);
+    setDown(Math.round(np * minDownRateFor(p, bracket)));
   };
+  const changeBracket = (b: Bracket) => {
+    setBracket(b);
+    setDown(Math.round(price * minDownRateFor(product, b)));
+  };
+  const changePrice = (v: number) => {
+    setPrice(v);
+    const nMin = Math.round(v * minRate);
+    const nMax = Math.round(v * 0.95);
+    setDown((d) => Math.min(Math.max(d, nMin), nMax));
+  };
+
+  // ── Localized labels ──
+  const L = {
+    ru: {
+      productLabel: 'Продукт',
+      products: {
+        carA: 'Автомобиль — на имя клиента',
+        carB: 'Автомобиль — на имя Belvest',
+        phone: 'Телефон',
+      } as Record<Product, string>,
+      bracketLabel: 'Стоимость автомобиля',
+      bracketLow: 'До 18 000 $',
+      bracketHigh: 'Свыше 18 000 $',
+      carBNote: 'Автомобиль регистрируется на имя Belvest до полной оплаты',
+      instantBadge: 'Автомобиль будет сразу зарегистрирован на ваше имя!',
+      price: 'Стоимость',
+      down: 'Первоначальный взнос',
+      term: 'Срок',
+      months: 'мес.',
+      brkRemaining: 'Остаток',
+      brkMarkup: 'Наценка',
+      brkTotal: 'Итого к оплате',
+      brkMonthly: 'Ежемесячный платёж',
+      cur: 'сум',
+    },
+    uz: {
+      productLabel: 'Mahsulot',
+      products: {
+        carA: 'Avtomobil — mijoz nomiga',
+        carB: 'Avtomobil — Belvest nomiga',
+        phone: 'Telefon',
+      } as Record<Product, string>,
+      bracketLabel: 'Avtomobil narxi',
+      bracketLow: '18 000 $ gacha',
+      bracketHigh: '18 000 $ dan yuqori',
+      carBNote: "Avtomobil to'liq to'lovgacha Belvest korxonasi nomida ro'yxatdan o'tkaziladi",
+      instantBadge: "Avtomobil darhol sizning nomingizga ro'yxatdan o'tkaziladi!",
+      price: 'Narxi',
+      down: "Boshlang'ich to'lov",
+      term: 'Muddat',
+      months: 'oy',
+      brkRemaining: 'Qolgan summa',
+      brkMarkup: 'Ustama',
+      brkTotal: "Jami to'lov",
+      brkMonthly: "Oylik to'lov",
+      cur: "so'm",
+    },
+  }[lang];
 
   return (
     <div
       className="rounded-2xl shadow-xl overflow-hidden"
       style={{ border: '1px solid #16685B', backgroundColor: '#ffffff' }}
     >
-      <CardHeader
-        icon={isLeasing ? <RefreshCw size={20} /> : <ShoppingCart size={20} />}
-        title={isLeasing ? t.services.leasing : t.calculator.title}
-      />
-
-      {/* Tabs */}
-      <div className="flex border-b" style={{ borderColor: '#16685B' }}>
-        {(['installment', 'leasing'] as Tab[]).map((tabVal) => (
-          <button
-            key={tabVal}
-            onClick={() => setTab(tabVal)}
-            className="flex-1 py-3 text-sm font-semibold transition-all duration-150 cursor-pointer"
-            style={{
-              color: tab === tabVal ? '#004445' : '#4A6B67',
-              borderBottom: tab === tabVal ? '2px solid #004445' : '2px solid transparent',
-              backgroundColor: tab === tabVal ? 'rgba(0,68,69,0.05)' : 'transparent',
-            }}
-          >
-            {tabVal === 'installment' ? t.services.installment : t.services.leasing}
-          </button>
-        ))}
-      </div>
+      <CardHeader icon={<ShoppingCart size={20} />} title={t.calculator.title} />
 
       <div className="p-6 flex flex-col gap-6">
-        {/* Sliders */}
+        {/* Product selector */}
+        <div className="flex flex-col gap-2">
+          <span className="text-sm font-semibold" style={{ color: '#4A6B67' }}>{L.productLabel}</span>
+          <div className="flex flex-col sm:flex-row gap-2">
+            {(['carA', 'carB', 'phone'] as Product[]).map((p) => {
+              const active = product === p;
+              return (
+                <button
+                  key={p}
+                  onClick={() => changeProduct(p)}
+                  className="flex-1 px-3 py-2 rounded-lg text-xs font-semibold border transition-all duration-150 cursor-pointer text-center"
+                  style={{
+                    backgroundColor: active ? '#004445' : '#FFFFFF',
+                    color: active ? '#FFF0CC' : '#004445',
+                    borderColor: '#004445',
+                  }}
+                >
+                  {L.products[p]}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Option B ownership note */}
+        {product === 'carB' && (
+          <p className="text-xs -mt-3 leading-relaxed" style={{ color: '#4A6B67' }}>
+            ℹ️ {L.carBNote}
+          </p>
+        )}
+
+        {/* Price bracket (cars only) */}
+        {isCar && (
+          <div className="flex flex-col gap-2">
+            <span className="text-sm font-semibold" style={{ color: '#4A6B67' }}>{L.bracketLabel}</span>
+            <div className="flex gap-2">
+              {(['low', 'high'] as Bracket[]).map((b) => {
+                const active = bracket === b;
+                return (
+                  <button
+                    key={b}
+                    onClick={() => changeBracket(b)}
+                    className="flex-1 px-3 py-1.5 rounded-full text-sm font-semibold border transition-all duration-150 cursor-pointer"
+                    style={{
+                      backgroundColor: active ? '#C9A84C' : '#FFFFFF',
+                      color: active ? '#0D1F1D' : '#004445',
+                      borderColor: active ? '#C9A84C' : '#004445',
+                    }}
+                  >
+                    {b === 'low' ? L.bracketLow : L.bracketHigh}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Price slider */}
         <SliderRow
-          label={isLeasing ? t.services.leasing : t.calculator.propertyValue}
+          label={L.price}
           value={price}
-          min={500_000}
-          max={5_000_000_000}
-          step={5_000_000}
-          display={`${fmt(price)} сум`}
-          onChange={handlePriceChange}
+          min={range.min}
+          max={range.max}
+          step={range.step}
+          display={`${fmt(price)} ${L.cur}`}
+          onChange={changePrice}
         />
+
+        {/* Down payment slider */}
         <SliderRow
-          label="Первоначальный взнос"
-          value={down}
-          min={0}
+          label={`${L.down} (${Math.round(downRatePct * 100)}%)`}
+          value={clampedDown}
+          min={minDown}
           max={maxDown}
-          step={100_000}
-          display={`${fmt(down)} сум`}
+          step={downStep}
+          display={`${fmt(clampedDown)} ${L.cur}`}
           onChange={setDown}
         />
 
+        {/* Instant-registration badge (Option A, ≥ 60%) */}
+        {showInstantBadge && (
+          <div
+            className="rounded-lg px-4 py-3 text-sm font-semibold text-center"
+            style={{ backgroundColor: 'rgba(201,168,76,0.15)', color: '#A8892E', border: '1px solid #C9A84C' }}
+          >
+            ✓ {L.instantBadge}
+          </div>
+        )}
+
         {/* Term pills */}
         <div className="flex flex-col gap-2">
-          <span className="text-sm font-semibold" style={{ color: '#4A6B67' }}>{t.calculator.term}</span>
+          <span className="text-sm font-semibold" style={{ color: '#4A6B67' }}>{L.term}</span>
           <div className="flex flex-wrap gap-2">
-            {TERMS.map((t) => {
-              const active = term === t;
+            {termsFor(product).map((m) => {
+              const active = term === m;
               return (
                 <button
-                  key={t}
-                  onClick={() => setTerm(t)}
+                  key={m}
+                  onClick={() => setTerm(m)}
                   className="px-4 py-1.5 rounded-full text-sm font-semibold border transition-all duration-150 cursor-pointer"
                   style={{
                     backgroundColor: active ? '#C9A84C' : '#FFFFFF',
@@ -183,28 +352,37 @@ function InstallmentCalculator() {
                     borderColor: active ? '#C9A84C' : '#004445',
                   }}
                 >
-                  {t}
+                  {m} {L.months}
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Result */}
+        {/* Breakdown result */}
         <div
-          className="rounded-xl p-5 text-center"
+          className="rounded-xl p-5 flex flex-col gap-2.5"
           style={{ backgroundColor: 'rgba(0,68,69,0.06)', border: '1px solid rgba(0,68,69,0.12)' }}
         >
-          <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: '#4A6B67' }}>
-            {t.calculator.monthlyPayment}
-          </p>
-          <p className="text-4xl font-extrabold leading-none" style={{ color: '#004445' }}>
-            {fmt(monthly)}{' '}
-            <span className="text-2xl font-bold" style={{ color: '#C9A84C' }}>сум</span>
-          </p>
-          <p className="text-xs mt-2" style={{ color: '#4A6B67' }}>
-            Итого: {fmt(monthly * term)} сум · Срок: {term} мес.
-          </p>
+          <BreakdownLine label={L.down} value={`${fmt(clampedDown)} ${L.cur}`} />
+          <BreakdownLine label={L.brkRemaining} value={`${fmt(remaining)} ${L.cur}`} />
+          <BreakdownLine
+            label={`${L.brkMarkup} (${Math.round(markupRate * 100)}%)`}
+            value={`${fmt(totalMarkup)} ${L.cur}`}
+          />
+          <div className="pt-2" style={{ borderTop: '1px solid rgba(0,68,69,0.15)' }}>
+            <BreakdownLine label={L.brkTotal} value={`${fmt(totalToPay)} ${L.cur}`} strong />
+          </div>
+
+          <div className="text-center mt-3">
+            <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: '#4A6B67' }}>
+              {L.brkMonthly}
+            </p>
+            <p className="text-4xl font-extrabold leading-none" style={{ color: '#004445' }}>
+              {fmt(monthly)}{' '}
+              <span className="text-2xl font-bold" style={{ color: '#C9A84C' }}>{L.cur}</span>
+            </p>
+          </div>
         </div>
 
         {/* CTA */}
@@ -352,7 +530,7 @@ function TradeInEstimator() {
 
 // ─── Exported Section ─────────────────────────────────────────────────────────
 
-export default function CalculatorSection() {
+export default function CalculatorSection({ defaultProduct = 'carA' }: { defaultProduct?: Product }) {
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="max-w-6xl mx-auto">
@@ -374,7 +552,7 @@ export default function CalculatorSection() {
 
         {/* Two-column grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          <InstallmentCalculator />
+          <InstallmentCalculator defaultProduct={defaultProduct} />
           <TradeInEstimator />
         </div>
       </div>
