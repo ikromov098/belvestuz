@@ -8,7 +8,7 @@ export default function NotFound() {
     >
       <p
         className="text-xs font-semibold uppercase tracking-widest mb-4"
-        style={{ color: '#C9A84C' }}
+        style={{ color: '#FFF0CC' }}
       >
         Ошибка 404
       </p>
@@ -33,7 +33,7 @@ export default function NotFound() {
       <Link
         href="/"
         className="px-8 py-3 rounded-full text-sm font-semibold"
-        style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
+        style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
       >
         Вернуться на главную
       </Link>

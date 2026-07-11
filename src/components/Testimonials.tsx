@@ -37,7 +37,7 @@ export default function Testimonials() {
     <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>
             Отзывы клиентов
           </p>
           <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>
@@ -64,7 +64,7 @@ export default function Testimonials() {
             >
               <div className="flex gap-0.5 mb-4">
                 {Array.from({ length: t.rating }).map((_, i) => (
-                  <span key={i} style={{ color: '#C9A84C', fontSize: 18, lineHeight: 1 }}>★</span>
+                  <span key={i} style={{ color: '#548870', fontSize: 18, lineHeight: 1 }}>★</span>
                 ))}
               </div>
               <p className="text-sm leading-relaxed flex-1 mb-5" style={{ color: '#4A6B67' }}>

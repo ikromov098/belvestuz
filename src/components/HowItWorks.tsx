@@ -28,7 +28,7 @@ export default function HowItWorks() {
     <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#003332' }}>
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
-          <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#FFF0CC' }}>
             {t.howItWorks.title}
           </p>
           <h2 className="text-3xl font-extrabold" style={{ color: '#FFF0CC' }}>
@@ -45,7 +45,7 @@ export default function HowItWorks() {
               left: 'calc(16.67% + 20px)',
               right: 'calc(16.67% + 20px)',
               height: 2,
-              backgroundColor: 'rgba(201,168,76,0.30)',
+              backgroundColor: 'rgba(84,136,112,0.30)',
             }}
           />
 
@@ -60,14 +60,14 @@ export default function HowItWorks() {
                     left: '50%',
                     width: 2,
                     height: 40,
-                    backgroundColor: 'rgba(201,168,76,0.30)',
+                    backgroundColor: 'rgba(84,136,112,0.30)',
                     transform: 'translateX(-50%)',
                   }}
                 />
               )}
               <div
                 className="w-16 h-16 rounded-full flex items-center justify-center text-xl font-extrabold mb-5 relative z-10"
-                style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
+                style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
               >
                 {s.n}
               </div>
@@ -85,7 +85,7 @@ export default function HowItWorks() {
           <Link
             href="/apply"
             className="px-8 py-3.5 rounded-xl text-sm font-bold"
-            style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
+            style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
           >
             {t.header.apply}
           </Link>

@@ -79,9 +79,9 @@ function ProgressBar({ step }: { step: number }) {
               <div
                 className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 transition-all duration-200"
                 style={{
-                  backgroundColor: done ? '#004445' : active ? '#C9A84C' : '#FFFFFF',
-                  color:           done ? '#FFF0CC' : active ? '#0D1F1D' : '#9CA3AF',
-                  border:          `2px solid ${done ? '#004445' : active ? '#C9A84C' : '#16685B'}`,
+                  backgroundColor: done ? '#004445' : active ? '#548870' : '#FFFFFF',
+                  color:           done ? '#FFF0CC' : active ? '#FFFFFF' : '#9CA3AF',
+                  border:          `2px solid ${done ? '#004445' : active ? '#548870' : '#16685B'}`,
                 }}
               >
                 {done ? <Check size={14} /> : n}
@@ -93,7 +93,7 @@ function ProgressBar({ step }: { step: number }) {
             </div>
             <span
               className="text-xs font-semibold mt-2 pr-2 text-center hidden sm:block"
-              style={{ color: active ? '#C9A84C' : done ? '#004445' : '#9CA3AF', lineHeight: 1.3 }}
+              style={{ color: active ? '#548870' : done ? '#004445' : '#9CA3AF', lineHeight: 1.3 }}
             >
               {label}
             </span>
@@ -258,7 +258,7 @@ function SuccessScreen({ appNumber }: { appNumber: string }) {
       </motion.div>
       <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
         <h2 className="text-2xl font-extrabold mb-2" style={{ color: '#FFF0CC' }}>Ваша заявка принята!</h2>
-        <p className="text-base font-bold mb-1.5" style={{ color: '#C9A84C' }}>Номер заявки: {appNumber}</p>
+        <p className="text-base font-bold mb-1.5" style={{ color: '#FFF0CC' }}>Номер заявки: {appNumber}</p>
         <p className="text-sm mb-8" style={{ color: 'rgba(255,240,204,0.70)' }}>
           Наш менеджер свяжется с вами в течение 1 рабочего дня
         </p>
@@ -268,7 +268,7 @@ function SuccessScreen({ appNumber }: { appNumber: string }) {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-150"
-            style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
+            style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
           >
             Telegram @belvest_info
           </a>
@@ -459,8 +459,8 @@ function ApplyPageContent() {
                       <button key={id} type="button" onClick={() => setService(id)}
                         className="flex items-start gap-4 p-4 rounded-xl text-left cursor-pointer transition-all duration-150"
                         style={{
-                          border:           `2px solid ${active ? '#C9A84C' : '#16685B'}`,
-                          backgroundColor:  active ? 'rgba(201,168,76,0.06)' : '#ffffff',
+                          border:           `2px solid ${active ? '#004445' : '#16685B'}`,
+                          backgroundColor:  active ? 'rgba(0,68,69,0.06)' : '#ffffff',
                         }}>
                         <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
                           style={{ backgroundColor: active ? 'rgba(0,68,69,0.10)' : '#FFFFFF' }}>
@@ -470,7 +470,7 @@ function ApplyPageContent() {
                           <p className="font-bold text-sm mb-0.5" style={{ color: '#0D1F1D' }}>{label}</p>
                           <p className="text-xs leading-relaxed" style={{ color: '#4A6B67' }}>{sub}</p>
                         </div>
-                        {active && <Check size={18} className="flex-shrink-0 mt-0.5" style={{ color: '#C9A84C' }} />}
+                        {active && <Check size={18} className="flex-shrink-0 mt-0.5" style={{ color: '#004445' }} />}
                       </button>
                     );
                   })}
@@ -543,9 +543,9 @@ function ApplyPageContent() {
                           <button key={t} type="button" onClick={() => setTerm(t)}
                             className="px-4 py-1.5 rounded-full text-sm font-semibold border cursor-pointer transition-all"
                             style={{
-                              backgroundColor: term === t ? '#C9A84C' : '#ffffff',
-                              color:           term === t ? '#0D1F1D' : '#004445',
-                              borderColor:     term === t ? '#C9A84C' : '#004445',
+                              backgroundColor: term === t ? '#004445' : '#ffffff',
+                              color:           term === t ? '#FFFFFF' : '#004445',
+                              borderColor:     term === t ? '#004445' : '#004445',
                             }}>
                             {t}
                           </button>
@@ -597,9 +597,9 @@ function ApplyPageContent() {
                           <button key={t} type="button" onClick={() => setInvTerm(t)}
                             className="px-4 py-1.5 rounded-full text-sm font-semibold border cursor-pointer transition-all"
                             style={{
-                              backgroundColor: invTerm === t ? '#C9A84C' : '#ffffff',
-                              color:           invTerm === t ? '#0D1F1D' : '#004445',
-                              borderColor:     invTerm === t ? '#C9A84C' : '#004445',
+                              backgroundColor: invTerm === t ? '#004445' : '#ffffff',
+                              color:           invTerm === t ? '#FFFFFF' : '#004445',
+                              borderColor:     invTerm === t ? '#004445' : '#004445',
                             }}>
                             {t}
                           </button>
@@ -820,9 +820,9 @@ function ApplyPageContent() {
                 type="button"
                 onClick={handleNext}
                 className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold cursor-pointer transition-all"
-                style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#A8892E')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#C9A84C')}
+                style={{ backgroundColor: '#004445', color: '#FFFFFF' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#16685B')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#004445')}
               >
                 {step === 4 ? 'Отправить заявку' : 'Далее'}
                 {step < 4 && <ChevronRight size={16} />}

@@ -80,7 +80,7 @@ const CATEGORIES: Category[] = ['Все', 'Новости компании', 'Ц
 
 const CATEGORY_ACCENT: Record<Exclude<Category, 'Все'>, string> = {
   'Новости компании': '#004445',
-  'Ценностное финансирование': '#C9A84C',
+  'Ценностное финансирование': '#548870',
   'Гиды и советы': '#16685B',
 };
 
@@ -160,9 +160,9 @@ function ArticleCard({ article, onRead }: { article: Article; onRead: () => void
         <button
           onClick={onRead}
           className="text-sm font-bold text-left transition-colors duration-150 cursor-pointer w-fit"
-          style={{ color: '#C9A84C' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#A8892E')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#C9A84C')}
+          style={{ color: '#16685B' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = '#004445')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = '#16685B')}
         >
           Читать далее →
         </button>
@@ -189,7 +189,7 @@ export default function NewsPage() {
             <span>›</span>
             <span style={{ color: '#FFF0CC' }}>Новости</span>
           </nav>
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
             Блог и новости
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
@@ -213,9 +213,9 @@ export default function NewsPage() {
                   onClick={() => setActiveCategory(cat)}
                   className="px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 cursor-pointer"
                   style={{
-                    backgroundColor: active ? '#C9A84C' : 'rgba(255,240,204,0.10)',
+                    backgroundColor: active ? '#FFF0CC' : 'rgba(255,240,204,0.10)',
                     color: active ? '#0D1F1D' : 'rgba(255,240,204,0.75)',
-                    border: `1px solid ${active ? '#C9A84C' : 'transparent'}`,
+                    border: `1px solid ${active ? '#FFF0CC' : 'transparent'}`,
                   }}
                 >
                   {cat}
@@ -256,9 +256,9 @@ export default function NewsPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-sm font-bold transition-all duration-150"
-              style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#A8892E')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#C9A84C')}
+              style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFF0CC')}
             >
               <Send size={16} />
               Telegram канал

@@ -70,7 +70,7 @@ export default function LeasingPage() {
             <span>›</span>
             <span style={{ color: '#FFF0CC' }}>Лизинг</span>
           </nav>
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
             Финансовая аренда
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC', maxWidth: 640 }}>
@@ -82,7 +82,7 @@ export default function LeasingPage() {
           <div className="flex flex-col sm:flex-row gap-3">
             <Link href="/apply?service=leasing"
               className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-sm font-bold"
-              style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
+              style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
               Подать заявку на лизинг
             </Link>
             <Link href="/catalog?service=Лизинг"
@@ -99,7 +99,7 @@ export default function LeasingPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-2 md:grid-cols-4 gap-6">
           {STATS.map(s => (
             <div key={s.label} className="text-center">
-              <p className="text-xl font-extrabold" style={{ color: '#C9A84C' }}>{s.value}</p>
+              <p className="text-xl font-extrabold" style={{ color: '#FFF0CC' }}>{s.value}</p>
               <p className="text-xs mt-0.5" style={{ color: 'rgba(255,240,204,0.60)' }}>{s.label}</p>
             </div>
           ))}
@@ -110,7 +110,7 @@ export default function LeasingPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Как это работает</p>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>Как это работает</p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>Четыре шага до получения имущества</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -136,7 +136,7 @@ export default function LeasingPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Преимущества</p>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>Преимущества</p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>Почему лизинг выгоднее кредита</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -156,7 +156,7 @@ export default function LeasingPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Кому подходит</p>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>Кому подходит</p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>Лизинг для каждого бизнеса</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -191,7 +191,7 @@ export default function LeasingPage() {
             <div className="bg-white rounded-2xl p-7" style={{ border: '1px solid #16685B' }}>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center"
-                  style={{ backgroundColor: '#C9A84C' }}>
+                  style={{ backgroundColor: '#548870' }}>
                   <span className="text-lg">👤</span>
                 </div>
                 <div>
@@ -203,9 +203,9 @@ export default function LeasingPage() {
                 {FOR_IP.map(item => (
                   <li key={item} className="flex items-center gap-2.5 text-sm" style={{ color: '#0D1F1D' }}>
                     <div className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
-                      style={{ backgroundColor: 'rgba(201,168,76,0.15)' }}>
+                      style={{ backgroundColor: 'rgba(84,136,112,0.15)' }}>
                       <svg width="10" height="10" viewBox="0 0 12 10" fill="none">
-                        <path d="M1 5l3.5 3.5L11 1" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M1 5l3.5 3.5L11 1" stroke="#004445" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </div>
                     {item}
@@ -228,7 +228,7 @@ export default function LeasingPage() {
           </p>
           <Link href="/apply?service=leasing"
             className="inline-flex items-center gap-2 px-10 py-4 rounded-xl text-base font-bold"
-            style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
+            style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
             Подать заявку на лизинг
           </Link>
         </div>

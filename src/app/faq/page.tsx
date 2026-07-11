@@ -69,7 +69,7 @@ export default function FaqPage() {
             <span>›</span>
             <span style={{ color: '#FFF0CC' }}>FAQ</span>
           </nav>
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
             Вопросы и ответы
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
@@ -140,7 +140,7 @@ export default function FaqPage() {
           <Link
             href="/contacts"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-bold"
-            style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
+            style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
           >
             Связаться с нами
           </Link>

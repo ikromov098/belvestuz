@@ -65,7 +65,7 @@ function BrandCard({ name, service }: { name: string; service: ServiceType }) {
         className="px-3 py-1 rounded-full text-xs font-bold"
         style={
           isLeasing
-            ? { backgroundColor: 'rgba(201,168,76,0.15)', color: '#A8892E' }
+            ? { backgroundColor: 'rgba(84,136,112,0.15)', color: '#16685B' }
             : { backgroundColor: 'rgba(0,68,69,0.10)', color: '#004445' }
         }
       >
@@ -86,7 +86,7 @@ export default function PartnersPage() {
             <span>›</span>
             <span style={{ color: '#FFF0CC' }}>Партнёры</span>
           </nav>
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
             Партнёрская сеть
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
@@ -102,7 +102,7 @@ export default function PartnersPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>
               Бренды-партнёры
             </p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>
@@ -120,7 +120,7 @@ export default function PartnersPage() {
       {/* Become a partner */}
       <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#004445' }}>
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
             Для бизнеса
           </p>
           <h2 className="text-3xl sm:text-4xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
@@ -147,9 +147,9 @@ export default function PartnersPage() {
             <Link
               href="/apply"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-bold transition-all duration-150"
-              style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#A8892E')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#C9A84C')}
+              style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFF0CC')}
             >
               Оставить заявку
             </Link>
@@ -179,7 +179,7 @@ export default function PartnersPage() {
             href="tel:+998774809999"
             className="inline-flex items-center gap-2 text-sm font-bold transition-colors duration-150"
             style={{ color: '#004445' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#C9A84C')}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#16685B')}
             onMouseLeave={(e) => (e.currentTarget.style.color = '#004445')}
           >
             <Phone size={15} />
@@ -191,7 +191,7 @@ export default function PartnersPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-bold transition-colors duration-150"
             style={{ color: '#004445' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#C9A84C')}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#16685B')}
             onMouseLeave={(e) => (e.currentTarget.style.color = '#004445')}
           >
             <InstagramIcon size={15} />
@@ -203,7 +203,7 @@ export default function PartnersPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-bold transition-colors duration-150"
             style={{ color: '#004445' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#C9A84C')}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#16685B')}
             onMouseLeave={(e) => (e.currentTarget.style.color = '#004445')}
           >
             <Send size={15} />

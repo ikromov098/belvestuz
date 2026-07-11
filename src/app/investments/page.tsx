@@ -96,7 +96,7 @@ export default function InvestmentsPage() {
             <span>›</span>
             <span style={{ color: '#FFF0CC' }}>Инвестиции</span>
           </nav>
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
             Доходные вложения
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC', maxWidth: 600 }}>
@@ -107,7 +107,7 @@ export default function InvestmentsPage() {
           </p>
           <Link href="/apply?service=investment"
             className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-sm font-bold"
-            style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
+            style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
             Стать инвестором
           </Link>
         </div>
@@ -118,7 +118,7 @@ export default function InvestmentsPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
           {STATS.map(s => (
             <div key={s.label} className="text-center">
-              <p className="text-xl font-extrabold" style={{ color: '#C9A84C' }}>{s.value}</p>
+              <p className="text-xl font-extrabold" style={{ color: '#FFF0CC' }}>{s.value}</p>
               <p className="text-xs mt-0.5" style={{ color: 'rgba(255,240,204,0.60)' }}>{s.label}</p>
             </div>
           ))}
@@ -129,7 +129,7 @@ export default function InvestmentsPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Инвестиционные планы</p>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>Инвестиционные планы</p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>Мудараба — Партнёрские инвестиции</h2>
             <p className="text-xs mt-3" style={{ color: '#4A6B67' }}>
               Доходность не гарантирована. Структура Мудараба — разделение прибыли
@@ -140,12 +140,12 @@ export default function InvestmentsPage() {
               <div key={plan.id}
                 className="bg-white rounded-2xl p-6 flex flex-col relative"
                 style={{
-                  border: plan.recommended ? '2px solid #C9A84C' : '1px solid #16685B',
-                  boxShadow: plan.recommended ? '0 4px 24px rgba(201,168,76,0.15)' : '0 1px 8px rgba(0,0,0,0.05)',
+                  border: plan.recommended ? '2px solid #548870' : '1px solid #16685B',
+                  boxShadow: plan.recommended ? '0 4px 24px rgba(84,136,112,0.15)' : '0 1px 8px rgba(0,0,0,0.05)',
                 }}>
                 {plan.recommended && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold"
-                    style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
+                    style={{ backgroundColor: '#548870', color: '#FFFFFF' }}>
                     Рекомендуем
                   </div>
                 )}
@@ -164,8 +164,8 @@ export default function InvestmentsPage() {
                   {plan.features.map(f => (
                     <li key={f} className="flex items-start gap-2 text-xs" style={{ color: '#4A6B67' }}>
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 mt-0.5">
-                        <circle cx="7" cy="7" r="7" fill={plan.recommended ? '#C9A84C' : '#004445'} opacity="0.12"/>
-                        <path d="M4 7l2 2 4-4" stroke={plan.recommended ? '#C9A84C' : '#004445'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        <circle cx="7" cy="7" r="7" fill={plan.recommended ? '#548870' : '#004445'} opacity="0.12"/>
+                        <path d="M4 7l2 2 4-4" stroke={plan.recommended ? '#548870' : '#004445'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                       {f}
                     </li>
@@ -174,7 +174,7 @@ export default function InvestmentsPage() {
                 <Link href="/apply?service=investment"
                   className="block text-center py-2.5 rounded-xl text-sm font-bold"
                   style={plan.recommended
-                    ? { backgroundColor: '#C9A84C', color: '#0D1F1D' }
+                    ? { backgroundColor: '#004445', color: '#FFFFFF' }
                     : { border: '1.5px solid #004445', color: '#004445', backgroundColor: 'transparent' }
                   }>
                   Подробнее
@@ -189,7 +189,7 @@ export default function InvestmentsPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Вопросы и ответы</p>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>Вопросы и ответы</p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>Часто задаваемые вопросы</h2>
           </div>
           <div className="flex flex-col gap-3">
@@ -231,7 +231,7 @@ export default function InvestmentsPage() {
           </p>
           <Link href="/apply?service=investment"
             className="inline-flex items-center gap-2 px-10 py-4 rounded-xl text-base font-bold"
-            style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
+            style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
             Стать инвестором
           </Link>
         </div>

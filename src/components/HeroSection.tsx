@@ -39,7 +39,7 @@ export default function HeroSection() {
       <div className="relative z-10 flex flex-col items-center justify-center text-center min-h-screen px-4">
         <p
           className="text-xs font-semibold uppercase mb-4"
-          style={{ color: '#C9A84C', letterSpacing: '0.22em' }}
+          style={{ color: '#FFF0CC', letterSpacing: '0.22em' }}
         >
           {label}
         </p>
@@ -64,7 +64,7 @@ export default function HeroSection() {
         <Link
           href="/apply"
           className="px-8 py-3.5 rounded-xl text-sm font-bold"
-          style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
+          style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
         >
           {applyLabel}
         </Link>

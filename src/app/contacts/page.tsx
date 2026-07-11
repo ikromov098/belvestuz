@@ -106,7 +106,7 @@ export default function ContactsPage() {
             <span>›</span>
             <span style={{ color: '#FFF0CC' }}>Контакты</span>
           </nav>
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
             Контакты
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
@@ -150,7 +150,7 @@ export default function ContactsPage() {
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>
               Обратная связь
             </p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>
@@ -244,9 +244,9 @@ export default function ContactsPage() {
               <button
                 type="submit"
                 className="w-full py-3.5 rounded-xl text-sm font-bold transition-all duration-150 cursor-pointer"
-                style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#A8892E')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#C9A84C')}
+                style={{ backgroundColor: '#004445', color: '#FFFFFF' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#16685B')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#004445')}
               >
                 Отправить сообщение
               </button>
@@ -283,7 +283,7 @@ export default function ContactsPage() {
               <Clock size={20} />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#C9A84C' }}>График</p>
+              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#16685B' }}>График</p>
               <h2 className="text-xl font-extrabold" style={{ color: '#0D1F1D' }}>Режим работы</h2>
             </div>
           </div>

@@ -39,7 +39,7 @@ export default function RassrochkaPage() {
             <span>›</span>
             <span style={{ color: '#FFF0CC' }}>Рассрочка</span>
           </nav>
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
             Беспроцентная рассрочка
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC', maxWidth: 580 }}>
@@ -51,7 +51,7 @@ export default function RassrochkaPage() {
           <div className="flex flex-col sm:flex-row gap-3">
             <Link href="/catalog"
               className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-sm font-bold"
-              style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
+              style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
               Смотреть каталог
             </Link>
             <Link href="/apply?service=installment"
@@ -70,8 +70,8 @@ export default function RassrochkaPage() {
             <span className="text-sm font-semibold" style={{ color: 'rgba(255,240,204,0.60)' }}>Доступные сроки:</span>
             {TERMS.map(t => (
               <div key={t.months} className="flex items-center gap-1.5 px-4 py-1.5 rounded-full"
-                style={{ backgroundColor: 'rgba(201,168,76,0.15)', border: '1px solid rgba(201,168,76,0.30)' }}>
-                <span className="text-sm font-bold" style={{ color: '#C9A84C' }}>{t.months} мес.</span>
+                style={{ backgroundColor: 'rgba(255,240,204,0.15)', border: '1px solid rgba(255,240,204,0.30)' }}>
+                <span className="text-sm font-bold" style={{ color: '#FFF0CC' }}>{t.months} мес.</span>
                 <span className="text-xs" style={{ color: 'rgba(255,240,204,0.55)' }}>{t.rate}</span>
               </div>
             ))}
@@ -83,7 +83,7 @@ export default function RassrochkaPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Популярные категории</p>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>Популярные категории</p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>Что можно купить в рассрочку</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -108,7 +108,7 @@ export default function RassrochkaPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Что нужно</p>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>Что нужно</p>
             <h2 className="text-3xl font-extrabold mb-2" style={{ color: '#0D1F1D' }}>Минимум документов</h2>
             <p className="text-sm" style={{ color: '#4A6B67' }}>Обязательные документы отмечены звёздочкой</p>
           </div>
@@ -142,7 +142,7 @@ export default function RassrochkaPage() {
           </p>
           <Link href="/catalog"
             className="inline-flex items-center gap-2 px-10 py-4 rounded-xl text-base font-bold"
-            style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
+            style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
             Смотреть каталог
           </Link>
         </div>

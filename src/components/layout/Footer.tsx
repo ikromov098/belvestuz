@@ -60,7 +60,7 @@ export default function Footer() {
           {COLUMNS.map((col) => (
             <div key={col.heading}>
               <h4 className="text-sm font-semibold uppercase mb-4"
-                style={{ color: '#C9A84C', letterSpacing: '0.05em' }}>
+                style={{ color: '#FFF0CC', letterSpacing: '0.05em' }}>
                 {col.heading}
               </h4>
               <ul className="flex flex-col gap-2.5">
@@ -78,7 +78,7 @@ export default function Footer() {
           {/* Contacts */}
           <div>
             <h4 className="text-sm font-semibold uppercase mb-4"
-              style={{ color: '#C9A84C', letterSpacing: '0.05em' }}>
+              style={{ color: '#FFF0CC', letterSpacing: '0.05em' }}>
               Контакты
             </h4>
             <ul className="flex flex-col gap-2.5">

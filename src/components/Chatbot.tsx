@@ -186,7 +186,7 @@ export default function Chatbot() {
                     className="px-4 py-2.5 rounded-2xl text-sm leading-relaxed"
                     style={msg.role === 'assistant'
                       ? { backgroundColor: '#004445', color: '#FFF0CC', borderBottomLeftRadius: 4 }
-                      : { backgroundColor: '#C9A84C', color: '#0D1F1D', borderBottomRightRadius: 4 }}
+                      : { backgroundColor: '#548870', color: '#FFFFFF', borderBottomRightRadius: 4 }}
                   >
                     {msg.content}
                   </div>

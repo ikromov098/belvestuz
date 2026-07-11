@@ -18,8 +18,6 @@
   --color-belvest-cream: #FFF0CC;
   --color-belvest-cream-light: #FFFFFF;
   --color-belvest-white: #FFFFFF;
-  --color-belvest-gold: #C9A84C;
-  --color-belvest-gold-hover: #A8892E;
   --color-belvest-text: #0D1F1D;
   --color-belvest-text-secondary: #4A6B67;
   --color-belvest-border: #16685B;
@@ -58,7 +56,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #C9A84C;
+  background: #004445;
   border: 3px solid #ffffff;
   box-shadow: 0 1px 6px rgba(0,0,0,0.25);
   cursor: pointer;
@@ -69,7 +67,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #C9A84C;
+  background: #004445;
   border: 3px solid #ffffff;
   box-shadow: 0 1px 6px rgba(0,0,0,0.25);
   cursor: pointer;

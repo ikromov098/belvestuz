@@ -66,7 +66,7 @@ const PRODUCTS: Product[] = [
 ];
 
 const BADGE_STYLE: Record<BadgeType, { backgroundColor: string; color: string }> = {
-  'Хит':      { backgroundColor: '#C9A84C', color: '#0D1F1D' },
+  'Хит':      { backgroundColor: '#548870', color: '#FFFFFF' },
   'Лизинг':   { backgroundColor: '#004445', color: '#FFF0CC' },
   'Акция':    { backgroundColor: '#C62828', color: '#ffffff' },
   'Трейд-ин': { backgroundColor: '#6B3FA0', color: '#ffffff' },
@@ -92,9 +92,9 @@ function ProductCard({ product, onShowModal }: { product: Product; onShowModal: 
   const [hovered, setHovered] = useState(false);
   const [ctaHovered, setCtaHovered] = useState(false);
 
-  const ctaBg   = product.isB2B ? '#004445' : '#C9A84C';
-  const ctaBgHov = product.isB2B ? '#003332' : '#A8892E';
-  const ctaColor = product.isB2B ? '#FFF0CC' : '#0D1F1D';
+  const ctaBg   = product.isB2B ? '#004445' : '#548870';
+  const ctaBgHov = product.isB2B ? '#003332' : '#16685B';
+  const ctaColor = '#FFF0CC';
 
   const svcName = (s: string) => {
     const map: Record<string, string> = {
@@ -245,7 +245,7 @@ function FilterSidebar({
 
       {/* Services */}
       <div>
-        <h4 className="text-xs font-semibold uppercase mb-3" style={{ color: '#C9A84C', letterSpacing: '0.08em' }}>
+        <h4 className="text-xs font-semibold uppercase mb-3" style={{ color: '#16685B', letterSpacing: '0.08em' }}>
           {t.catalog.servicesLabel}
         </h4>
         <div className="flex flex-col gap-2">
@@ -266,7 +266,7 @@ function FilterSidebar({
 
       {/* Price */}
       <div>
-        <h4 className="text-xs font-semibold uppercase mb-3" style={{ color: '#C9A84C', letterSpacing: '0.08em' }}>
+        <h4 className="text-xs font-semibold uppercase mb-3" style={{ color: '#16685B', letterSpacing: '0.08em' }}>
           {t.catalog.maxPrice}
         </h4>
         <p className="text-sm font-bold mb-2" style={{ color: '#004445' }}>
@@ -286,7 +286,7 @@ function FilterSidebar({
 
       {/* Brands */}
       <div>
-        <h4 className="text-xs font-semibold uppercase mb-3" style={{ color: '#C9A84C', letterSpacing: '0.08em' }}>
+        <h4 className="text-xs font-semibold uppercase mb-3" style={{ color: '#16685B', letterSpacing: '0.08em' }}>
           {t.catalog.brandLabel}
         </h4>
         <div className="flex flex-col gap-2 max-h-48 overflow-y-auto">
@@ -451,9 +451,9 @@ function CatalogPageInner() {
                   onClick={() => setShowModal(true)}
                   className="flex flex-col items-center gap-1.5 px-5 py-3 rounded-xl flex-shrink-0 transition-all duration-150 cursor-pointer"
                   style={{
-                    backgroundColor: active ? 'rgba(201,168,76,0.15)' : 'rgba(255,240,204,0.07)',
-                    border: `2px solid ${active ? '#C9A84C' : 'transparent'}`,
-                    color:  active ? '#C9A84C' : 'rgba(255,240,204,0.70)',
+                    backgroundColor: active ? 'rgba(84,136,112,0.20)' : 'rgba(255,240,204,0.07)',
+                    border: `2px solid ${active ? '#548870' : 'transparent'}`,
+                    color:  active ? '#FFF0CC' : 'rgba(255,240,204,0.70)',
                   }}
                 >
                   <Icon size={22} />
@@ -502,7 +502,7 @@ function CatalogPageInner() {
                 {filterCount > 0 && (
                   <span
                     className="px-2 py-0.5 rounded-full text-xs font-bold"
-                    style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
+                    style={{ backgroundColor: '#004445', color: '#FFFFFF' }}
                   >
                     {filterCount}
                   </span>
@@ -578,7 +578,7 @@ function CatalogPageInner() {
                 <button
                   onClick={clearAll}
                   className="px-6 py-2.5 rounded-lg text-sm font-bold cursor-pointer"
-                  style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
+                  style={{ backgroundColor: '#004445', color: '#FFFFFF' }}
                 >
                   {t.catalog.resetFilters}
                 </button>

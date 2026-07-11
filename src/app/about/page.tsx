@@ -51,8 +51,8 @@ export default function AboutPage() {
     {
       icon: (
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <circle cx="16" cy="16" r="15" stroke="#C9A84C" strokeWidth="2" />
-          <path d="M10 16l4 4 8-8" stroke="#C9A84C" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="16" cy="16" r="15" stroke="#004445" strokeWidth="2" />
+          <path d="M10 16l4 4 8-8" stroke="#004445" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       ),
       title: t.about.why1Title,
@@ -61,8 +61,8 @@ export default function AboutPage() {
     {
       icon: (
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <circle cx="16" cy="16" r="15" stroke="#C9A84C" strokeWidth="2" />
-          <path d="M16 9v7l4 4" stroke="#C9A84C" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="16" cy="16" r="15" stroke="#004445" strokeWidth="2" />
+          <path d="M16 9v7l4 4" stroke="#004445" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       ),
       title: t.about.why2Title,
@@ -71,8 +71,8 @@ export default function AboutPage() {
     {
       icon: (
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <circle cx="16" cy="16" r="15" stroke="#C9A84C" strokeWidth="2" />
-          <path d="M16 8l1.8 5.5H23l-4.4 3.2 1.7 5.3L16 19l-4.3 3 1.7-5.3L9 13.5h5.2z" stroke="#C9A84C" strokeWidth="1.8" strokeLinejoin="round" />
+          <circle cx="16" cy="16" r="15" stroke="#004445" strokeWidth="2" />
+          <path d="M16 8l1.8 5.5H23l-4.4 3.2 1.7 5.3L16 19l-4.3 3 1.7-5.3L9 13.5h5.2z" stroke="#004445" strokeWidth="1.8" strokeLinejoin="round" />
         </svg>
       ),
       title: t.about.why3Title,
@@ -88,7 +88,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p
             className="text-xs font-semibold uppercase tracking-widest mb-3"
-            style={{ color: '#C9A84C' }}
+            style={{ color: '#FFF0CC' }}
           >
             {t.about.heroLabel}
           </p>
@@ -156,7 +156,7 @@ export default function AboutPage() {
       <section style={{ padding: '80px 16px' }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>
               {t.about.teamLabel}
             </p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>
@@ -189,7 +189,7 @@ export default function AboutPage() {
                   {member.name.split(' ').map((w) => w[0]).join('')}
                 </div>
                 <p className="font-bold text-sm mb-0.5" style={{ color: '#0D1F1D' }}>{member.name}</p>
-                <p className="text-xs font-semibold mb-3" style={{ color: '#C9A84C' }}>{member.role}</p>
+                <p className="text-xs font-semibold mb-3" style={{ color: '#16685B' }}>{member.role}</p>
                 <p className="text-xs leading-relaxed" style={{ color: '#4A6B67' }}>{member.desc}</p>
               </motion.div>
             ))}
@@ -201,7 +201,7 @@ export default function AboutPage() {
       <section style={{ backgroundColor: '#fff', padding: '80px 16px' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>
               {t.about.whyLabel}
             </p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>
@@ -236,7 +236,7 @@ export default function AboutPage() {
       <section style={{ backgroundColor: '#004445', padding: '72px 16px' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#FFF0CC' }}>
               {t.about.contactLabel}
             </p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#FFF0CC' }}>
@@ -287,7 +287,7 @@ export default function AboutPage() {
             <Link
               href="/apply"
               className="inline-block px-8 py-3 rounded-full text-sm font-semibold transition-all duration-150"
-              style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
+              style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
             >
               {t.about.contactApply}
             </Link>

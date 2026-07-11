@@ -46,7 +46,7 @@ export default function TradeInPage() {
             <span>›</span>
             <span style={{ color: '#FFF0CC' }}>Трейд-ин</span>
           </nav>
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#C9A84C' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
             Обмен старого на новое
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC', maxWidth: 580 }}>
@@ -57,7 +57,7 @@ export default function TradeInPage() {
           </p>
           <Link href="/apply?service=tradein"
             className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-sm font-bold"
-            style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
+            style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
             Оценить мой товар
           </Link>
         </div>
@@ -67,7 +67,7 @@ export default function TradeInPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Онлайн-оценка</p>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>Онлайн-оценка</p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>Узнайте стоимость вашего товара</h2>
             <p className="text-sm mt-2" style={{ color: '#4A6B67' }}>Предварительная оценка — точная стоимость после осмотра в офисе</p>
           </div>
@@ -84,8 +84,8 @@ export default function TradeInPage() {
                       onClick={() => setSelectedCategory(active ? null : cat.id)}
                       className="flex flex-col items-center gap-1.5 p-3 rounded-xl transition-all"
                       style={{
-                        border: `2px solid ${active ? '#C9A84C' : '#16685B'}`,
-                        backgroundColor: active ? 'rgba(201,168,76,0.07)' : '#fff',
+                        border: `2px solid ${active ? '#004445' : '#16685B'}`,
+                        backgroundColor: active ? 'rgba(84,136,112,0.10)' : '#fff',
                       }}>
                       <span className="text-2xl">{cat.emoji}</span>
                       <span className="text-xs font-semibold text-center" style={{ color: active ? '#0D1F1D' : '#4A6B67' }}>
@@ -137,7 +137,7 @@ export default function TradeInPage() {
                   onChange={e => setOwnPrice(Number(e.target.value))}
                   className="belvest-slider w-full"
                   style={{
-                    background: `linear-gradient(to right, #C9A84C ${((ownPrice - 500_000) / (30_000_000 - 500_000)) * 100}%, #16685B 0%)`,
+                    background: `linear-gradient(to right, #004445 ${((ownPrice - 500_000) / (30_000_000 - 500_000)) * 100}%, #16685B 0%)`,
                   }}
                 />
                 <div className="flex justify-between text-xs mt-1" style={{ color: '#9CA3AF' }}>
@@ -161,7 +161,7 @@ export default function TradeInPage() {
               </div>
               <Link href="/apply?service=tradein"
                 className="shrink-0 px-5 py-2.5 rounded-xl text-sm font-bold"
-                style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
+                style={{ backgroundColor: '#004445', color: '#FFFFFF' }}>
                 Оформить
               </Link>
             </div>
@@ -173,14 +173,14 @@ export default function TradeInPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#003332' }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Как это работает</p>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#FFF0CC' }}>Как это работает</p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#FFF0CC' }}>Три шага к новому товару</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {HOW_STEPS.map(s => (
               <div key={s.n} className="flex flex-col items-center text-center">
                 <div className="w-14 h-14 rounded-full flex items-center justify-center text-lg font-extrabold mb-4"
-                  style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
+                  style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
                   {s.n}
                 </div>
                 <h3 className="text-sm font-extrabold mb-2" style={{ color: '#FFF0CC' }}>{s.title}</h3>
@@ -194,7 +194,7 @@ export default function TradeInPage() {
       {/* Accepted categories */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>Принимаем</p>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>Принимаем</p>
           <h2 className="text-3xl font-extrabold mb-3" style={{ color: '#0D1F1D' }}>Какие товары мы принимаем</h2>
           <p className="text-sm mb-10" style={{ color: '#4A6B67' }}>
             Принимаем технику и электронику в любом состоянии — оценка бесплатна
@@ -222,7 +222,7 @@ export default function TradeInPage() {
           </p>
           <Link href="/apply?service=tradein"
             className="inline-flex items-center gap-2 px-10 py-4 rounded-xl text-base font-bold"
-            style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}>
+            style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
             Оценить мой товар
           </Link>
         </div>

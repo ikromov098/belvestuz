@@ -132,8 +132,8 @@ export default function CallbackWidget() {
                   onClick={handleSubmit}
                   className="w-full py-2.5 rounded-lg text-sm font-bold transition-all duration-150"
                   style={{
-                    backgroundColor: canSubmit ? '#C9A84C' : '#16685B',
-                    color: canSubmit ? '#0D1F1D' : '#9CA3AF',
+                    backgroundColor: canSubmit ? '#004445' : '#16685B',
+                    color: canSubmit ? '#FFFFFF' : '#9CA3AF',
                     cursor: canSubmit ? 'pointer' : 'default',
                   }}
                 >

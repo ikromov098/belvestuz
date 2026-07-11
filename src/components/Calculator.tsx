@@ -90,7 +90,7 @@ function CardHeader({ icon, title, gold }: { icon: React.ReactNode; title: strin
   return (
     <div
       className="flex items-center gap-3 px-6 py-4 rounded-t-2xl"
-      style={{ backgroundColor: gold ? '#C9A84C' : '#004445' }}
+      style={{ backgroundColor: gold ? '#548870' : '#004445' }}
     >
       <span style={{ color: gold ? '#0D1F1D' : '#FFF0CC' }}>{icon}</span>
       <span
@@ -290,9 +290,9 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
                     onClick={() => changeBracket(b)}
                     className="flex-1 px-3 py-1.5 rounded-full text-sm font-semibold border transition-all duration-150 cursor-pointer"
                     style={{
-                      backgroundColor: active ? '#C9A84C' : '#FFFFFF',
-                      color: active ? '#0D1F1D' : '#004445',
-                      borderColor: active ? '#C9A84C' : '#004445',
+                      backgroundColor: active ? '#004445' : '#FFFFFF',
+                      color: active ? '#FFFFFF' : '#004445',
+                      borderColor: active ? '#004445' : '#004445',
                     }}
                   >
                     {b === 'low' ? L.bracketLow : L.bracketHigh}
@@ -329,7 +329,7 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
         {showInstantBadge && (
           <div
             className="rounded-lg px-4 py-3 text-sm font-semibold text-center"
-            style={{ backgroundColor: 'rgba(201,168,76,0.15)', color: '#A8892E', border: '1px solid #C9A84C' }}
+            style={{ backgroundColor: 'rgba(84,136,112,0.15)', color: '#16685B', border: '1px solid #548870' }}
           >
             ✓ {L.instantBadge}
           </div>
@@ -347,9 +347,9 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
                   onClick={() => setTerm(m)}
                   className="px-4 py-1.5 rounded-full text-sm font-semibold border transition-all duration-150 cursor-pointer"
                   style={{
-                    backgroundColor: active ? '#C9A84C' : '#FFFFFF',
-                    color: active ? '#0D1F1D' : '#004445',
-                    borderColor: active ? '#C9A84C' : '#004445',
+                    backgroundColor: active ? '#004445' : '#FFFFFF',
+                    color: active ? '#FFFFFF' : '#004445',
+                    borderColor: active ? '#004445' : '#004445',
                   }}
                 >
                   {m} {L.months}
@@ -380,7 +380,7 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
             </p>
             <p className="text-4xl font-extrabold leading-none" style={{ color: '#004445' }}>
               {fmt(monthly)}{' '}
-              <span className="text-2xl font-bold" style={{ color: '#C9A84C' }}>{L.cur}</span>
+              <span className="text-2xl font-bold" style={{ color: '#16685B' }}>{L.cur}</span>
             </p>
           </div>
         </div>
@@ -389,9 +389,9 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
         <Link
           href="/apply"
           className="flex items-center justify-center gap-2 w-full py-3.5 rounded-lg text-sm font-bold transition-all duration-150"
-          style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#A8892E')}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#C9A84C')}
+          style={{ backgroundColor: '#004445', color: '#FFFFFF' }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#16685B')}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#004445')}
         >
           {t.calculator.applyButton}
           <ArrowRight size={16} />
@@ -489,20 +489,20 @@ function TradeInEstimator() {
         {/* Result */}
         <div
           className="rounded-xl p-5"
-          style={{ backgroundColor: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.25)' }}
+          style={{ backgroundColor: 'rgba(84,136,112,0.08)', border: '1px solid rgba(84,136,112,0.25)' }}
         >
           <div className="flex justify-between items-center mb-3">
             <span className="text-sm" style={{ color: '#4A6B67' }}>Стоимость вашего товара:</span>
             <span className="text-base font-bold" style={{ color: '#004445' }}>
-              {fmt(estimate)} <span style={{ color: '#C9A84C' }}>сум</span>
+              {fmt(estimate)} <span style={{ color: '#16685B' }}>сум</span>
             </span>
           </div>
           <div
             className="flex justify-between items-center pt-3"
-            style={{ borderTop: '1px solid rgba(201,168,76,0.25)' }}
+            style={{ borderTop: '1px solid rgba(84,136,112,0.25)' }}
           >
             <span className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>Доплата за новый товар:</span>
-            <span className="text-xl font-extrabold" style={{ color: '#C9A84C' }}>
+            <span className="text-xl font-extrabold" style={{ color: '#16685B' }}>
               {fmt(topay)} сум
             </span>
           </div>
@@ -511,14 +511,14 @@ function TradeInEstimator() {
         <Link
           href="/trade-in"
           className="flex items-center justify-center gap-2 w-full py-3 rounded-lg text-sm font-bold border transition-all duration-150"
-          style={{ borderColor: '#C9A84C', color: '#C9A84C', backgroundColor: 'transparent' }}
+          style={{ borderColor: '#004445', color: '#004445', backgroundColor: 'transparent' }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#C9A84C';
-            e.currentTarget.style.color = '#0D1F1D';
+            e.currentTarget.style.backgroundColor = '#004445';
+            e.currentTarget.style.color = '#FFFFFF';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.backgroundColor = 'transparent';
-            e.currentTarget.style.color = '#C9A84C';
+            e.currentTarget.style.color = '#004445';
           }}
         >
           Оценить точнее <ArrowRight size={16} />

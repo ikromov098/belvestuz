@@ -143,9 +143,9 @@ export default function Header() {
             <Link
               href="/apply"
               className="px-4 py-2 text-sm font-semibold rounded-full transition-all duration-150"
-              style={{ backgroundColor: '#C9A84C', color: '#0D1F1D', letterSpacing: '0.02em' }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#A8892E')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#C9A84C')}
+              style={{ backgroundColor: '#FFF0CC', color: '#004445', letterSpacing: '0.02em' }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFF0CC')}
             >
               {t.header.apply}
             </Link>
@@ -230,7 +230,7 @@ export default function Header() {
                 href="/apply"
                 onClick={() => setMobileOpen(false)}
                 className="w-full text-center py-2.5 text-sm font-semibold rounded-full"
-                style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
+                style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
               >
                 {t.header.apply}
               </Link>

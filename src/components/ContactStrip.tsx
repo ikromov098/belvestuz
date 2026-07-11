@@ -16,7 +16,7 @@ export default function ContactStrip() {
   return (
     <section style={{ backgroundColor: '#003332' }} className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C9A84C' }}>
+        <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#FFF0CC' }}>
           Связаться с нами
         </p>
         <h2 className="text-3xl font-extrabold mb-8" style={{ color: '#FFF0CC' }}>
@@ -42,9 +42,9 @@ export default function ContactStrip() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-150"
-            style={{ backgroundColor: '#C9A84C', color: '#0D1F1D' }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#A8892E')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#C9A84C')}
+            style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFF0CC')}
           >
             <Send size={18} />
             Telegram
@@ -57,7 +57,7 @@ export default function ContactStrip() {
             href="tel:+998774809999"
             className="inline-flex items-center gap-2 text-base font-bold transition-colors duration-150"
             style={{ color: '#FFF0CC' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#C9A84C')}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#FFFFFF')}
             onMouseLeave={(e) => (e.currentTarget.style.color = '#FFF0CC')}
           >
             <Phone size={16} />
@@ -68,7 +68,7 @@ export default function ContactStrip() {
             href="tel:+998774802222"
             className="inline-flex items-center gap-2 text-base font-bold transition-colors duration-150"
             style={{ color: '#FFF0CC' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#C9A84C')}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#FFFFFF')}
             onMouseLeave={(e) => (e.currentTarget.style.color = '#FFF0CC')}
           >
             <Phone size={16} />
