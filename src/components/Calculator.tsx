@@ -167,7 +167,7 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
 
   const isCar        = product !== 'phone';
   const markupRate   = markupRateFor(product, bracket, term);
-  const { remaining, totalMarkup, totalToPay, monthly } = calcBreakdown(price, clampedDown, markupRate, term);
+  const { remaining, totalToPay, monthly } = calcBreakdown(price, clampedDown, markupRate, term);
   const showInstantBadge = product === 'carA' && downRatePct >= 0.60;
 
   // ── Handlers (re-clamp dependent state on change) ──
@@ -209,7 +209,7 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
       term: 'Срок',
       months: 'мес.',
       brkRemaining: 'Остаток',
-      brkMarkup: 'Наценка',
+      markupTag: '+ наценка BELVEST',
       brkTotal: 'Итого к оплате',
       brkMonthly: 'Ежемесячный платёж',
       cur: 'сум',
@@ -231,7 +231,7 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
       term: 'Muddat',
       months: 'oy',
       brkRemaining: 'Qolgan summa',
-      brkMarkup: 'Ustama',
+      markupTag: '+ BELVEST USTAMASI',
       brkTotal: "Jami to'lov",
       brkMonthly: "Oylik to'lov",
       cur: "so'm",
@@ -366,12 +366,9 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
         >
           <BreakdownLine label={L.down} value={`${fmt(clampedDown)} ${L.cur}`} />
           <BreakdownLine label={L.brkRemaining} value={`${fmt(remaining)} ${L.cur}`} />
-          <BreakdownLine
-            label={`${L.brkMarkup} (${Math.round(markupRate * 100)}%)`}
-            value={`${fmt(totalMarkup)} ${L.cur}`}
-          />
           <div className="pt-2" style={{ borderTop: '1px solid rgba(0,68,69,0.15)' }}>
             <BreakdownLine label={L.brkTotal} value={`${fmt(totalToPay)} ${L.cur}`} strong />
+            <p className="text-right text-[11px] font-semibold mt-1" style={{ color: '#548870' }}>{L.markupTag}</p>
           </div>
 
           <div className="text-center mt-3">

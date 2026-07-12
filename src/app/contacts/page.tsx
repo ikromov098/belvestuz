@@ -62,9 +62,7 @@ const CONTACT_CARDS = [
     label: 'Адрес',
     content: (
       <a
-        href="https://yandex.uz/maps/org/8069766461/"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="#map"
         className="text-sm font-bold transition-colors duration-150 contact-link"
       >
         Ташкент, Узбекистан
@@ -256,7 +254,7 @@ export default function ContactsPage() {
       </section>
 
       {/* Yandex Map */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
+      <section id="map" className="py-12 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF', scrollMarginTop: 80 }}>
         <div className="max-w-5xl mx-auto">
           <div className="rounded-2xl overflow-hidden" style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.10)' }}>
             <iframe

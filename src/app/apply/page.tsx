@@ -24,7 +24,7 @@ const SERVICES: { id: ServiceId; label: string; sub: string; Icon: React.Element
   { id: 'investment',  label: 'Инвестиции', sub: 'Вложите средства с гарантированным доходом',     Icon: TrendingUp     },
 ];
 
-const TERMS = [3, 6, 12, 18, 24, 36];
+const TERMS = [2, 6, 12, 18, 24, 36];
 const TRADE_IN_CATS = ['Смартфон', 'Ноутбук / ПК', 'Телевизор', 'Холодильник', 'Стиральная машина', 'Кондиционер', 'Автомобиль', 'Другое'];
 
 const MOCK_PRODUCTS: MockProduct[] = [
@@ -60,7 +60,6 @@ const fmt     = (n: number) => Math.round(n).toLocaleString('ru-RU');
 const fmtSize = (b: number) => b < 1_048_576 ? `${Math.round(b / 1024)} KB` : `${(b / 1_048_576).toFixed(1)} MB`;
 const vPhone  = (p: string) => /^\d{9}$/.test(p.replace(/\D/g, '')) ? '' : 'Введите 9 цифр номера';
 const vEmail  = (e: string) => !e || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) ? '' : 'Некорректный email';
-const vPinfl  = (p: string) => /^\d{14}$/.test(p) ? '' : 'ПИНФЛ — 14 цифр';
 const vSeries = (s: string) => /^[A-Za-z]{2}$/.test(s) ? '' : 'Формат: AA';
 const vPassN  = (n: string) => /^\d{7}$/.test(n) ? '' : '7 цифр';
 
@@ -355,7 +354,6 @@ function ApplyPageContent() {
   const [inn, setInn]                     = useState('');
   const [passportSeries, setPassportSeries] = useState('');
   const [passportNumber, setPassportNumber] = useState('');
-  const [pinfl, setPinfl]                 = useState('');
 
   // ── Step 3 ──
   const [docs, setDocs] = useState<Record<string, File | null>>({});
@@ -379,7 +377,7 @@ function ApplyPageContent() {
     if (vPhone(phone)) return false;
     if (vEmail(email)) return false;
     if (entityType === 'individual') {
-      if (vSeries(passportSeries) || vPassN(passportNumber) || vPinfl(pinfl)) return false;
+      if (vSeries(passportSeries) || vPassN(passportNumber)) return false;
     } else {
       if (!companyName.trim() || !inn.trim()) return false;
     }
@@ -686,12 +684,6 @@ function ApplyPageContent() {
                         error={showErrors ? vPassN(passportNumber) : ''}
                         valid={!vPassN(passportNumber)} />
                     </div>
-                    <Field label="ПИНФЛ" value={pinfl}
-                      onChange={(v) => setPinfl(v.replace(/\D/g, '').slice(0, 14))}
-                      placeholder="12345678901234" required
-                      tooltip="Персональный идентификационный номер физического лица — 14-значный номер, указан в паспорте или на странице биометрических данных"
-                      error={showErrors ? vPinfl(pinfl) : ''}
-                      valid={!vPinfl(pinfl)} />
                   </Panel>
                 )}
               </div>

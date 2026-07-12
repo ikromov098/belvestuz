@@ -156,9 +156,6 @@ export default function AboutPage() {
       <section style={{ padding: '80px 16px' }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>
-              {t.about.teamLabel}
-            </p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>
               {t.about.teamTitle}
             </h2>

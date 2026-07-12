@@ -56,7 +56,7 @@ const STATS = [
   { value: `от ${fmt(500_000)} сум/мес`, label: 'Минимальный платёж' },
   { value: '12–60 мес.', label: 'Срок лизинга' },
   { value: '2 часа', label: 'Срок одобрения' },
-  { value: 'Маржа Мурабаха от 20%', label: 'Прибыльная маржа' },
+  { value: 'Маржа Мурабаха от 22%', label: 'Прибыльная маржа' },
 ];
 
 export default function LeasingPage() {
