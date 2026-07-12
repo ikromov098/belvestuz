@@ -17,32 +17,6 @@ const QUICK_REPLIES = [
   'Как подать заявку?',
 ];
 
-const MOCK_RESPONSES: Record<string, string> = {
-  'как оформить рассрочку': 'Оформить рассрочку очень просто: выберите товар в каталоге, нажмите «Подать заявку», заполните форму за 5 минут и загрузите паспорт. Решение принимается за 1 день.',
-  'условия лизинга': 'Лизинг от 12% годовых на срок от 12 до 60 месяцев. Минимальный платёж от 500 000 сум/мес. Первоначальный взнос от 0%. Одобрение за 1 рабочий день.',
-  'что такое трейд-ин': 'Трейд-ин — это обмен вашего старого товара на новый со скидкой. Вы сдаёте технику, мы оцениваем её стоимость и вычитаем из цены нового товара. Быстро и выгодно!',
-  'сроки и ставки': 'Рассрочка: от 3 до 24 месяцев, ставка 0%. Лизинг: от 12 до 60 месяцев, от 12% годовых. Инвестиции: до 18% годовых. Точные условия — после подачи заявки.',
-  'как подать заявку': 'Нажмите кнопку «Подать заявку» в шапке сайта или на любой странице услуги. Заполните форму, выберите услугу и сумму — менеджер перезвонит в течение часа.',
-};
-
-function getReply(text: string): string {
-  const lower = text.toLowerCase();
-
-  if (lower.includes('оплат') || lower.includes('платеж') || lower.includes('платёж'))
-    return 'Оплата производится через банк или в офисе. Тел: +998 77 480-99-99';
-  if (lower.includes('заявк'))
-    return 'Подайте заявку на сайте или напишите @belvest_info в Telegram';
-  if (lower.includes('офис') || lower.includes('адрес'))
-    return 'Ташкент, Узбекистан. Карта: https://yandex.uz/maps/org/8069766461/ Тел: +998 77 480-99-99';
-  if (lower.includes('консультац'))
-    return 'Напишите @belvest_info или позвоните +998 77 480-99-99';
-
-  for (const [key, val] of Object.entries(MOCK_RESPONSES)) {
-    if (lower.includes(key.split(' ')[1] ?? key)) return val;
-  }
-  return 'Спасибо за вопрос! Наш менеджер свяжется с вами в ближайшее время. Или позвоните: +998 77 480-99-99';
-}
-
 function now() {
   return new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
 }
@@ -86,21 +60,35 @@ export default function Chatbot() {
     if (open) setTimeout(() => inputRef.current?.focus(), 120);
   }, [open]);
 
-  const send = (text: string) => {
+  const send = async (text: string) => {
     const trimmed = text.trim();
     if (!trimmed || typing) return;
 
     setShowQuick(false);
     setInput('');
     const userMsg: Message = { role: 'user', content: trimmed, ts: now() };
-    setMessages((prev) => [...prev, userMsg]);
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
     setTyping(true);
 
-    setTimeout(() => {
-      const reply = getReply(trimmed);
-      setMessages((prev) => [...prev, { role: 'assistant', content: reply, ts: now() }]);
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: newMessages.map((m) => ({ role: m.role, content: m.content })),
+        }),
+      });
+      const data = await res.json();
+      setMessages((prev) => [...prev, { role: 'assistant', content: data.reply, ts: now() }]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        { role: 'assistant', content: 'Ошибка соединения. Напишите: @belvest_info', ts: now() },
+      ]);
+    } finally {
       setTyping(false);
-    }, 900);
+    }
   };
 
   const handleKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
