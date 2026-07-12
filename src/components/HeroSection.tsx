@@ -22,7 +22,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
+    <section className="relative h-[72vh] min-h-[440px] w-full overflow-hidden">
       {/* Boomerang video background */}
       <BoomerangVideoBg src="/belvest-hero.mp4" className="absolute inset-0 w-full h-full" />
 
@@ -36,7 +36,7 @@ export default function HeroSection() {
       />
 
       {/* Centered hero text */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center min-h-screen px-4">
+      <div className="relative z-10 flex flex-col items-center justify-center text-center h-[72vh] min-h-[440px] px-4">
         <p
           className="text-xs font-semibold uppercase mb-4"
           style={{ color: '#FFF0CC', letterSpacing: '0.22em' }}
