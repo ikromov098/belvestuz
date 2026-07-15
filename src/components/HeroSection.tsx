@@ -24,7 +24,7 @@ export default function HeroSection() {
   return (
     <section className="relative h-[72vh] min-h-[440px] w-full overflow-hidden">
       {/* Boomerang video background */}
-      <BoomerangVideoBg src="/belvest-hero.mp4" className="absolute inset-0 w-full h-full" />
+      <BoomerangVideoBg src="/belvest-promo.mp4" className="absolute inset-0 w-full h-full" />
 
       {/* Gradient overlay for text readability */}
       <div
