@@ -3,35 +3,13 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
+import TeamSection from '@/components/TeamSection';
 
 const STATS = [
   { value: '1 000+', label: 'клиентов' },
   { value: '4',      label: 'услуги' },
   { value: '2 часа', label: 'среднее одобрение' },
   { value: 'с 2025', label: 'на рынке' },
-];
-
-const TEAM = [
-  {
-    name: 'Азиз Каримов',
-    role: 'Генеральный директор',
-    desc: 'Более 15 лет в финансовой отрасли. Основал Belvest с целью сделать лизинг доступным для каждого.',
-  },
-  {
-    name: 'Нилуфар Рашидова',
-    role: 'Финансовый директор',
-    desc: 'Эксперт в области корпоративных финансов и риск-менеджмента. Контролирует финансовую устойчивость компании.',
-  },
-  {
-    name: 'Бехзод Юсупов',
-    role: 'Руководитель по лизингу',
-    desc: 'Разрабатывает индивидуальные лизинговые решения для бизнеса любого масштаба.',
-  },
-  {
-    name: 'Малика Хасанова',
-    role: 'Руководитель по клиентскому сервису',
-    desc: 'Обеспечивает высокий стандарт обслуживания и оперативную поддержку каждого клиента.',
-  },
 ];
 
 const fadeUp = {
@@ -153,46 +131,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section style={{ padding: '80px 16px' }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>
-              {t.about.teamTitle}
-            </h2>
-          </div>
-
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-            variants={stagger}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.15 }}
-          >
-            {TEAM.map((member) => (
-              <motion.div
-                key={member.name}
-                variants={fadeUp}
-                className="rounded-2xl p-6 flex flex-col items-center text-center"
-                style={{
-                  backgroundColor: '#fff',
-                  boxShadow: '0 2px 16px rgba(0,0,0,0.07)',
-                  border: '1px solid #16685B',
-                }}
-              >
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center text-lg font-bold mb-4 shrink-0"
-                  style={{ backgroundColor: '#004445', color: '#FFF0CC' }}
-                >
-                  {member.name.split(' ').map((w) => w[0]).join('')}
-                </div>
-                <p className="font-bold text-sm mb-0.5" style={{ color: '#0D1F1D' }}>{member.name}</p>
-                <p className="text-xs font-semibold mb-3" style={{ color: '#16685B' }}>{member.role}</p>
-                <p className="text-xs leading-relaxed" style={{ color: '#4A6B67' }}>{member.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      <TeamSection />
 
       {/* Why choose us */}
       <section style={{ backgroundColor: '#fff', padding: '80px 16px' }}>
