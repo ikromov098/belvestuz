@@ -3,6 +3,36 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Send, Phone } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
+
+const PARTNERS_UI: Record<'ru' | 'uz', Record<string, string>> = {
+  ru: {
+    home: 'Главная', crumb: 'Партнёры',
+    heroLabel: 'Партнёрская сеть', heroTitle: 'Наши партнёры',
+    heroSub: 'Бренды и магазины доступные в рассрочку и лизинг Belvest',
+    gridLabel: 'Бренды-партнёры', gridTitle: 'Ведущие мировые бренды',
+    availLeasing: 'Доступно в лизинг', availInstall: 'Доступно в рассрочку',
+    ijara: 'Иджара', murabaha: 'Мурабаха',
+    bizLabel: 'Для бизнеса', bizTitle: 'Станьте партнёром Belvest',
+    bizSub: 'Предлагайте рассрочку без процентов своим клиентам. Увеличьте продажи без дополнительных затрат.',
+    apply: 'Оставить заявку', telegram: 'Написать в Telegram',
+    contactQ: 'Вопросы по партнёрству:',
+    b1: '✓ Бесплатное подключение', b2: '✓ Быстрая интеграция', b3: '✓ Поддержка 24/7',
+  },
+  uz: {
+    home: 'Bosh sahifa', crumb: 'Hamkorlar',
+    heroLabel: "Hamkorlik tarmog'i", heroTitle: 'Bizning hamkorlar',
+    heroSub: "Belvest nasiya savdo va lizingda mavjud brendlar va do'konlar",
+    gridLabel: 'Hamkor brendlar', gridTitle: 'Yetakchi jahon brendlari',
+    availLeasing: 'Lizingda mavjud', availInstall: 'Nasiya savdoda mavjud',
+    ijara: 'Ijara', murabaha: 'Murabaha',
+    bizLabel: 'Biznes uchun', bizTitle: "Belvest hamkori bo'ling",
+    bizSub: "Mijozlaringizga foizsiz nasiya savdoni taklif qiling. Qo'shimcha xarajatlarsiz sotuvlarni oshiring.",
+    apply: 'Ariza qoldirish', telegram: 'Telegramga yozish',
+    contactQ: "Hamkorlik bo'yicha savollar:",
+    b1: '✓ Bepul ulanish', b2: '✓ Tez integratsiya', b3: "✓ 24/7 qo'llab-quvvatlash",
+  },
+};
 
 function InstagramIcon({ size = 18 }: { size?: number }) {
   return (
@@ -31,13 +61,9 @@ const BRANDS: { name: string; service: ServiceType }[] = [
   { name: 'Artel',     service: 'installment' },
 ];
 
-const BENEFITS = [
-  '✓ Бесплатное подключение',
-  '✓ Быстрая интеграция',
-  '✓ Поддержка 24/7',
-];
-
 function BrandCard({ name, service }: { name: string; service: ServiceType }) {
+  const { lang } = useLanguage();
+  const L = PARTNERS_UI[lang];
   const [hovered, setHovered] = useState(false);
   const isLeasing = service === 'leasing';
 
@@ -59,7 +85,7 @@ function BrandCard({ name, service }: { name: string; service: ServiceType }) {
         {name}
       </span>
       <span className="text-xs" style={{ color: '#4A6B67' }}>
-        {isLeasing ? 'Доступно в лизинг' : 'Доступно в рассрочку'}
+        {isLeasing ? L.availLeasing : L.availInstall}
       </span>
       <span
         className="px-3 py-1 rounded-full text-xs font-bold"
@@ -69,31 +95,34 @@ function BrandCard({ name, service }: { name: string; service: ServiceType }) {
             : { backgroundColor: 'rgba(0,68,69,0.10)', color: '#004445' }
         }
       >
-        {isLeasing ? 'Иджара' : 'Мурабаха'}
+        {isLeasing ? L.ijara : L.murabaha}
       </span>
     </div>
   );
 }
 
 export default function PartnersPage() {
+  const { lang } = useLanguage();
+  const L = PARTNERS_UI[lang];
+  const BENEFITS = [L.b1, L.b2, L.b3];
   return (
     <div>
       {/* Hero */}
       <div style={{ backgroundColor: '#004445' }} className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(255,240,204,0.55)' }}>
-            <Link href="/" style={{ color: 'rgba(255,240,204,0.55)' }}>Главная</Link>
+            <Link href="/" style={{ color: 'rgba(255,240,204,0.55)' }}>{L.home}</Link>
             <span>›</span>
-            <span style={{ color: '#FFF0CC' }}>Партнёры</span>
+            <span style={{ color: '#FFF0CC' }}>{L.crumb}</span>
           </nav>
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
-            Партнёрская сеть
+            {L.heroLabel}
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
-            Наши партнёры
+            {L.heroTitle}
           </h1>
           <p className="text-lg" style={{ color: 'rgba(255,240,204,0.75)', maxWidth: 480 }}>
-            Бренды и магазины доступные в рассрочку и лизинг Belvest
+            {L.heroSub}
           </p>
         </div>
       </div>
@@ -103,10 +132,10 @@ export default function PartnersPage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>
-              Бренды-партнёры
+              {L.gridLabel}
             </p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>
-              Ведущие мировые бренды
+              {L.gridTitle}
             </h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -121,13 +150,13 @@ export default function PartnersPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#004445' }}>
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
-            Для бизнеса
+            {L.bizLabel}
           </p>
           <h2 className="text-3xl sm:text-4xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
-            Станьте партнёром Belvest
+            {L.bizTitle}
           </h2>
           <p className="text-base mb-8" style={{ color: 'rgba(255,240,204,0.70)', maxWidth: 480, margin: '0 auto 32px' }}>
-            Предлагайте рассрочку без процентов своим клиентам. Увеличьте продажи без дополнительных затрат.
+            {L.bizSub}
           </p>
 
           {/* Benefit pills */}
@@ -151,7 +180,7 @@ export default function PartnersPage() {
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFF0CC')}
             >
-              Оставить заявку
+              {L.apply}
             </Link>
             <a
               href="https://t.me/belvest_info"
@@ -163,7 +192,7 @@ export default function PartnersPage() {
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
             >
               <Send size={16} />
-              Написать в Telegram
+              {L.telegram}
             </a>
           </div>
         </div>
@@ -173,7 +202,7 @@ export default function PartnersPage() {
       <section className="py-10 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
           <span className="text-sm font-semibold" style={{ color: '#4A6B67' }}>
-            Вопросы по партнёрству:
+            {L.contactQ}
           </span>
           <a
             href="tel:+998774809999"

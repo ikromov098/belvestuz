@@ -24,15 +24,22 @@ const CAR_B_MARKUP: Record<number, number> = { 13: 0.22, 24: 0.44 };
 const PHONE_TERMS = [6, 7, 8, 9, 10, 11, 12];
 const PHONE_ANNUAL_MARKUP = 0.54;
 
-// Price ranges (no live FX rate, so the $18,000 threshold is a manual toggle)
-const CAR_PRICE   = { min: 30_000_000, max: 5_000_000_000, step: 5_000_000 };
-const PHONE_PRICE = { min: 500_000,    max: 50_000_000,    step: 500_000  };
+// Fixed exchange rate — cars are priced in USD, converted to so'm for display only.
+const USD_TO_UZS_RATE = 12700; // average rate for 2026, for illustration only
+
+// Car price ranges are in USD; the $18,000 bracket sets the ceiling.
+// "high" bracket ceiling = sum equivalent of 5 000 000 000 so'm, expressed in USD (~$393 700).
+const CAR_PRICE_LOW  = { min: 1_000,  max: 18_000, step: 500 };
+const CAR_PRICE_HIGH = { min: 18_000, max: Math.round(5_000_000_000 / USD_TO_UZS_RATE), step: 5_000 };
+// Phones stay in so'm (no currency conversion).
+const PHONE_PRICE = { min: 500_000, max: 50_000_000, step: 500_000 };
 
 function termsFor(p: Product) {
   return p === 'phone' ? PHONE_TERMS : p === 'carB' ? CAR_B_TERMS : CAR_A_TERMS;
 }
-function priceRangeFor(p: Product) {
-  return p === 'phone' ? PHONE_PRICE : CAR_PRICE;
+function priceRangeFor(p: Product, b: Bracket) {
+  if (p === 'phone') return PHONE_PRICE;
+  return b === 'high' ? CAR_PRICE_HIGH : CAR_PRICE_LOW;
 }
 function minDownRateFor(p: Product, b: Bracket) {
   return p === 'phone' ? 0.20 : b === 'high' ? 0.50 : 0.30;
@@ -111,9 +118,10 @@ interface SliderRowProps {
   step: number;
   display: string;
   onChange: (v: number) => void;
+  fmtBound?: (n: number) => string;
 }
 
-function SliderRow({ label, value, min, max, step, display, onChange }: SliderRowProps) {
+function SliderRow({ label, value, min, max, step, display, onChange, fmtBound = fmt }: SliderRowProps) {
   const pct = ((value - min) / (max - min)) * 100;
   const trackStyle = {
     background: `linear-gradient(to right, #004445 ${pct}%, #16685B ${pct}%)`,
@@ -136,8 +144,8 @@ function SliderRow({ label, value, min, max, step, display, onChange }: SliderRo
         style={trackStyle}
       />
       <div className="flex justify-between text-xs" style={{ color: '#4A6B67' }}>
-        <span>{fmt(min)}</span>
-        <span>{fmt(max)}</span>
+        <span>{fmtBound(min)}</span>
+        <span>{fmtBound(max)}</span>
       </div>
     </div>
   );
@@ -148,7 +156,7 @@ function SliderRow({ label, value, min, max, step, display, onChange }: SliderRo
 function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: Product }) {
   const { t, lang } = useLanguage();
 
-  const initPrice = defaultProduct === 'phone' ? 4_500_000 : 200_000_000;
+  const initPrice = defaultProduct === 'phone' ? 4_500_000 : 15_000;
 
   const [product, setProduct] = useState<Product>(defaultProduct);
   const [bracket, setBracket] = useState<Bracket>('low');
@@ -157,11 +165,11 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
   const [down, setDown]       = useState(Math.round(initPrice * minDownRateFor(defaultProduct, 'low')));
 
   // ── Derived values ──
-  const range     = priceRangeFor(product);
+  const range     = priceRangeFor(product, bracket);
   const minRate   = minDownRateFor(product, bracket);
   const minDown   = Math.round(price * minRate);
   const maxDown   = Math.round(price * 0.95);
-  const downStep  = product === 'phone' ? 100_000 : 1_000_000;
+  const downStep  = product === 'phone' ? 100_000 : 500;
   const clampedDown = Math.min(Math.max(down, minDown), maxDown);
   const downRatePct = price > 0 ? clampedDown / price : 0;
 
@@ -174,14 +182,17 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
   const changeProduct = (p: Product) => {
     setProduct(p);
     setTerm(termsFor(p)[0]);
-    const r = priceRangeFor(p);
+    const r = priceRangeFor(p, bracket);
     const np = Math.min(Math.max(price, r.min), r.max);
     setPrice(np);
     setDown(Math.round(np * minDownRateFor(p, bracket)));
   };
   const changeBracket = (b: Bracket) => {
     setBracket(b);
-    setDown(Math.round(price * minDownRateFor(product, b)));
+    const r = priceRangeFor(product, b);
+    const np = Math.min(Math.max(price, r.min), r.max);
+    setPrice(np);
+    setDown(Math.round(np * minDownRateFor(product, b)));
   };
   const changePrice = (v: number) => {
     setPrice(v);
@@ -213,6 +224,7 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
       brkTotal: 'Итого к оплате',
       brkMonthly: 'Ежемесячный платёж',
       cur: 'сум',
+      disclaimer: 'Курс указан для примера (1$ = 12 700 сум, средний курс 2026 года). При заключении реальной сделки применяется актуальный курс ЦБ на день оплаты.',
     },
     uz: {
       productLabel: 'Mahsulot',
@@ -235,8 +247,17 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
       brkTotal: "Jami to'lov",
       brkMonthly: "Oylik to'lov",
       cur: "so'm",
+      disclaimer: "Kurs faqat namuna uchun ko'rsatilgan (1$ = 12 700 so'm, 2026-yil o'rtacha kursi). Haqiqiy bitim tuzilganda to'lov kunidagi amaldagi Markaziy bank kursi qo'llaniladi.",
     },
   }[lang];
+
+  // Cars are priced in USD; results show both currencies. Phones stay in so'm.
+  const money = (v: number) =>
+    isCar
+      ? `$${fmt(v)} (≈ ${fmt(Math.round(v * USD_TO_UZS_RATE))} ${L.cur})`
+      : `${fmt(v)} ${L.cur}`;
+  const priceDisplay = (v: number) => (isCar ? `$${fmt(v)}` : `${fmt(v)} ${L.cur}`);
+  const bound = (n: number) => (isCar ? `$${fmt(n)}` : fmt(n));
 
   return (
     <div
@@ -310,7 +331,8 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
           min={range.min}
           max={range.max}
           step={range.step}
-          display={`${fmt(price)} ${L.cur}`}
+          display={priceDisplay(price)}
+          fmtBound={bound}
           onChange={changePrice}
         />
 
@@ -321,7 +343,8 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
           min={minDown}
           max={maxDown}
           step={downStep}
-          display={`${fmt(clampedDown)} ${L.cur}`}
+          display={priceDisplay(clampedDown)}
+          fmtBound={bound}
           onChange={setDown}
         />
 
@@ -364,10 +387,10 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
           className="rounded-xl p-5 flex flex-col gap-2.5"
           style={{ backgroundColor: 'rgba(0,68,69,0.06)', border: '1px solid rgba(0,68,69,0.12)' }}
         >
-          <BreakdownLine label={L.down} value={`${fmt(clampedDown)} ${L.cur}`} />
-          <BreakdownLine label={L.brkRemaining} value={`${fmt(remaining)} ${L.cur}`} />
+          <BreakdownLine label={L.down} value={money(clampedDown)} />
+          <BreakdownLine label={L.brkRemaining} value={money(remaining)} />
           <div className="pt-2" style={{ borderTop: '1px solid rgba(0,68,69,0.15)' }}>
-            <BreakdownLine label={L.brkTotal} value={`${fmt(totalToPay)} ${L.cur}`} strong />
+            <BreakdownLine label={L.brkTotal} value={money(totalToPay)} strong />
             <p className="text-right text-[11px] font-semibold mt-1" style={{ color: '#548870' }}>{L.markupTag}</p>
           </div>
 
@@ -376,11 +399,23 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
               {L.brkMonthly}
             </p>
             <p className="text-4xl font-extrabold leading-none" style={{ color: '#004445' }}>
-              {fmt(monthly)}{' '}
-              <span className="text-2xl font-bold" style={{ color: '#16685B' }}>{L.cur}</span>
+              {isCar ? `$${fmt(monthly)}` : fmt(monthly)}{' '}
+              {!isCar && <span className="text-2xl font-bold" style={{ color: '#16685B' }}>{L.cur}</span>}
             </p>
+            {isCar && (
+              <p className="text-sm font-bold mt-1" style={{ color: '#16685B' }}>
+                ≈ {fmt(Math.round(monthly * USD_TO_UZS_RATE))} {L.cur}
+              </p>
+            )}
           </div>
         </div>
+
+        {/* Exchange-rate disclaimer (cars only — USD-based) */}
+        {isCar && (
+          <p className="text-[11px] leading-relaxed" style={{ color: '#8A9B98' }}>
+            {L.disclaimer}
+          </p>
+        )}
 
         {/* CTA */}
         <Link
@@ -415,13 +450,45 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
 // ─── Trade-in Estimator ───────────────────────────────────────────────────────
 
 function TradeInEstimator() {
-  const [category, setCategory] = useState('');
-  const [estimate, setEstimate] = useState(1_200_000);
-  const [newPrice, setNewPrice] = useState(4_200_000);
   const { lang } = useLanguage();
+  const [category, setCategory] = useState('');
+  const [estimate, setEstimate] = useState(300);   // USD
+  const [newPrice, setNewPrice] = useState(800);   // USD
 
   const topay = Math.max(0, newPrice - estimate);
   const categories = TRADE_IN_CATEGORIES[lang];
+
+  const L = {
+    ru: {
+      title: 'Оценка Trade-in',
+      intro: 'Узнайте примерную стоимость вашего товара и размер доплаты за новый.',
+      whatGive: 'Что хотите сдать?',
+      selectPlaceholder: 'Выберите категорию...',
+      oldValue: 'Примерная стоимость вашего товара',
+      newValue: 'Стоимость нового товара',
+      resultOld: 'Стоимость вашего товара:',
+      resultTopay: 'Доплата за новый товар:',
+      cta: 'Оценить точнее',
+      cur: 'сум',
+      disclaimer: 'Курс указан для примера (1$ = 12 700 сум, средний курс 2026 года). При заключении реальной сделки применяется актуальный курс ЦБ на день оплаты.',
+    },
+    uz: {
+      title: 'Trade-in baholash',
+      intro: "Tovaringizning taxminiy qiymatini va yangisi uchun qo'shimcha to'lovni bilib oling.",
+      whatGive: 'Nimani topshirmoqchisiz?',
+      selectPlaceholder: 'Toifani tanlang...',
+      oldValue: 'Tovaringizning taxminiy qiymati',
+      newValue: 'Yangi tovar narxi',
+      resultOld: 'Tovaringizning qiymati:',
+      resultTopay: "Yangi tovar uchun qo'shimcha to'lov:",
+      cta: 'Aniqroq baholash',
+      cur: "so'm",
+      disclaimer: "Kurs faqat namuna uchun ko'rsatilgan (1$ = 12 700 so'm, 2026-yil o'rtacha kursi). Haqiqiy bitim tuzilganda to'lov kunidagi amaldagi Markaziy bank kursi qo'llaniladi.",
+    },
+  }[lang];
+
+  const dual = (v: number) => `$${fmt(v)} (≈ ${fmt(Math.round(v * USD_TO_UZS_RATE))} ${L.cur})`;
+  const usdBound = (n: number) => `$${fmt(n)}`;
 
   return (
     <div
@@ -430,19 +497,19 @@ function TradeInEstimator() {
     >
       <CardHeader
         icon={<ArrowRight size={20} />}
-        title="Оценка Trade-in"
+        title={L.title}
         gold
       />
 
       <div className="p-6 flex flex-col gap-5">
         <p className="text-sm" style={{ color: '#4A6B67' }}>
-          Узнайте примерную стоимость вашего товара и размер доплаты за новый.
+          {L.intro}
         </p>
 
         {/* Step 1 — Category */}
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-semibold" style={{ color: '#4A6B67' }}>
-            Что хотите сдать?
+            {L.whatGive}
           </label>
           <select
             value={category}
@@ -454,56 +521,63 @@ function TradeInEstimator() {
               backgroundColor: '#FFFFFF',
             }}
           >
-            <option value="" disabled>Выберите категорию...</option>
+            <option value="" disabled>{L.selectPlaceholder}</option>
             {categories.map((c) => (
               <option key={c} value={c}>{c}</option>
             ))}
           </select>
         </div>
 
-        {/* Step 2 — Estimate slider */}
+        {/* Step 2 — Estimate slider (USD) */}
         <SliderRow
-          label="Примерная стоимость вашего товара"
+          label={L.oldValue}
           value={estimate}
-          min={100_000}
-          max={10_000_000}
-          step={100_000}
-          display={`${fmt(estimate)} сум`}
+          min={50}
+          max={5_000}
+          step={50}
+          display={`$${fmt(estimate)}`}
+          fmtBound={usdBound}
           onChange={setEstimate}
         />
 
-        {/* Step 3 — New item price */}
+        {/* Step 3 — New item price (USD) */}
         <SliderRow
-          label="Стоимость нового товара"
+          label={L.newValue}
           value={newPrice}
-          min={500_000}
-          max={30_000_000}
-          step={100_000}
-          display={`${fmt(newPrice)} сум`}
+          min={100}
+          max={50_000}
+          step={100}
+          display={`$${fmt(newPrice)}`}
+          fmtBound={usdBound}
           onChange={setNewPrice}
         />
 
-        {/* Result */}
+        {/* Result — both currencies */}
         <div
           className="rounded-xl p-5"
           style={{ backgroundColor: 'rgba(84,136,112,0.08)', border: '1px solid rgba(84,136,112,0.25)' }}
         >
-          <div className="flex justify-between items-center mb-3">
-            <span className="text-sm" style={{ color: '#4A6B67' }}>Стоимость вашего товара:</span>
-            <span className="text-base font-bold" style={{ color: '#004445' }}>
-              {fmt(estimate)} <span style={{ color: '#16685B' }}>сум</span>
+          <div className="flex justify-between items-center gap-3 mb-3">
+            <span className="text-sm" style={{ color: '#4A6B67' }}>{L.resultOld}</span>
+            <span className="text-sm font-bold text-right" style={{ color: '#004445' }}>
+              {dual(estimate)}
             </span>
           </div>
           <div
-            className="flex justify-between items-center pt-3"
+            className="flex justify-between items-center gap-3 pt-3"
             style={{ borderTop: '1px solid rgba(84,136,112,0.25)' }}
           >
-            <span className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>Доплата за новый товар:</span>
-            <span className="text-xl font-extrabold" style={{ color: '#16685B' }}>
-              {fmt(topay)} сум
+            <span className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>{L.resultTopay}</span>
+            <span className="text-sm font-extrabold text-right" style={{ color: '#16685B' }}>
+              {dual(topay)}
             </span>
           </div>
         </div>
+
+        {/* Exchange-rate disclaimer */}
+        <p className="text-[11px] leading-relaxed" style={{ color: '#8A9B98' }}>
+          {L.disclaimer}
+        </p>
 
         <Link
           href="/trade-in"
@@ -518,7 +592,7 @@ function TradeInEstimator() {
             e.currentTarget.style.color = '#004445';
           }}
         >
-          Оценить точнее <ArrowRight size={16} />
+          {L.cta} <ArrowRight size={16} />
         </Link>
       </div>
     </div>
@@ -528,6 +602,20 @@ function TradeInEstimator() {
 // ─── Exported Section ─────────────────────────────────────────────────────────
 
 export default function CalculatorSection({ defaultProduct = 'carA' }: { defaultProduct?: Product }) {
+  const { lang } = useLanguage();
+  const H = {
+    ru: {
+      label: 'Финансовые инструменты',
+      title: 'Рассчитайте платёж прямо сейчас',
+      sub: 'Подберите удобный срок и сумму — получите ответ мгновенно.',
+    },
+    uz: {
+      label: 'Moliyaviy vositalar',
+      title: "To'lovni hoziroq hisoblang",
+      sub: "Qulay muddat va summani tanlang — javobni bir zumda oling.",
+    },
+  }[lang];
+
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="max-w-6xl mx-auto">
@@ -537,13 +625,13 @@ export default function CalculatorSection({ defaultProduct = 'carA' }: { default
             className="text-xs font-semibold uppercase tracking-widest mb-2"
             style={{ color: '#4A6B67' }}
           >
-            Финансовые инструменты
+            {H.label}
           </p>
           <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>
-            Рассчитайте платёж прямо сейчас
+            {H.title}
           </h2>
           <p className="mt-2 text-base" style={{ color: '#4A6B67', maxWidth: 480, margin: '8px auto 0' }}>
-            Подберите удобный срок и сумму — получите ответ мгновенно.
+            {H.sub}
           </p>
         </div>
 

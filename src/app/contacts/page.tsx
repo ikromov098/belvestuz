@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Phone, Send, MapPin, CheckCircle, Clock } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 function InstagramIcon({ size = 24 }: { size?: number }) {
   return (
@@ -14,10 +15,48 @@ function InstagramIcon({ size = 24 }: { size?: number }) {
   );
 }
 
+const T = {
+  ru: {
+    home: 'Главная', crumb: 'Контакты', heroLabel: 'Контакты',
+    heroTitle: 'Мы всегда на связи', heroSub: 'Свяжитесь с нами любым удобным способом — ответим быстро',
+    cardLabels: { phone: 'Телефон', telegram: 'Telegram', instagram: 'Instagram', address: 'Адрес' } as Record<string, string>,
+    addressValue: 'Ташкент, Узбекистан',
+    fbLabel: 'Обратная связь', fbTitle: 'Напишите нам',
+    thanks: 'Спасибо!', thanksSub: 'Мы свяжемся с вами в течение 1 рабочего дня',
+    name: 'Имя', namePh: 'Ваше имя', phone: 'Телефон', phonePh: '77 480-99-99',
+    topic: 'Тема', topicPh: 'Выберите тему...', message: 'Сообщение', messagePh: 'Опишите ваш вопрос...',
+    submit: 'Отправить сообщение', errorFill: 'Пожалуйста, заполните все поля',
+    topics: ['Рассрочка', 'Лизинг', 'Трейд-ин', 'Инвестиции', 'Другое'],
+    mapTitle: 'Belvest на карте', hoursLabel: 'График', hoursTitle: 'Режим работы',
+    days: ['Понедельник — Пятница', 'Суббота', 'Воскресенье'],
+    times: ['9:00 — 18:00', '10:00 — 15:00', 'Выходной'],
+  },
+  uz: {
+    home: 'Bosh sahifa', crumb: 'Kontaktlar', heroLabel: 'Kontaktlar',
+    heroTitle: 'Biz doim aloqadamiz', heroSub: "Biz bilan istalgan qulay usulda bog'laning — tez javob beramiz",
+    cardLabels: { phone: 'Telefon', telegram: 'Telegram', instagram: 'Instagram', address: 'Manzil' } as Record<string, string>,
+    addressValue: "Toshkent, O'zbekiston",
+    fbLabel: 'Qayta aloqa', fbTitle: 'Bizga yozing',
+    thanks: 'Rahmat!', thanksSub: "Biz siz bilan 1 ish kuni ichida bog'lanamiz",
+    name: 'Ism', namePh: 'Ismingiz', phone: 'Telefon', phonePh: '77 480-99-99',
+    topic: 'Mavzu', topicPh: 'Mavzuni tanlang...', message: 'Xabar', messagePh: 'Savolingizni yozing...',
+    submit: 'Xabar yuborish', errorFill: "Iltimos, barcha maydonlarni to'ldiring",
+    topics: ['Nasiya savdo', 'Lizing', 'Treyd-in', 'Investitsiyalar', 'Boshqa'],
+    mapTitle: 'Belvest xaritada', hoursLabel: 'Jadval', hoursTitle: 'Ish rejimi',
+    days: ['Dushanba — Juma', 'Shanba', 'Yakshanba'],
+    times: ['9:00 — 18:00', '10:00 — 15:00', 'Dam olish kuni'],
+  },
+};
+
+function AddressText() {
+  const { lang } = useLanguage();
+  return <>{T[lang].addressValue}</>;
+}
+
 const CONTACT_CARDS = [
   {
     icon: <Phone size={24} />,
-    label: 'Телефон',
+    label: 'phone',
     content: (
       <div className="flex flex-col gap-1">
         <a href="tel:+998774809999" className="text-sm font-bold transition-colors duration-150 contact-phone">
@@ -31,7 +70,7 @@ const CONTACT_CARDS = [
   },
   {
     icon: <Send size={24} />,
-    label: 'Telegram',
+    label: 'telegram',
     content: (
       <a
         href="https://t.me/belvest_info"
@@ -45,7 +84,7 @@ const CONTACT_CARDS = [
   },
   {
     icon: <InstagramIcon size={24} />,
-    label: 'Instagram',
+    label: 'instagram',
     content: (
       <a
         href="https://www.instagram.com/belvest.uz/"
@@ -59,27 +98,23 @@ const CONTACT_CARDS = [
   },
   {
     icon: <MapPin size={24} />,
-    label: 'Адрес',
+    label: 'address',
     content: (
       <a
         href="#map"
         className="text-sm font-bold transition-colors duration-150 contact-link"
       >
-        Ташкент, Узбекистан
+        <AddressText />
       </a>
     ),
   },
 ];
 
-const TOPICS = ['Рассрочка', 'Лизинг', 'Трейд-ин', 'Инвестиции', 'Другое'];
-
-const HOURS = [
-  { day: 'Понедельник — Пятница', time: '9:00 — 18:00', closed: false },
-  { day: 'Суббота', time: '10:00 — 15:00', closed: false },
-  { day: 'Воскресенье', time: 'Выходной', closed: true },
-];
-
 export default function ContactsPage() {
+  const { lang } = useLanguage();
+  const L = T[lang];
+  const TOPICS = L.topics;
+  const HOURS = L.days.map((day, i) => ({ day, time: L.times[i], closed: i === 2 }));
   const [form, setForm] = useState({ name: '', phone: '', topic: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -87,7 +122,7 @@ export default function ContactsPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.phone.trim() || !form.topic || !form.message.trim()) {
-      setError('Пожалуйста, заполните все поля');
+      setError(L.errorFill);
       return;
     }
     setError('');
@@ -100,18 +135,18 @@ export default function ContactsPage() {
       <div style={{ backgroundColor: '#004445' }} className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <nav className="flex items-center gap-1.5 mb-5 text-xs" style={{ color: 'rgba(255,240,204,0.55)' }}>
-            <Link href="/" style={{ color: 'rgba(255,240,204,0.55)' }}>Главная</Link>
+            <Link href="/" style={{ color: 'rgba(255,240,204,0.55)' }}>{L.home}</Link>
             <span>›</span>
-            <span style={{ color: '#FFF0CC' }}>Контакты</span>
+            <span style={{ color: '#FFF0CC' }}>{L.crumb}</span>
           </nav>
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
-            Контакты
+            {L.heroLabel}
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC' }}>
-            Мы всегда на связи
+            {L.heroTitle}
           </h1>
           <p className="text-lg" style={{ color: 'rgba(255,240,204,0.75)', maxWidth: 480 }}>
-            Свяжитесь с нами любым удобным способом — ответим быстро
+            {L.heroSub}
           </p>
         </div>
       </div>
@@ -134,7 +169,7 @@ export default function ContactsPage() {
                 </div>
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: '#4A6B67' }}>
-                    {card.label}
+                    {L.cardLabels[card.label]}
                   </p>
                   {card.content}
                 </div>
@@ -149,10 +184,10 @@ export default function ContactsPage() {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>
-              Обратная связь
+              {L.fbLabel}
             </p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>
-              Напишите нам
+              {L.fbTitle}
             </h2>
           </div>
 
@@ -164,19 +199,19 @@ export default function ContactsPage() {
               >
                 <CheckCircle size={36} style={{ color: '#004445' }} />
               </div>
-              <h3 className="text-xl font-extrabold mb-2" style={{ color: '#0D1F1D' }}>Спасибо!</h3>
+              <h3 className="text-xl font-extrabold mb-2" style={{ color: '#0D1F1D' }}>{L.thanks}</h3>
               <p className="text-sm" style={{ color: '#4A6B67', maxWidth: 340 }}>
-                Мы свяжемся с вами в течение 1 рабочего дня
+                {L.thanksSub}
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold" style={{ color: '#4A6B67' }}>Имя</label>
+                  <label className="text-sm font-semibold" style={{ color: '#4A6B67' }}>{L.name}</label>
                   <input
                     type="text"
-                    placeholder="Ваше имя"
+                    placeholder={L.namePh}
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     className="px-4 py-2.5 rounded-lg text-sm outline-none"
@@ -184,7 +219,7 @@ export default function ContactsPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold" style={{ color: '#4A6B67' }}>Телефон</label>
+                  <label className="text-sm font-semibold" style={{ color: '#4A6B67' }}>{L.phone}</label>
                   <div className="flex rounded-lg overflow-hidden" style={{ border: '1px solid #16685B' }}>
                     <span
                       className="px-3 flex items-center text-sm font-semibold shrink-0"
@@ -205,7 +240,7 @@ export default function ContactsPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold" style={{ color: '#4A6B67' }}>Тема</label>
+                <label className="text-sm font-semibold" style={{ color: '#4A6B67' }}>{L.topic}</label>
                 <select
                   value={form.topic}
                   onChange={(e) => setForm({ ...form, topic: e.target.value })}
@@ -216,7 +251,7 @@ export default function ContactsPage() {
                     color: form.topic ? '#0D1F1D' : '#4A6B67',
                   }}
                 >
-                  <option value="" disabled>Выберите тему...</option>
+                  <option value="" disabled>{L.topicPh}</option>
                   {TOPICS.map((t) => (
                     <option key={t} value={t}>{t}</option>
                   ))}
@@ -224,10 +259,10 @@ export default function ContactsPage() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold" style={{ color: '#4A6B67' }}>Сообщение</label>
+                <label className="text-sm font-semibold" style={{ color: '#4A6B67' }}>{L.message}</label>
                 <textarea
                   rows={4}
-                  placeholder="Опишите ваш вопрос..."
+                  placeholder={L.messagePh}
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   className="px-4 py-2.5 rounded-lg text-sm outline-none resize-none"
@@ -246,7 +281,7 @@ export default function ContactsPage() {
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#16685B')}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#004445')}
               >
-                Отправить сообщение
+                {L.submit}
               </button>
             </form>
           )}
@@ -264,7 +299,7 @@ export default function ContactsPage() {
               frameBorder={0}
               allowFullScreen
               style={{ display: 'block' }}
-              title="Belvest на карте"
+              title={L.mapTitle}
             />
           </div>
         </div>
@@ -281,8 +316,8 @@ export default function ContactsPage() {
               <Clock size={20} />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#16685B' }}>График</p>
-              <h2 className="text-xl font-extrabold" style={{ color: '#0D1F1D' }}>Режим работы</h2>
+              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#16685B' }}>{L.hoursLabel}</p>
+              <h2 className="text-xl font-extrabold" style={{ color: '#0D1F1D' }}>{L.hoursTitle}</h2>
             </div>
           </div>
           <div

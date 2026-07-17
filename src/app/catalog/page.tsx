@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import {
-  Smartphone, Zap, Home, Car, Wrench, LayoutGrid,
+  Smartphone, Car, LayoutGrid,
   ChevronRight, Search, X, SlidersHorizontal,
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
@@ -26,43 +26,28 @@ interface Product {
   services: Service[];
   inStock: boolean;
   isB2B: boolean;
-  bg: string;
-  emoji: string;
 }
 
 // ─── Static data ──────────────────────────────────────────────────────────────
+// Belvest finances cars and phones (+ high-value electronics like laptops).
+// Low-margin home goods (TVs, furniture, appliances) and industrial equipment
+// are intentionally not offered and were removed from the catalog.
 
 const CATEGORIES = [
-  { id: 'all',         Icon: LayoutGrid  },
-  { id: 'electronics', Icon: Smartphone  },
-  { id: 'appliances',  Icon: Zap         },
-  { id: 'furniture',   Icon: Home        },
-  { id: 'transport',   Icon: Car         },
-  { id: 'equipment',   Icon: Wrench      },
+  { id: 'all',         Icon: LayoutGrid },
+  { id: 'electronics', Icon: Smartphone },
+  { id: 'transport',   Icon: Car        },
 ];
 
 const ALL_SERVICES: Service[] = ['Рассрочка', 'Лизинг', 'Трейд-ин'];
 
 const PRODUCTS: Product[] = [
-  // Электроника
-  { id: 1,  name: 'Samsung Galaxy S24 Ultra',   brand: 'Samsung',   category: 'electronics', price: 12_000_000,  monthlyMin: 1_000_000, badge: 'Хит',     services: ['Рассрочка', 'Трейд-ин'],              inStock: true,  isB2B: false, bg: 'linear-gradient(135deg,#1a1a2e,#16213e)', emoji: '📱' },
-  { id: 2,  name: 'MacBook Pro 14" M3',         brand: 'Apple',     category: 'electronics', price: 22_000_000,  monthlyMin: 1_833_000, badge: 'Новинка',  services: ['Рассрочка', 'Трейд-ин'],              inStock: true,  isB2B: false, bg: 'linear-gradient(135deg,#2c2c2e,#1c1c1e)', emoji: '💻' },
-  { id: 3,  name: 'LG OLED TV 65"',             brand: 'LG',        category: 'electronics', price: 15_000_000,  monthlyMin: 1_250_000, badge: 'Акция',    services: ['Рассрочка', 'Трейд-ин'],              inStock: true,  isB2B: false, bg: 'linear-gradient(135deg,#1a1a3e,#0d0d2b)', emoji: '📺' },
-  // Бытовая техника
-  { id: 4,  name: 'Samsung Side-by-Side RF65',  brand: 'Samsung',   category: 'appliances',  price: 8_500_000,   monthlyMin: 708_000,   badge: 'Хит',     services: ['Рассрочка', 'Лизинг', 'Трейд-ин'],   inStock: true,  isB2B: false, bg: 'linear-gradient(135deg,#e8f4f8,#cce8f4)', emoji: '🧊' },
-  { id: 5,  name: 'Bosch Serie 8 Стиральная',   brand: 'Bosch',     category: 'appliances',  price: 6_200_000,   monthlyMin: 516_000,                      services: ['Рассрочка', 'Лизинг', 'Трейд-ин'],   inStock: true,  isB2B: false, bg: 'linear-gradient(135deg,#f0f4f8,#dae8f4)', emoji: '🫧' },
-  { id: 6,  name: 'Midea Кондиционер 18000',    brand: 'Midea',     category: 'appliances',  price: 4_800_000,   monthlyMin: 400_000,   badge: 'Акция',    services: ['Рассрочка', 'Лизинг'],                inStock: false, isB2B: false, bg: 'linear-gradient(135deg,#e8f8f4,#c8efe6)', emoji: '❄️' },
-  // Мебель
-  { id: 7,  name: 'Угловой диван Milano XXL',   brand: 'Neman',     category: 'furniture',   price: 9_500_000,   monthlyMin: 791_000,   badge: 'Хит',     services: ['Рассрочка'],                          inStock: true,  isB2B: false, bg: 'linear-gradient(135deg,#f8f0e8,#f0e0cc)', emoji: '🛋️' },
-  { id: 8,  name: 'Шкаф-купе Luxe 3м',         brand: 'Hoff',      category: 'furniture',   price: 5_500_000,   monthlyMin: 458_000,                      services: ['Рассрочка'],                          inStock: true,  isB2B: false, bg: 'linear-gradient(135deg,#f5f5f5,#e8e8e8)', emoji: '🚪' },
-  { id: 9,  name: 'Кровать Royal 160×200',      brand: 'Neman',     category: 'furniture',   price: 7_200_000,   monthlyMin: 600_000,   badge: 'Новинка',  services: ['Рассрочка'],                          inStock: true,  isB2B: false, bg: 'linear-gradient(135deg,#faf5f0,#f0e8d8)', emoji: '🛏️' },
-  // Транспорт
-  { id: 10, name: 'Chevrolet Equinox 2024',     brand: 'Chevrolet', category: 'transport',   price: 285_000_000, monthlyMin: 5_950_000, badge: 'Хит',     services: ['Лизинг', 'Трейд-ин'],                 inStock: true,  isB2B: false, bg: 'linear-gradient(135deg,#1a2030,#0d1520)', emoji: '🚗' },
-  { id: 11, name: 'Yamaha MT-07 2024',          brand: 'Yamaha',    category: 'transport',   price: 48_000_000,  monthlyMin: 2_000_000, badge: 'Лизинг',   services: ['Лизинг', 'Трейд-ин'],                 inStock: true,  isB2B: false, bg: 'linear-gradient(135deg,#1a1a1a,#2a1010)', emoji: '🏍️' },
-  // Спецтехника / Оборудование
-  { id: 12, name: 'Экскаватор XCMG XE215D',    brand: 'XCMG',      category: 'equipment',   price: 250_000_000, monthlyMin: 6_944_000, badge: 'Лизинг',   services: ['Лизинг'],                             inStock: true,  isB2B: true,  bg: 'linear-gradient(135deg,#2a2000,#3a3000)', emoji: '🚧' },
-  { id: 13, name: 'Генератор FG Wilson 100кВт', brand: 'FG Wilson', category: 'equipment',   price: 45_000_000,  monthlyMin: 1_875_000,                    services: ['Лизинг'],                             inStock: true,  isB2B: true,  bg: 'linear-gradient(135deg,#1a2a1a,#0d1a0d)', emoji: '⚡' },
-  { id: 14, name: 'Станок ЧПУ DMG Mori NLX',   brand: 'DMG Mori',  category: 'equipment',   price: 180_000_000, monthlyMin: 5_000_000, badge: 'Новинка',  services: ['Лизинг'],                             inStock: false, isB2B: true,  bg: 'linear-gradient(135deg,#1a1a2a,#0d0d1a)', emoji: '⚙️' },
+  // Электроника (смартфоны и ноутбуки)
+  { id: 1,  name: 'Samsung Galaxy S24 Ultra',   brand: 'Samsung',   category: 'electronics', price: 12_000_000,  monthlyMin: 1_000_000, badge: 'Хит',     services: ['Рассрочка', 'Трейд-ин'],  inStock: true,  isB2B: false },
+  { id: 2,  name: 'MacBook Pro 14" M3',         brand: 'Apple',     category: 'electronics', price: 22_000_000,  monthlyMin: 1_833_000, badge: 'Новинка',  services: ['Рассрочка', 'Трейд-ин'],  inStock: true,  isB2B: false },
+  // Транспорт (автомобили)
+  { id: 10, name: 'Chevrolet Equinox 2024',     brand: 'Chevrolet', category: 'transport',   price: 285_000_000, monthlyMin: 5_950_000, badge: 'Хит',     services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
+  { id: 11, name: 'Yamaha MT-07 2024',          brand: 'Yamaha',    category: 'transport',   price: 48_000_000,  monthlyMin: 2_000_000, badge: 'Лизинг',   services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
 ];
 
 const BADGE_STYLE: Record<BadgeType, { backgroundColor: string; color: string }> = {
@@ -118,10 +103,11 @@ function ProductCard({ product, onShowModal }: { product: Product; onShowModal: 
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Image placeholder */}
+      {/* Image placeholder — brand-colored icon until real photography exists */}
+      {/* TODO: replace with real product photography when available */}
       <div
-        className="relative h-48 flex items-center justify-center text-6xl select-none"
-        style={{ background: product.bg }}
+        className="relative h-48 flex items-center justify-center select-none"
+        style={{ background: '#004445' }}
       >
         {product.badge && (
           <span
@@ -139,7 +125,9 @@ function ProductCard({ product, onShowModal }: { product: Product; onShowModal: 
             {t.catalog.outOfStock}
           </span>
         )}
-        {product.emoji}
+        {product.category === 'transport'
+          ? <Car size={56} style={{ color: '#FFF0CC' }} />
+          : <Smartphone size={56} style={{ color: '#FFF0CC' }} />}
       </div>
 
       {/* Body */}
