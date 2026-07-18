@@ -114,16 +114,17 @@ export default function LeasingPage() {
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#16685B' }}>Как это работает</p>
             <h2 className="text-3xl font-extrabold" style={{ color: '#0D1F1D' }}>Четыре шага до получения имущества</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {STEPS.map((s, i) => (
-              <div key={s.n} className="flex flex-col items-center text-center">
-                <div className="w-14 h-14 rounded-full flex items-center justify-center text-lg font-extrabold mb-4 relative"
+          <div className="relative grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* Connecting line spanning the full row, behind the circles (desktop) */}
+            <div
+              className="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-0.5"
+              style={{ backgroundColor: 'rgba(0,68,69,0.20)' }}
+            />
+            {STEPS.map((s) => (
+              <div key={s.n} className="relative z-10 flex flex-col items-center text-center">
+                <div className="w-24 h-24 rounded-full flex items-center justify-center text-2xl font-extrabold mb-4"
                   style={{ backgroundColor: '#004445', color: '#FFF0CC' }}>
                   {s.n}
-                  {i < STEPS.length - 1 && (
-                    <div className="hidden md:block absolute left-full top-1/2 w-full h-0.5 -translate-y-1/2"
-                      style={{ backgroundColor: 'rgba(0,68,69,0.20)', marginLeft: 8 }} />
-                  )}
                 </div>
                 <h3 className="text-sm font-extrabold mb-2" style={{ color: '#0D1F1D' }}>{s.title}</h3>
                 <p className="text-xs leading-relaxed" style={{ color: '#4A6B67' }}>{s.sub}</p>
