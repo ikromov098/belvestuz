@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ShoppingCart, CheckCircle, ArrowRight } from 'lucide-react';
+import { ShoppingCart, CheckCircle, ArrowRight, Info } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -293,8 +293,9 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
 
         {/* Option B ownership note */}
         {product === 'carB' && (
-          <p className="text-xs -mt-3 leading-relaxed" style={{ color: '#4A6B67' }}>
-            ℹ️ {L.carBNote}
+          <p className="text-xs -mt-3 leading-relaxed flex items-start gap-1.5" style={{ color: '#4A6B67' }}>
+            <Info size={14} className="shrink-0 mt-0.5" style={{ color: '#548870' }} />
+            {L.carBNote}
           </p>
         )}
 

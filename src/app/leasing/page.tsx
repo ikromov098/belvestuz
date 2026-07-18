@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Lock, BadgeCheck, Calendar, Building2, User } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Лизинг (Иджара) — Belvest',
@@ -22,17 +23,17 @@ const BENEFITS = [
   {
     title: 'Без залога',
     sub: 'Само лизинговое имущество является обеспечением по договору. Не нужно закладывать собственные активы.',
-    icon: '🔓',
+    icon: <Lock size={34} style={{ color: '#004445' }} />,
   },
   {
     title: 'Без дополнительных платежей',
     sub: 'Полная сумма фиксируется при подписании договора. Никаких скрытых комиссий или неожиданных платежей.',
-    icon: '✅',
+    icon: <BadgeCheck size={34} style={{ color: '#004445' }} />,
   },
   {
     title: 'Гибкий график',
     sub: 'Сезонные, нерегулярные или ступенчатые платежи — подстроим под денежный поток вашего бизнеса.',
-    icon: '📅',
+    icon: <Calendar size={34} style={{ color: '#004445' }} />,
   },
 ];
 
@@ -143,7 +144,7 @@ export default function LeasingPage() {
             {BENEFITS.map(b => (
               <div key={b.title} className="rounded-2xl p-6"
                 style={{ backgroundColor: '#FFFFFF', border: '1px solid #16685B' }}>
-                <div className="text-4xl mb-4">{b.icon}</div>
+                <div className="mb-4">{b.icon}</div>
                 <h3 className="text-base font-extrabold mb-2" style={{ color: '#0D1F1D' }}>{b.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: '#4A6B67' }}>{b.sub}</p>
               </div>
@@ -165,7 +166,7 @@ export default function LeasingPage() {
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center"
                   style={{ backgroundColor: '#004445' }}>
-                  <span className="text-lg">🏢</span>
+                  <Building2 size={20} style={{ color: '#FFF0CC' }} />
                 </div>
                 <div>
                   <h3 className="font-extrabold" style={{ color: '#0D1F1D' }}>Для юридических лиц</h3>
@@ -192,7 +193,7 @@ export default function LeasingPage() {
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center"
                   style={{ backgroundColor: '#548870' }}>
-                  <span className="text-lg">👤</span>
+                  <User size={20} style={{ color: '#FFF0CC' }} />
                 </div>
                 <div>
                   <h3 className="font-extrabold" style={{ color: '#0D1F1D' }}>Для ИП и самозанятых</h3>

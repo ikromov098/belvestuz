@@ -3,15 +3,16 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
+import { Smartphone, Car, Package } from 'lucide-react';
 
 function fmt(n: number) {
   return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 }
 
 const CATEGORIES = [
-  { id: 'phone', emoji: '📱', basePrice: 3_000_000 },
-  { id: 'car',   emoji: '🚗', basePrice: 15_000_000 },
-  { id: 'other', emoji: '📦', basePrice: 3_500_000 },
+  { id: 'phone', emoji: <Smartphone size={24} style={{ color: '#004445' }} />, basePrice: 3_000_000 },
+  { id: 'car',   emoji: <Car size={24} style={{ color: '#004445' }} />,        basePrice: 15_000_000 },
+  { id: 'other', emoji: <Package size={24} style={{ color: '#004445' }} />,    basePrice: 3_500_000 },
 ];
 
 const CONDITIONS = [
@@ -145,7 +146,7 @@ export default function TradeInPage() {
                         border: `2px solid ${active ? '#004445' : '#16685B'}`,
                         backgroundColor: active ? 'rgba(84,136,112,0.10)' : '#fff',
                       }}>
-                      <span className="text-2xl">{cat.emoji}</span>
+                      <span>{cat.emoji}</span>
                       <span className="text-xs font-semibold text-center" style={{ color: active ? '#0D1F1D' : '#4A6B67' }}>
                         {L.catName[cat.id]}
                       </span>
@@ -261,7 +262,7 @@ export default function TradeInPage() {
             {CATEGORIES.map(c => (
               <div key={c.id} className="flex items-center gap-2 px-5 py-3 rounded-xl"
                 style={{ backgroundColor: '#FFFFFF', border: '1px solid #16685B' }}>
-                <span className="text-xl">{c.emoji}</span>
+                <span>{c.emoji}</span>
                 <span className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>{L.catName[c.id]}</span>
               </div>
             ))}

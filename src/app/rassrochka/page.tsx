@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import CalculatorSection from '@/components/Calculator';
+import { Smartphone, Laptop, Home, Car, IdCard, Hash } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Рассрочка (Мурабаха) — Belvest',
@@ -8,16 +9,16 @@ export const metadata: Metadata = {
 };
 
 const CATEGORIES = [
-  { emoji: '📱', name: 'Смартфоны', sub: 'от 500 000 сум/мес', count: '50+ моделей' },
-  { emoji: '💻', name: 'Ноютбуки', sub: 'от 800 000 сум/мес', count: '30+ моделей' },
-  { emoji: '🏠', name: 'Бытовая техника', sub: 'от 400 000 сум/мес', count: '80+ товаров' },
-  { emoji: '🚗', name: 'Автомобили', sub: 'от 2 000 000 сум/мес', count: 'Трейд-ин' },
+  { emoji: <Smartphone size={34} style={{ color: '#004445' }} />, name: 'Смартфоны', sub: 'от 500 000 сум/мес', count: '50+ моделей' },
+  { emoji: <Laptop size={34} style={{ color: '#004445' }} />, name: 'Ноютбуки', sub: 'от 800 000 сум/мес', count: '30+ моделей' },
+  { emoji: <Home size={34} style={{ color: '#004445' }} />, name: 'Бытовая техника', sub: 'от 400 000 сум/мес', count: '80+ товаров' },
+  { emoji: <Car size={34} style={{ color: '#004445' }} />, name: 'Автомобили', sub: 'от 2 000 000 сум/мес', count: 'Трейд-ин' },
 ];
 
 const DOCS = [
-  { icon: '🪪', label: 'Паспорт гражданина Узбекистана', req: true },
-  { icon: '🔢', label: 'ПИНФЛ (14 цифр)', req: true },
-  { icon: '🚘', label: 'Водительское удостоверение (для авто)', req: false },
+  { icon: <IdCard size={24} style={{ color: '#004445' }} />, label: 'Паспорт гражданина Узбекистана', req: true },
+  { icon: <Hash size={24} style={{ color: '#004445' }} />, label: 'ПИНФЛ (14 цифр)', req: true },
+  { icon: <Car size={24} style={{ color: '#004445' }} />, label: 'Водительское удостоверение (для авто)', req: false },
 ];
 
 const TERMS = [
@@ -91,7 +92,7 @@ export default function RassrochkaPage() {
               <Link key={c.name} href="/catalog"
                 className="flex flex-col items-center text-center p-6 rounded-2xl bg-white transition-shadow hover:shadow-md"
                 style={{ border: '1px solid #16685B' }}>
-                <span className="text-4xl mb-3">{c.emoji}</span>
+                <div className="mb-3">{c.emoji}</div>
                 <h3 className="text-sm font-extrabold mb-1" style={{ color: '#0D1F1D' }}>{c.name}</h3>
                 <p className="text-xs font-semibold" style={{ color: '#004445' }}>{c.sub}</p>
                 <p className="text-xs mt-1" style={{ color: '#4A6B67' }}>{c.count}</p>
@@ -116,7 +117,7 @@ export default function RassrochkaPage() {
             {DOCS.map(d => (
               <div key={d.label} className="flex items-start gap-4 p-4 rounded-xl"
                 style={{ backgroundColor: '#FFFFFF', border: '1px solid #16685B' }}>
-                <span className="text-2xl shrink-0">{d.icon}</span>
+                <div className="shrink-0">{d.icon}</div>
                 <div>
                   <p className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>
                     {d.label}{d.req && <span style={{ color: '#C62828' }}> *</span>}

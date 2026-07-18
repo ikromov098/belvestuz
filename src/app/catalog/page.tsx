@@ -560,7 +560,7 @@ function CatalogPageInner() {
               </div>
             ) : filtered.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-24 text-center">
-                <p className="text-4xl mb-4">🔍</p>
+                <div className="mb-4"><Search size={40} style={{ color: '#548870' }} /></div>
                 <p className="text-lg font-bold mb-1.5" style={{ color: '#0D1F1D' }}>{t.catalog.noResults}</p>
                 <p className="text-sm mb-5" style={{ color: '#4A6B67' }}>{t.catalog.noResultsSub}</p>
                 <button
