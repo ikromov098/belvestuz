@@ -8,62 +8,110 @@ import { useLanguage } from '@/context/LanguageContext';
 const FAQS_BY_LANG: Record<'ru' | 'uz', { q: string; a: string }[]> = {
   ru: [
     {
-      q: 'Чем Belvest отличается от обычного банка?',
-      a: 'Belvest работает по принципу финансирования, основанного на ценностях. Мы не начисляем проценты — вместо этого используем фиксированную наценку (Мурабаха) или аренду с правом выкупа (Иджара). Полная стоимость известна до подписания договора и не меняется.',
+      q: 'Есть ли вмешательство банка?',
+      a: 'Средства привлекаются от учредителя и инвесторов.',
     },
     {
-      q: 'Что такое Мурабаха?',
-      a: 'Мурабаха — структура финансирования с фиксированной наценкой. Мы покупаем товар и продаём вам по заранее согласованной цене. Наценка известна с самого начала и не увеличивается. Никаких процентов.',
+      q: 'Есть ли пени и штрафы?',
+      a: 'Пени и штрафов нет.',
     },
     {
-      q: 'Есть ли скрытые платежи?',
-      a: 'Нет. Полная стоимость фиксируется при оформлении и указывается в договоре. Никаких скрытых комиссий или изменения суммы в процессе выплат.',
+      q: 'Что будет, если я не оплачу ежемесячный платёж вовремя?',
+      a: 'Необходимо предупредить организацию за 1-2 дня. Однако такая ситуация не может носить систематический характер.',
     },
     {
-      q: 'Какие документы нужны?',
-      a: 'Паспорт гражданина Узбекистана, ПИНФЛ, справка о доходах. Для юр. лиц: устав, свидетельство о регистрации.',
+      q: 'Договор заключается на условиях купли-продажи в рассрочку (насия)?',
+      a: 'Да, договор заключается на условиях купли-продажи в рассрочку (насия) и проверен квалифицированными юристами.',
     },
     {
-      q: 'Можно ли погасить досрочно?',
-      a: 'Да, досрочное погашение возможно в любой момент без штрафов.',
+      q: 'Как мы можем вам доверять?',
+      a: 'Мы дорожим удовлетворённостью наших клиентов и после окончания срока переоформляем автомобиль на их имя без лишних хлопот.',
     },
     {
-      q: 'Как долго рассматривается заявка?',
-      a: 'Обычно 1 рабочий день. Сложные случаи — до 3 дней.',
+      q: 'Вы переоформите автомобиль на моё имя?',
+      a: 'Это зависит от первоначального взноса за автомобиль и от собеседования с вами.',
     },
     {
-      q: 'Есть ли скрытые комиссии?',
-      a: 'Нет. Полная стоимость указывается при оформлении заявки. Никаких скрытых платежей.',
+      q: 'Можем ли мы сами выбрать автомобиль?',
+      a: 'Да, конечно, вы можете выбрать у нас или в любом другом автосалоне по вашему желанию.',
+    },
+    {
+      q: 'Можете ли вы сами подобрать автомобиль для меня?',
+      a: 'Многие наши клиенты из-за нехватки времени в большинстве случаев доверяют это нам. В этом случае мы уточняем у клиента, какой автомобиль, цвет, пробег и подобные детали, а затем предлагаем несколько вариантов исходя из запроса.',
+    },
+    {
+      q: 'Есть ли у вас автомобили в продаже?',
+      a: 'На нашей стоянке есть автомобили разных типов, и вы можете не только оформить их в рассрочку, но и купить за наличные — это значит, что цены конкурентоспособны.',
+    },
+    {
+      q: 'Есть ли услуга Trade-in?',
+      a: 'Да, есть: мы оцениваем ваш автомобиль, и если цена вас устраивает, мы его выкупаем, после чего вы можете оформить Trade-in на автомобиль, который есть у нас.',
+    },
+    {
+      q: 'Можете ли вы продать мою машину?',
+      a: 'Конечно, у нас есть услуга продажи, и она бесплатна.',
+    },
+    {
+      q: 'У вас цены на автомобили выше рыночных?',
+      a: 'Наоборот, цены ниже рыночных, чтобы оставаться конкурентоспособными.',
+    },
+    {
+      q: 'Процент — это харам? Странный вопрос.',
+      a: 'Понятие процента не всегда означает ростовщичество. Процент означает 1/100 часть чего-либо. В Belvest вы можете приобрести автомобиль в рассрочку с годовой наценкой 22%.',
     },
   ],
   uz: [
     {
-      q: 'Belvest oddiy bankdan nimasi bilan farq qiladi?',
-      a: "Belvest qadriyatlarga asoslangan moliyalashtirish tamoyili asosida ishlaydi. Biz foiz undirmaymiz — buning o'rniga qat'iy ustama (Murabaha) yoki sotib olish huquqi bilan ijara (Ijara) qo'llaymiz. To'liq narx shartnoma imzolanishidan oldin ma'lum bo'ladi va o'zgarmaydi.",
+      q: "Bank aralashuvi yo'qmi?",
+      a: 'Pul tasischi, investorlar tarafidan jalb qilingan.',
     },
     {
-      q: 'Murabaha nima?',
-      a: "Murabaha — qat'iy ustamali moliyalashtirish tuzilmasi. Biz tovarni sotib olamiz va sizga oldindan kelishilgan narxda sotamiz. Ustama boshidanoq ma'lum va oshmaydi. Hech qanday foiz yo'q.",
+      q: "Peni va jarimalar yo'qmi?",
+      a: "Peni va jarimalar yo'q.",
     },
     {
-      q: "Yashirin to'lovlar bormi?",
-      a: "Yo'q. To'liq narx rasmiylashtirishda qat'iylashtiriladi va shartnomada ko'rsatiladi. To'lovlar davomida hech qanday yashirin komissiya yoki summa o'zgarishi yo'q.",
+      q: "Oylik to'lovni vaqtida to'lamasam nima bo'ladi?",
+      a: "Tashkilotni 1 yoki 2 kun oldin ogohlantirish zarur. Faqat bu holat surunkali bo'lishi mumkin emas.",
     },
     {
-      q: 'Qanday hujjatlar kerak?',
-      a: "O'zbekiston fuqarosining pasporti, PINFL, daromad to'g'risidagi ma'lumotnoma. Yuridik shaxslar uchun: ustav, ro'yxatdan o'tkanlik guvohnomasi.",
+      q: 'Shartnoma Nasiya savdo shartlari asosida tuziladimi?',
+      a: "Ha, Shartnoma Nasiya savdo shartlari asosida tuzilgan va malakali yuristlar tarafidan ham o'rganib chiqilgan.",
     },
     {
-      q: "Muddatidan oldin to'lash mumkinmi?",
-      a: "Ha, muddatidan oldin to'lash istalgan vaqtda jarimasiz amalga oshiriladi.",
+      q: 'Sizlarga qanday ishonishimiz mumkin?',
+      a: "Bizni, xaridorlarimiz mamnunligi va muddat tugagach mashinalarini nomlariga ortiqcha bosh og'riqsiz rasmiylashtirib berishimizdan.",
     },
     {
-      q: "Ariza qancha vaqt ko'rib chiqiladi?",
-      a: "Odatda 1 ish kuni. Murakkab holatlar — 3 kungacha.",
+      q: "Avtomobilni nomimizga o'tkazib berasizmi?",
+      a: "Avtomobilni boshlang'ich to'lovi va siz bilan o'tadigan suhbatga bog'liq.",
     },
     {
-      q: 'Yashirin komissiyalar bormi?',
-      a: "Yo'q. To'liq narx ariza rasmiylashtirishda ko'rsatiladi. Hech qanday yashirin to'lovlar yo'q.",
+      q: "Avtomobilni o'zimiz tanlasak bo'ladimi?",
+      a: 'Ha, albatta siz bizdan yoki boshqa istagan avtosalondan tanlashingiz mumkin.',
+    },
+    {
+      q: "Avtomobilni o'zingiz tanlab berolasizmi?",
+      a: "Ko'p mijozlarimiz vaqti yo'qligi sababidan bu ishni aksar holatlarda bizga ishonib topshirishadi. Bunda mijozdan aniqlik bilan qanday avto, rangi, bosib o'tgan masofasi va shunga o'xshash savollarni berib aniqlab, so'ngra talabga qarab bir nechta takliflar beramiz.",
+    },
+    {
+      q: "O'zingizda sotuvda avtomobillar bormi?",
+      a: "Avtoparkimizda har xil turdagi avtomobillar mavjud, bizdan nafaqat bo'lib to'lashga, balki naqd savdoga ham olsangiz bo'ladi, bu degani narxlar raqobatdoshdir.",
+    },
+    {
+      q: 'Trade-in xizmati bormi?',
+      a: "Ha bor, bunda biz avtomobilingizni narxlab sizga maqul bo'lsa sotib olamiz, so'ngra bizdagi turgan avtomobilga Trade-in qilishingiz mumkin bo'ladi.",
+    },
+    {
+      q: 'Mashinamni sotib bera olasizmi?',
+      a: 'Albatta, bizda sotib berish xizmati bor va u tekin.',
+    },
+    {
+      q: 'Sizlarda avtomobil narxlari bozordan qimmatmi?',
+      a: "Aksincha, raqobatdosh bo'lish maqsadida narxlar bozordan arzonroq.",
+    },
+    {
+      q: 'Foiz haromku. Tajubli savol.',
+      a: "Foiz tushunchasi har doim sudxo'rlik ma'nosini anglatmaydi. Foiz biror narsaning 1/100 qismi degan ma'noni anglatadi. Belvestda yillik 22% ustama bilan bo'lib to'lashga avtomobil xarid qilishingiz mumkin.",
     },
   ],
 };
