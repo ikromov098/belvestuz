@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
+import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import TeamSection from '@/components/TeamSection';
 
 const STATS = [
@@ -23,7 +24,7 @@ const stagger = {
 };
 
 export default function AboutPage() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   const WHY = [
     {
@@ -184,23 +185,25 @@ export default function AboutPage() {
             {[
               {
                 label: t.about.contactAddrLabel,
-                value: 'г. Ташкент, ул. Амира Тимура, 107Б',
-                icon: '📍',
+                value: lang === 'uz'
+                  ? "Toshkent shahar, Olmazor tumani, Yangi Sebzor MFY, Sebzor ko'chasi 17/18-mavze, 1-uy, 41-xona"
+                  : 'г. Ташкент, Алмазарский район, махалля Янги Себзор, массив Себзор 17/18, дом 1, кв. 41',
+                icon: <MapPin size={24} style={{ color: '#FFF0CC' }} />,
               },
               {
                 label: t.about.contactPhoneLabel,
-                value: '+998 71 200 00 00',
-                icon: '📞',
+                value: '+998 77 480-99-99\n+998 77 480-22-22',
+                icon: <Phone size={24} style={{ color: '#FFF0CC' }} />,
               },
               {
                 label: t.about.contactEmailLabel,
                 value: 'info@belvest.uz',
-                icon: '✉️',
+                icon: <Mail size={24} style={{ color: '#FFF0CC' }} />,
               },
               {
                 label: t.about.contactHoursLabel,
-                value: 'Пн–Пт: 9:00–18:00\nСб: 10:00–15:00',
-                icon: '🕐',
+                value: lang === 'uz' ? 'Har kuni: 9:00-18:00' : 'Ежедневно: 9:00-18:00',
+                icon: <Clock size={24} style={{ color: '#FFF0CC' }} />,
               },
             ].map((c) => (
               <div
@@ -208,7 +211,7 @@ export default function AboutPage() {
                 className="rounded-2xl p-5"
                 style={{ backgroundColor: 'rgba(255,240,204,0.08)', border: '1px solid rgba(255,240,204,0.15)' }}
               >
-                <p className="text-2xl mb-2">{c.icon}</p>
+                <div className="mb-2">{c.icon}</div>
                 <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,240,204,0.55)' }}>
                   {c.label}
                 </p>
