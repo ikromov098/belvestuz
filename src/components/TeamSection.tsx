@@ -19,13 +19,13 @@ const TEAM: Member[] = [
   {
     ru: {
       name: 'Умид Икрамов',
-      role: 'Председатель',
+      role: 'Представитель',
       initials: 'УИ',
       bio: 'Представитель акционера и советник по вопросам корпоративного управления и аудита в Belvest. Более 20 лет опыта в аудите и корпоративном управлении, включая 4 года в компаниях Большой четвёрки в России и Центральной Азии, где руководил международными командами более 30 человек. 16 лет занимал позицию главного аудитора в международной компании с мультимиллиардными активами, выступая доверенным советником CEO и совета директоров. Присяжный бухгалтер США (US CPA), штат Нью-Гэмпшир.',
     },
     uz: {
       name: 'Umid Ikramov',
-      role: 'Raisi',
+      role: 'Vakili',
       initials: 'UI',
       bio: "Belvestda aksiyador vakili va korporativ boshqaruv hamda audit masalalari bo'yicha maslahatchi. Audit va korporativ boshqaruvda 20 yildan ortiq tajribaga ega, jumladan Rossiya va Markaziy Osiyoda Big Four kompaniyalarida 4 yil ishlab, 30 dan ortiq kishidan iborat xalqaro jamoalarga rahbarlik qilgan. Multimilliard aktivlarga ega xalqaro kompaniyada 16 yil bosh auditor lavozimida ishlab, CEO va direktorlar kengashining ishonchli maslahatchisi bo'lgan. AQSh Prisyajniy buxgalteri (US CPA), Nyu-Xempshir shtati.",
     },
@@ -35,7 +35,7 @@ const TEAM: Member[] = [
       name: 'Шерзод Иногамов',
       role: 'Управляющий директор',
       initials: 'ШИ',
-      bio: 'Управляющий партнёр Belvest, отвечает за операционную стратегию и развитие направления автофинансирования. Более 15 лет опыта в горнодобывающей, финансовой и автомобильной отраслях. Начинал карьеру в Sandvik Mining & Construction на крупных проектах в Кыргызстане и Казахстане, затем развил экспертизу в финансах и продажах. Последние годы занимал руководящую должность в Markab, углубив знание автомобильного рынка и операционной эффективности.',
+      bio: 'Управляющий директор Belvest, отвечает за операционную стратегию и развитие направления автофинансирования. Более 15 лет опыта в горнодобывающей, финансовой и автомобильной отраслях. Начинал карьеру в Sandvik Mining & Construction на крупных проектах в Кыргызстане и Казахстане, затем развил экспертизу в финансах и продажах. Последние годы занимал руководящую должность в Markab, углубив знание автомобильного рынка и операционной эффективности.',
     },
     uz: {
       name: 'Sherzod Inogamov',
