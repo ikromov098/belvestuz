@@ -35,7 +35,6 @@ const COLUMNS = [
     heading: 'Компания',
     links: [
       { label: 'О нас',    href: '/about'    },
-      { label: 'Партнёры', href: '/partners' },
       { label: 'Новости',            href: '/news'     },
       { label: 'Контакты',           href: '/contacts' },
       { label: 'FAQ',                href: '/faq'      },

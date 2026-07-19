@@ -28,8 +28,8 @@ const T = {
     submit: 'Отправить сообщение', errorFill: 'Пожалуйста, заполните все поля',
     topics: ['Рассрочка', 'Лизинг', 'Трейд-ин', 'Инвестиции', 'Другое'],
     mapTitle: 'Belvest на карте', hoursLabel: 'График', hoursTitle: 'Режим работы',
-    days: ['Понедельник — Пятница', 'Суббота', 'Воскресенье'],
-    times: ['9:00 — 18:00', '10:00 — 15:00', 'Выходной'],
+    days: ['Ежедневно'],
+    times: ['9:00-18:00'],
   },
   uz: {
     home: 'Bosh sahifa', crumb: 'Kontaktlar', heroLabel: 'Kontaktlar',
@@ -43,8 +43,8 @@ const T = {
     submit: 'Xabar yuborish', errorFill: "Iltimos, barcha maydonlarni to'ldiring",
     topics: ['Nasiya savdo', 'Lizing', 'Treyd-in', 'Investitsiyalar', 'Boshqa'],
     mapTitle: 'Belvest xaritada', hoursLabel: 'Jadval', hoursTitle: 'Ish rejimi',
-    days: ['Dushanba — Juma', 'Shanba', 'Yakshanba'],
-    times: ['9:00 — 18:00', '10:00 — 15:00', 'Dam olish kuni'],
+    days: ['Har kuni'],
+    times: ['9:00-18:00'],
   },
 };
 

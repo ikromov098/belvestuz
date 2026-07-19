@@ -1,6 +1,7 @@
 'use client';
 
 import { Send, Phone } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 function InstagramIcon({ size = 24 }: { size?: number }) {
   return (
@@ -13,6 +14,7 @@ function InstagramIcon({ size = 24 }: { size?: number }) {
 }
 
 export default function ContactStrip() {
+  const { lang } = useLanguage();
   return (
     <section style={{ backgroundColor: '#003332' }} className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto text-center">
@@ -77,7 +79,7 @@ export default function ContactStrip() {
         </div>
 
         <p className="text-sm" style={{ color: 'rgba(255,240,204,0.55)' }}>
-          Пн–Сб: 9:00 — 18:00
+          {lang === 'uz' ? 'Har kuni: 9:00-18:00' : 'Ежедневно: 9:00-18:00'}
         </p>
       </div>
     </section>
