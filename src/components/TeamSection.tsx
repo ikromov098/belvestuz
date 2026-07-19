@@ -58,6 +58,20 @@ const TEAM: Member[] = [
       bio: "Belvestning hamkori, korporativ boshqaruv, risklarni boshqarish va ichki audit masalalari bo'yicha maslahat beradi. Audit va korporativ boshqaruvda 30 yildan ortiq tajribaga ega, jumladan Buyuk Britaniya va Markaziy Osiyoda Big Four firmalarida 11 yil ishlab, 70 dan ortiq kishidan iborat xalqaro jamoalarga rahbarlik qilgan. Yaqin Sharq va AQShdagi investitsiya kompaniyalarida 5 yil direktor va bosh auditor lavozimlarida ishlagan. CIA, FCCA, MAcc unvonlariga ega. AQSh Ichki auditorlar institutining (The IIA) o'zbek bo'limi kengash raisi o'rinbosari.",
     },
   },
+  {
+    ru: {
+      name: 'Абдурауф Зупаров',
+      role: 'Партнёр',
+      initials: 'АЗ',
+      bio: 'Более 25 лет в индустрии HoReCa. Руководил командами численностью свыше 300 человек, открыл несколько гостиниц уровня 4★+ и более 15 ресторанов в Узбекистане и Казахстане. В 2007, 2012, 2013 и 2014 годах реализовал проекты с наиболее высокой прибыльностью и выручкой в Астане, при этом одну из самых низких себестоимостей в отрасли. С 2014 по 2019 год стабильно входил в число лучших и самых посещаемых ресторанов столицы. Сегодня сосредоточен на развитии инновационных, энергоэффективных и устойчивых решений в гостиничном и ресторанном бизнесе, а также на инвестициях в финансовые услуги и строительство.',
+    },
+    uz: {
+      name: 'Abdurauf Zuparov',
+      role: 'Hamkor',
+      initials: 'AZ',
+      bio: "HoReCa sohasida 25 yildan ortiq tajribaga ega. 300 dan ortiq kishidan iborat jamoalarga rahbarlik qilgan, O'zbekiston va Qozog'istonda bir nechta 4★+ darajali mehmonxonalar va 15 dan ortiq restoran ochgan. 2007, 2012, 2013 va 2014-yillarda Ostonada eng yuqori daromadlilik va tushumga ega, shu bilan birga sohadagi eng past tannarxlardan biriga ega loyihalarni amalga oshirgan. 2014–2019-yillarda poytaxtning eng yaxshi va eng ko'p tashrif buyuriladigan restoranlari qatorida barqaror o'rin egallagan. Bugungi kunda mehmonxona va restoran biznesida innovatsion, energiya samarali va barqaror yechimlarni rivojlantirishga, shuningdek moliyaviy xizmatlar va qurilishga investitsiyalarga e'tibor qaratmoqda.",
+    },
+  },
 ];
 
 export default function TeamSection() {
@@ -94,7 +108,7 @@ export default function TeamSection() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
           {TEAM.map((member, i) => {
             const d = member[lang];
             return (
