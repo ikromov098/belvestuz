@@ -4,9 +4,10 @@ import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import {
-  Smartphone, Car, LayoutGrid,
+  Smartphone, Car, LayoutGrid, Home, LandPlot, Truck,
   ChevronRight, Search, X, SlidersHorizontal,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import DevModal from '@/components/DevModal';
 
@@ -37,7 +38,19 @@ const CATEGORIES = [
   { id: 'all',         Icon: LayoutGrid },
   { id: 'electronics', Icon: Smartphone },
   { id: 'transport',   Icon: Car        },
+  { id: 'realestate',  Icon: Home       },
+  { id: 'land',        Icon: LandPlot   },
+  { id: 'equipment',   Icon: Truck      },
 ];
+
+// Per-category placeholder icon for product cards (lucide, brand-styled — no emoji).
+const CATEGORY_ICON: Record<string, LucideIcon> = {
+  electronics: Smartphone,
+  transport:   Car,
+  realestate:  Home,
+  land:        LandPlot,
+  equipment:   Truck,
+};
 
 const ALL_SERVICES: Service[] = ['Рассрочка', 'Лизинг', 'Трейд-ин'];
 
@@ -46,8 +59,13 @@ const PRICE_MIN = 500_000;
 const PRICE_MAX = 1_300_000_000;
 
 const PRODUCTS: Product[] = [
-  // Электроника (смартфоны и ноутбуки)
-  { id: 1,  name: 'Samsung Galaxy S24 Ultra',   brand: 'Samsung',   category: 'electronics', price: 12_000_000,  monthlyMin: 1_000_000, badge: 'Хит',     services: ['Рассрочка', 'Трейд-ин'],  inStock: true,  isB2B: false },
+  // Электроника — телефоны только iPhone + ноутбук.
+  // Цены конвертированы из USD по курсу ≈ 12 600 сум/$. monthlyMin рассчитан на срок ~12 мес.
+  // TODO: replace with real product photography (cards render a Smartphone placeholder icon for now)
+  { id: 3,  name: 'iPhone 15',                  brand: 'Apple',     category: 'electronics', price: 8_190_000,   monthlyMin: 685_000,   services: ['Рассрочка', 'Трейд-ин'],  inStock: true,  isB2B: false },
+  { id: 4,  name: 'iPhone 16',                  brand: 'Apple',     category: 'electronics', price: 9_830_000,   monthlyMin: 820_000,   services: ['Рассрочка', 'Трейд-ин'],  inStock: true,  isB2B: false },
+  { id: 5,  name: 'iPhone 16 Pro Max',          brand: 'Apple',     category: 'electronics', price: 14_490_000,  monthlyMin: 1_210_000, services: ['Рассрочка', 'Трейд-ин'],  inStock: true,  isB2B: false },
+  { id: 6,  name: 'iPhone 17 Pro Max',          brand: 'Apple',     category: 'electronics', price: 17_010_000,  monthlyMin: 1_420_000, badge: 'Новинка', services: ['Рассрочка', 'Трейд-ин'],  inStock: true,  isB2B: false },
   { id: 2,  name: 'MacBook Pro 14" M3',         brand: 'Apple',     category: 'electronics', price: 22_000_000,  monthlyMin: 1_833_000, badge: 'Новинка',  services: ['Рассрочка', 'Трейд-ин'],  inStock: true,  isB2B: false },
   // Транспорт (автомобили)
   { id: 10, name: 'Chevrolet Equinox 2024',     brand: 'Chevrolet', category: 'transport',   price: 285_000_000, monthlyMin: 5_950_000, badge: 'Хит',     services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
@@ -70,6 +88,24 @@ const PRODUCTS: Product[] = [
   // ~$100k тариф (немецкий премиум)
   { id: 20, name: 'BMW X7',                     brand: 'BMW',           category: 'transport',   price: 1_235_000_000, monthlyMin: 25_730_000, services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
   { id: 21, name: 'Mercedes-Benz GLE 450',      brand: 'Mercedes-Benz', category: 'transport',   price: 1_285_000_000, monthlyMin: 26_770_000, services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
+
+  // ── Недвижимость (Ijara) ──
+  // Цены конвертированы из USD по курсу ≈ 12 600 сум/$. monthlyMin рассчитан на срок ~48 мес.
+  // TODO: replace with real product photography (cards render a Home placeholder icon for now)
+  { id: 30, name: '1-комнатная квартира, Чиланзар',  brand: 'Недвижимость', category: 'realestate', price: 479_000_000,   monthlyMin: 9_980_000,  services: ['Лизинг'], inStock: true, isB2B: false },
+  { id: 31, name: '2-комнатная квартира, Юнусабад',  brand: 'Недвижимость', category: 'realestate', price: 781_000_000,   monthlyMin: 16_270_000, services: ['Лизинг'], inStock: true, isB2B: false },
+  { id: 32, name: '3-комнатная квартира, ЖК C-1',    brand: 'Недвижимость', category: 'realestate', price: 1_197_000_000, monthlyMin: 24_940_000, badge: 'Хит', services: ['Лизинг'], inStock: true, isB2B: false },
+
+  // ── Земельные участки (Ijara) ──
+  // TODO: replace with real product photography (cards render a LandPlot placeholder icon for now)
+  { id: 40, name: 'Участок 6 соток, Ташкентская область',  brand: 'Земельные участки', category: 'land', price: 227_000_000, monthlyMin: 4_730_000, services: ['Лизинг'], inStock: true, isB2B: false },
+  { id: 41, name: 'Участок 10 соток, Ташкентская область', brand: 'Земельные участки', category: 'land', price: 328_000_000, monthlyMin: 6_830_000, services: ['Лизинг'], inStock: true, isB2B: false },
+
+  // ── Спецтехника (Ijara, B2B) ──
+  // TODO: replace with real product photography (cards render a Truck placeholder icon for now)
+  { id: 50, name: 'Экскаватор',        brand: 'Спецтехника', category: 'equipment', price: 567_000_000, monthlyMin: 11_810_000, services: ['Лизинг'], inStock: true, isB2B: true },
+  { id: 51, name: 'Погрузчик',         brand: 'Спецтехника', category: 'equipment', price: 277_000_000, monthlyMin: 5_770_000,  services: ['Лизинг'], inStock: true, isB2B: true },
+  { id: 52, name: 'Дизель-генератор',  brand: 'Спецтехника', category: 'equipment', price: 107_000_000, monthlyMin: 2_230_000,  services: ['Лизинг'], inStock: true, isB2B: true },
 ];
 
 const BADGE_STYLE: Record<BadgeType, { backgroundColor: string; color: string }> = {
@@ -147,9 +183,10 @@ function ProductCard({ product, onShowModal }: { product: Product; onShowModal: 
             {t.catalog.outOfStock}
           </span>
         )}
-        {product.category === 'transport'
-          ? <Car size={56} style={{ color: '#FFF0CC' }} />
-          : <Smartphone size={56} style={{ color: '#FFF0CC' }} />}
+        {(() => {
+          const Icon = CATEGORY_ICON[product.category] ?? Smartphone;
+          return <Icon size={56} style={{ color: '#FFF0CC' }} />;
+        })()}
       </div>
 
       {/* Body */}
@@ -419,6 +456,8 @@ function CatalogPageInner() {
       appliances:  t.catalog.categories.appliances,
       furniture:   t.catalog.categories.furniture,
       transport:   t.catalog.categories.transport,
+      realestate:  t.catalog.categories.realestate,
+      land:        t.catalog.categories.land,
       equipment:   t.catalog.categories.equipment,
     };
     return map[id] ?? id;

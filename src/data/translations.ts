@@ -92,7 +92,9 @@ export const translations = {
         appliances:  'Бытовая техника',
         furniture:   'Мебель',
         transport:   'Транспорт',
-        equipment:   'Спецтехника / Оборудование',
+        realestate:  'Недвижимость',
+        land:        'Земельные участки',
+        equipment:   'Спецтехника',
       },
       serviceNames: {
         installment: 'Рассрочка',
@@ -216,7 +218,9 @@ export const translations = {
         appliances:  'Maishiy texnika',
         furniture:   'Mebel',
         transport:   'Transport',
-        equipment:   'Maxsus texnika / Uskunalar',
+        realestate:  "Ko'chmas mulk",
+        land:        'Yer uchastkalari',
+        equipment:   'Maxsus texnika',
       },
       serviceNames: {
         installment: 'Nasiya savdo',
@@ -271,7 +275,7 @@ export const translations = {
     applyLeasing: string; applyInstallment: string; noResults: string;
     noResultsSub: string; resetFilters: string; filtersBtn: string;
     inStock: string; itemsCount: string;
-    categories: { all: string; electronics: string; appliances: string; furniture: string; transport: string; equipment: string };
+    categories: { all: string; electronics: string; appliances: string; furniture: string; transport: string; realestate: string; land: string; equipment: string };
     serviceNames: { installment: string; leasing: string; tradein: string };
   };
   about: {
