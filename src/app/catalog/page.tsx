@@ -41,6 +41,10 @@ const CATEGORIES = [
 
 const ALL_SERVICES: Service[] = ['Рассрочка', 'Лизинг', 'Трейд-ин'];
 
+// Bounds of the max-price filter slider (сум). Upper bound covers premium cars up to ~$100k.
+const PRICE_MIN = 500_000;
+const PRICE_MAX = 1_300_000_000;
+
 const PRODUCTS: Product[] = [
   // Электроника (смартфоны и ноутбуки)
   { id: 1,  name: 'Samsung Galaxy S24 Ultra',   brand: 'Samsung',   category: 'electronics', price: 12_000_000,  monthlyMin: 1_000_000, badge: 'Хит',     services: ['Рассрочка', 'Трейд-ин'],  inStock: true,  isB2B: false },
@@ -48,6 +52,24 @@ const PRODUCTS: Product[] = [
   // Транспорт (автомобили)
   { id: 10, name: 'Chevrolet Equinox 2024',     brand: 'Chevrolet', category: 'transport',   price: 285_000_000, monthlyMin: 5_950_000, badge: 'Хит',     services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
   { id: 11, name: 'Yamaha MT-07 2024',          brand: 'Yamaha',    category: 'transport',   price: 48_000_000,  monthlyMin: 2_000_000, badge: 'Лизинг',   services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
+
+  // ── Автомобили по ценовым тарифам ──
+  // Цены конвертированы из USD по курсу ≈ 12 600 сум/$. monthlyMin рассчитан на срок ~48 мес.
+  // TODO: replace with real product photography (transport cards render a Car placeholder icon for now)
+  // ~$10k тариф (Chevrolet)
+  { id: 12, name: 'Chevrolet Spark',            brand: 'Chevrolet',     category: 'transport',   price: 116_000_000,   monthlyMin: 2_420_000,  services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
+  { id: 13, name: 'Chevrolet Cobalt',           brand: 'Chevrolet',     category: 'transport',   price: 132_000_000,   monthlyMin: 2_750_000,  services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
+  { id: 14, name: 'Chevrolet Nexia 3',          brand: 'Chevrolet',     category: 'transport',   price: 149_000_000,   monthlyMin: 3_100_000,  services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
+  // ~$30k тариф (Chevrolet)
+  { id: 15, name: 'Chevrolet Tracker',          brand: 'Chevrolet',     category: 'transport',   price: 353_000_000,   monthlyMin: 7_350_000,  services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
+  { id: 16, name: 'Chevrolet Traverse',         brand: 'Chevrolet',     category: 'transport',   price: 435_000_000,   monthlyMin: 9_060_000,  services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
+  // ~$50k тариф (немецкий премиум)
+  { id: 17, name: 'Audi A4',                    brand: 'Audi',          category: 'transport',   price: 617_000_000,   monthlyMin: 12_850_000, services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
+  { id: 18, name: 'BMW 3 Series',               brand: 'BMW',           category: 'transport',   price: 655_000_000,   monthlyMin: 13_650_000, services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
+  { id: 19, name: 'Mercedes-Benz C-Class',      brand: 'Mercedes-Benz', category: 'transport',   price: 687_000_000,   monthlyMin: 14_310_000, services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
+  // ~$100k тариф (немецкий премиум)
+  { id: 20, name: 'BMW X7',                     brand: 'BMW',           category: 'transport',   price: 1_235_000_000, monthlyMin: 25_730_000, services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
+  { id: 21, name: 'Mercedes-Benz GLE 450',      brand: 'Mercedes-Benz', category: 'transport',   price: 1_285_000_000, monthlyMin: 26_770_000, services: ['Лизинг', 'Трейд-ин'],     inStock: true,  isB2B: false },
 ];
 
 const BADGE_STYLE: Record<BadgeType, { backgroundColor: string; color: string }> = {
@@ -202,7 +224,7 @@ function FilterSidebar({
   onToggleService, onToggleBrand, onPriceMax, onStockToggle, onClear, filterCount,
 }: SidebarProps) {
   const { t } = useLanguage();
-  const pct = ((priceMax - 500_000) / (299_500_000)) * 100;
+  const pct = ((priceMax - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100;
 
   const svcName = (s: string) => {
     const map: Record<string, string> = {
@@ -262,8 +284,8 @@ function FilterSidebar({
         </p>
         <input
           type="range"
-          min={500_000}
-          max={300_000_000}
+          min={PRICE_MIN}
+          max={PRICE_MAX}
           step={500_000}
           value={priceMax}
           onChange={(e) => onPriceMax(Number(e.target.value))}
@@ -343,7 +365,7 @@ function CatalogPageInner() {
     initService && ALL_SERVICES.includes(initService) ? [initService] : []
   );
   const [activeBrands, setActiveBrands]     = useState<string[]>([]);
-  const [priceMax, setPriceMax]             = useState(300_000_000);
+  const [priceMax, setPriceMax]             = useState(PRICE_MAX);
   const [inStockOnly, setInStockOnly]       = useState(false);
   const [search, setSearch]                 = useState('');
   const [mobileSidebar, setMobileSidebar]   = useState(false);
@@ -377,11 +399,11 @@ function CatalogPageInner() {
     activeServices.length +
     activeBrands.length +
     (inStockOnly ? 1 : 0) +
-    (priceMax < 300_000_000 ? 1 : 0);
+    (priceMax < PRICE_MAX ? 1 : 0);
 
   const toggleService  = (s: Service) => setActiveServices((p) => p.includes(s) ? p.filter((x) => x !== s) : [...p, s]);
   const toggleBrand    = (b: string)  => setActiveBrands((p) => p.includes(b)  ? p.filter((x) => x !== b)  : [...p, b]);
-  const clearAll       = () => { setActiveCategory('all'); setActiveServices([]); setActiveBrands([]); setPriceMax(300_000_000); setInStockOnly(false); setSearch(''); };
+  const clearAll       = () => { setActiveCategory('all'); setActiveServices([]); setActiveBrands([]); setPriceMax(PRICE_MAX); setInStockOnly(false); setSearch(''); };
 
   const sidebarProps = {
     activeServices, activeBrands, priceMax, inStockOnly, allBrands, filterCount,
