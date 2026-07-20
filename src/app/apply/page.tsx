@@ -25,6 +25,8 @@ const SERVICES: { id: ServiceId; label: string; sub: string; Icon: React.Element
 ];
 
 const TERMS = [2, 6, 12, 18, 24, 36];
+// Investment minimum term is 12 months (2- and 6-month options removed).
+const INVESTMENT_TERMS = [12, 18, 24, 36];
 const TRADE_IN_CATS = ['Смартфон', 'Ноутбук / ПК', 'Телевизор', 'Холодильник', 'Стиральная машина', 'Кондиционер', 'Автомобиль', 'Другое'];
 
 const MOCK_PRODUCTS: MockProduct[] = [
@@ -591,7 +593,7 @@ function ApplyPageContent() {
                     <div className="flex flex-col gap-2">
                       <label className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>Срок (месяцев)</label>
                       <div className="flex flex-wrap gap-2">
-                        {TERMS.map((t) => (
+                        {INVESTMENT_TERMS.map((t) => (
                           <button key={t} type="button" onClick={() => setInvTerm(t)}
                             className="px-4 py-1.5 rounded-full text-sm font-semibold border cursor-pointer transition-all"
                             style={{
@@ -603,6 +605,14 @@ function ApplyPageContent() {
                           </button>
                         ))}
                       </div>
+                    </div>
+
+                    {/* Early-withdrawal note (RU — /apply form is RU-only) */}
+                    <div className="flex items-start gap-2 rounded-lg p-3" style={{ backgroundColor: 'rgba(84,136,112,0.10)' }}>
+                      <Info size={15} className="shrink-0 mt-0.5" style={{ color: '#548870' }} />
+                      <p className="text-xs leading-relaxed" style={{ color: '#4A6B67' }}>
+                        Минимальный срок инвестиции — 12 месяцев. Досрочный вывод средств возможен не ранее чем через 2 месяца после начала срока, с предварительным уведомлением. Условия досрочного вывода уточняйте у менеджера.
+                      </p>
                     </div>
                   </Panel>
                 )}
