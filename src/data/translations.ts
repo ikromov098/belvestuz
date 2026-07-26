@@ -39,6 +39,10 @@ export const translations = {
     invest: {
       earlyWithdrawal: 'Минимальный срок инвестиции — 12 месяцев. Досрочный вывод средств возможен не ранее чем через 2 месяца после начала срока, с предварительным уведомлением. Условия досрочного вывода уточняйте у менеджера.',
     },
+    applyForm: {
+      expectedPrice: 'Ожидаемая стоимость (сум)',
+      expectedPricePlaceholder: '50 000 000',
+    },
     howItWorks: {
       title: 'Как это работает',
       step1: 'Выберите товар',
@@ -168,6 +172,10 @@ export const translations = {
     invest: {
       earlyWithdrawal: "Minimal investitsiya muddati — 12 oy. Mablag'ni muddatidan oldin qaytarib olish muddat boshlanganidan keyin kamida 2 oy o'tgach, oldindan ogohlantirish bilan mumkin. Muddatidan oldin chiqarish shartlarini menejerdan aniqlashtiring.",
     },
+    applyForm: {
+      expectedPrice: "Kutilayotgan narx (so'm)",
+      expectedPricePlaceholder: '50 000 000',
+    },
     howItWorks: {
       title: 'Bu qanday ishlaydi',
       step1: 'Tovarni tanlang',
@@ -267,6 +275,7 @@ export const translations = {
   services:   { leasing: string; installment: string; tradein: string; investments: string };
   calculator: { title: string; propertyValue: string; term: string; monthlyPayment: string; applyButton: string };
   invest:     { earlyWithdrawal: string };
+  applyForm:  { expectedPrice: string; expectedPricePlaceholder: string };
   howItWorks: { title: string; step1: string; step2: string; step3: string };
   trust:      { badge1: string; badge2: string; badge3: string };
   stats:      { value: string; label: string }[];

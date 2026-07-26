@@ -24,7 +24,7 @@ const SERVICES: { id: ServiceId; label: string; sub: string; Icon: React.Element
   { id: 'investment',  label: 'Инвестиции', sub: 'Вложите средства с гарантированным доходом',     Icon: TrendingUp     },
 ];
 
-const TERMS = [2, 6, 12, 18, 24, 36];
+const TERMS = [3, 6, 12, 18, 24, 36];
 // Investment minimum term is 12 months (2- and 6-month options removed).
 const INVESTMENT_TERMS = [12, 18, 24, 36];
 const TRADE_IN_CATS = ['Смартфон', 'Ноутбук / ПК', 'Телевизор', 'Холодильник', 'Стиральная машина', 'Кондиционер', 'Автомобиль', 'Другое'];
@@ -335,12 +335,16 @@ function ApplyPageContent() {
     if (initProductId) return 'installment';
     return '';
   });
-  const [selectedProduct, setSelectedProduct] = useState<MockProduct | null>(() => {
-    if (!initProductId) return null;
-    return MOCK_PRODUCTS.find(p => p.id === Number(initProductId)) ?? null;
+  // Product is free text (any name, not restricted to the catalog). Pre-fills from ?product= when present.
+  const [productName, setProductName] = useState(() => {
+    if (!initProductId) return '';
+    return MOCK_PRODUCTS.find(p => p.id === Number(initProductId))?.name ?? '';
   });
-  const [productSearch, setProductSearch] = useState('');
-  const [showDropdown, setShowDropdown]   = useState(false);
+  const [expectedPrice, setExpectedPrice] = useState(() => {
+    if (!initProductId) return '';
+    const p = MOCK_PRODUCTS.find(pp => pp.id === Number(initProductId));
+    return p ? String(p.price) : '';
+  });
   const [term, setTerm]                   = useState(12);
   const [tiCategory, setTiCategory]       = useState('');
   const [tiTarget, setTiTarget]           = useState('');
@@ -368,7 +372,7 @@ function ApplyPageContent() {
   // ── Validation ──
   const step1Valid = () => {
     if (!service) return false;
-    if (service === 'installment' || service === 'leasing') return !!selectedProduct;
+    if (service === 'installment' || service === 'leasing') return productName.trim() !== '';
     if (service === 'tradein') return tiCategory !== '' && tiTarget.trim() !== '';
     if (service === 'investment') return Number(invAmount) > 0;
     return false;
@@ -409,10 +413,6 @@ function ApplyPageContent() {
     }
   };
 
-  // ── Autocomplete data ──
-  const filteredProducts = productSearch
-    ? MOCK_PRODUCTS.filter((p) => p.name.toLowerCase().includes(productSearch.toLowerCase()))
-    : [];
 
   // ── Summary helpers ──
   const serviceLabel = SERVICES.find((s) => s.id === service)?.label ?? '—';
@@ -483,57 +483,24 @@ function ApplyPageContent() {
                       Детали {service === 'leasing' ? 'лизинга' : 'рассрочки'}
                     </p>
 
-                    {/* Product autocomplete */}
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>
-                        {service === 'leasing' ? 'Имущество для лизинга' : 'Товар'}{' '}
-                        <span style={{ color: '#C62828' }}>*</span>
-                      </label>
-                      {selectedProduct ? (
-                        <div className="flex items-center gap-3 px-4 py-2.5 rounded-lg"
-                          style={{ border: '1.5px solid #004445', backgroundColor: 'rgba(0,68,69,0.05)' }}>
-                          <Check size={15} style={{ color: '#004445' }} />
-                          <div className="flex-1">
-                            <p className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>{selectedProduct.name}</p>
-                            <p className="text-xs" style={{ color: '#4A6B67' }}>{fmt(selectedProduct.price)} сум</p>
-                          </div>
-                          <button type="button" onClick={() => { setSelectedProduct(null); setProductSearch(''); }}
-                            className="cursor-pointer" style={{ color: '#C62828' }}>
-                            <X size={16} />
-                          </button>
-                        </div>
-                      ) : (
-                        <div className="relative">
-                          <input type="text" value={productSearch}
-                            onChange={(e) => { setProductSearch(e.target.value); setShowDropdown(true); }}
-                            onFocus={() => setShowDropdown(true)}
-                            placeholder="Начните вводить название товара..."
-                            className="w-full px-3.5 py-2.5 rounded-lg text-sm outline-none"
-                            style={{
-                              border: `1.5px solid ${showErrors && !selectedProduct ? '#C62828' : '#16685B'}`,
-                              backgroundColor: '#ffffff', color: '#0D1F1D',
-                            }}
-                          />
-                          {showDropdown && filteredProducts.length > 0 && (
-                            <div className="absolute top-full left-0 right-0 mt-1 rounded-lg shadow-lg z-20 overflow-hidden"
-                              style={{ border: '1px solid #16685B', backgroundColor: '#ffffff' }}>
-                              {filteredProducts.slice(0, 6).map((p) => (
-                                <button key={p.id} type="button"
-                                  className="w-full flex items-center justify-between px-4 py-2.5 text-left text-sm cursor-pointer"
-                                  style={{ color: '#0D1F1D' }}
-                                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
-                                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
-                                  onClick={() => { setSelectedProduct(p); setProductSearch(''); setShowDropdown(false); }}>
-                                  <span>{p.name}</span>
-                                  <span className="ml-4 text-xs flex-shrink-0" style={{ color: '#4A6B67' }}>{fmt(p.price)} сум</span>
-                                </button>
-                              ))}
-                            </div>
-                          )}
-                          {showErrors && !selectedProduct && <Err msg="Выберите товар из списка" />}
-                        </div>
-                      )}
-                    </div>
+                    {/* Product — free text (any name, not catalog-constrained) */}
+                    <Field
+                      label={service === 'leasing' ? 'Имущество для лизинга' : 'Товар'}
+                      value={productName}
+                      onChange={setProductName}
+                      placeholder="Например: Chevrolet Cobalt, iPhone 15, квартира, участок..."
+                      required
+                      error={showErrors && !productName.trim() ? 'Укажите товар или имущество' : ''}
+                      valid={productName.trim().length > 1}
+                    />
+
+                    {/* Expected total price */}
+                    <Field
+                      label="Ожидаемая стоимость (сум)"
+                      value={expectedPrice}
+                      onChange={(v) => setExpectedPrice(v.replace(/\D/g, ''))}
+                      placeholder="50 000 000"
+                    />
 
                     {/* Term pills */}
                     <div className="flex flex-col gap-2">
@@ -575,9 +542,35 @@ function ApplyPageContent() {
                       {showErrors && !tiCategory && <Err msg="Выберите категорию" />}
                     </div>
                     <Field label="Что хотите получить взамён?" value={tiTarget} onChange={setTiTarget}
-                      placeholder="Например: iPhone 15 Pro" required
+                      placeholder="Например: iPhone 15 Pro, Chevrolet Cobalt, квартира..." required
                       error={showErrors && !tiTarget.trim() ? 'Укажите желаемый товар' : ''}
                       valid={tiTarget.trim().length > 1} />
+
+                    {/* Expected total price */}
+                    <Field
+                      label="Ожидаемая стоимость (сум)"
+                      value={expectedPrice}
+                      onChange={(v) => setExpectedPrice(v.replace(/\D/g, ''))}
+                      placeholder="50 000 000"
+                    />
+
+                    {/* Term pills */}
+                    <div className="flex flex-col gap-2">
+                      <label className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>Срок (месяцев)</label>
+                      <div className="flex flex-wrap gap-2">
+                        {TERMS.map((t) => (
+                          <button key={t} type="button" onClick={() => setTerm(t)}
+                            className="px-4 py-1.5 rounded-full text-sm font-semibold border cursor-pointer transition-all"
+                            style={{
+                              backgroundColor: term === t ? '#004445' : '#ffffff',
+                              color:           term === t ? '#FFFFFF' : '#004445',
+                              borderColor:     term === t ? '#004445' : '#004445',
+                            }}>
+                            {t}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </Panel>
                 )}
 
@@ -739,12 +732,19 @@ function ApplyPageContent() {
                       ['Услуга', serviceLabel],
                       ...(service === 'installment' || service === 'leasing'
                         ? [
-                            ['Товар / имущество', selectedProduct?.name ?? '—'],
-                            ['Стоимость', selectedProduct ? `${fmt(selectedProduct.price)} сум` : '—'],
+                            ['Товар / имущество', productName || '—'],
+                            ['Ожидаемая стоимость', expectedPrice ? `${fmt(Number(expectedPrice))} сум` : '—'],
                             ['Срок', `${term} мес.`],
                           ]
                         : []),
-                      ...(service === 'tradein' ? [['Сдаёте', tiCategory], ['Хотите получить', tiTarget]] : []),
+                      ...(service === 'tradein'
+                        ? [
+                            ['Сдаёте', tiCategory],
+                            ['Хотите получить', tiTarget],
+                            ['Ожидаемая стоимость', expectedPrice ? `${fmt(Number(expectedPrice))} сум` : '—'],
+                            ['Срок', `${term} мес.`],
+                          ]
+                        : []),
                       ...(service === 'investment'
                         ? [['Сумма', `${fmt(Number(invAmount))} сум`], ['Срок', `${invTerm} мес.`]]
                         : []),
