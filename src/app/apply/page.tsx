@@ -62,8 +62,6 @@ const fmt     = (n: number) => Math.round(n).toLocaleString('ru-RU');
 const fmtSize = (b: number) => b < 1_048_576 ? `${Math.round(b / 1024)} KB` : `${(b / 1_048_576).toFixed(1)} MB`;
 const vPhone  = (p: string) => /^\d{9}$/.test(p.replace(/\D/g, '')) ? '' : 'Введите 9 цифр номера';
 const vEmail  = (e: string) => !e || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) ? '' : 'Некорректный email';
-const vSeries = (s: string) => /^[A-Za-z]{2}$/.test(s) ? '' : 'Формат: AA';
-const vPassN  = (n: string) => /^\d{7}$/.test(n) ? '' : '7 цифр';
 
 // ─── ProgressBar ──────────────────────────────────────────────────────────────
 function ProgressBar({ step }: { step: number }) {
@@ -358,8 +356,6 @@ function ApplyPageContent() {
   const [entityType, setEntityType]       = useState<EntityType>('individual');
   const [companyName, setCompanyName]     = useState('');
   const [inn, setInn]                     = useState('');
-  const [passportSeries, setPassportSeries] = useState('');
-  const [passportNumber, setPassportNumber] = useState('');
 
   // ── Step 3 ──
   const [docs, setDocs] = useState<Record<string, File | null>>({});
@@ -382,9 +378,7 @@ function ApplyPageContent() {
     if (!fullName.trim()) return false;
     if (vPhone(phone)) return false;
     if (vEmail(email)) return false;
-    if (entityType === 'individual') {
-      if (vSeries(passportSeries) || vPassN(passportNumber)) return false;
-    } else {
+    if (entityType !== 'individual') {
       if (!companyName.trim() || !inn.trim()) return false;
     }
     return true;
@@ -671,24 +665,6 @@ function ApplyPageContent() {
                   </Panel>
                 )}
 
-                {/* Физ. лицо */}
-                {entityType === 'individual' && (
-                  <Panel>
-                    <p className="font-bold text-sm" style={{ color: '#004445' }}>Паспортные данные</p>
-                    <div className="grid grid-cols-2 gap-4">
-                      <Field label="Серия паспорта" value={passportSeries}
-                        onChange={(v) => setPassportSeries(v.toUpperCase().slice(0, 2))}
-                        placeholder="AB" required
-                        error={showErrors ? vSeries(passportSeries) : ''}
-                        valid={!vSeries(passportSeries)} />
-                      <Field label="Номер паспорта" value={passportNumber}
-                        onChange={(v) => setPassportNumber(v.replace(/\D/g, '').slice(0, 7))}
-                        placeholder="1234567" required
-                        error={showErrors ? vPassN(passportNumber) : ''}
-                        valid={!vPassN(passportNumber)} />
-                    </div>
-                  </Panel>
-                )}
               </div>
             )}
 
