@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useRef, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   ShoppingCart, RefreshCw, ArrowLeftRight, TrendingUp,
-  Check, X, Upload, Info, ChevronLeft, ChevronRight, AlertCircle,
+  Check, X, Info, ChevronLeft, ChevronRight, AlertCircle,
 } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -15,7 +15,7 @@ type EntityType = 'individual' | 'legal' | 'ip';
 interface MockProduct { id: number; name: string; price: number; }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-const STEP_LABELS = ['Услуга и товар', 'Личные данные', 'Документы', 'Подтверждение'];
+const STEP_LABELS = ['Услуга и товар', 'Личные данные', 'Подтверждение'];
 
 const SERVICES: { id: ServiceId; label: string; sub: string; Icon: React.ElementType }[] = [
   { id: 'installment', label: 'Рассрочка',  sub: 'Покупка товара с оплатой частями без процентов',  Icon: ShoppingCart   },
@@ -46,20 +46,9 @@ const MOCK_PRODUCTS: MockProduct[] = [
   { id: 14, name: 'Станок ЧПУ DMG Mori NLX',   price: 180_000_000 },
 ];
 
-const DOCS_INDIVIDUAL = [
-  { key: 'passport_front', label: 'Паспорт — лицевая сторона',   req: true  },
-  { key: 'passport_back',  label: 'Паспорт — страница прописки', req: true  },
-  { key: 'selfie',         label: 'Селфи с паспортом в руках',   req: true  },
-];
-const DOCS_LEGAL = [
-  { key: 'charter',      label: 'Устав компании',              req: true },
-  { key: 'registration', label: 'Свидетельство о регистрации', req: true },
-  { key: 'financials',   label: 'Финансовая отчётность',       req: true },
-];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const fmt     = (n: number) => Math.round(n).toLocaleString('ru-RU');
-const fmtSize = (b: number) => b < 1_048_576 ? `${Math.round(b / 1024)} KB` : `${(b / 1_048_576).toFixed(1)} MB`;
 const vPhone  = (p: string) => /^\d{9}$/.test(p.replace(/\D/g, '')) ? '' : 'Введите 9 цифр номера';
 const vEmail  = (e: string) => !e || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) ? '' : 'Некорректный email';
 
@@ -162,60 +151,6 @@ function Field({
   );
 }
 
-// ─── UploadZone ───────────────────────────────────────────────────────────────
-function UploadZone({ label, docKey, file, onFile, required }: {
-  label: string; docKey: string; file: File | null;
-  onFile: (key: string, f: File | null) => void; required: boolean;
-}) {
-  const ref = useRef<HTMLInputElement>(null);
-  const [drag, setDrag] = useState(false);
-
-  const accept = (f: File) => {
-    if (f.size > 10 * 1024 * 1024) return alert('Файл слишком большой. Максимум 10MB.');
-    onFile(docKey, f);
-  };
-
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>
-        {label} {required && <span style={{ color: '#C62828' }}>*</span>}
-      </label>
-      {file ? (
-        <div className="flex items-center gap-3 p-3.5 rounded-lg"
-          style={{ border: '1.5px solid #2E7D32', backgroundColor: 'rgba(46,125,50,0.05)' }}>
-          <Check size={18} style={{ color: '#2E7D32', flexShrink: 0 }} />
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold truncate" style={{ color: '#0D1F1D' }}>{file.name}</p>
-            <p className="text-xs" style={{ color: '#4A6B67' }}>{fmtSize(file.size)}</p>
-          </div>
-          <button type="button" onClick={() => onFile(docKey, null)} className="cursor-pointer p-1" style={{ color: '#C62828' }}>
-            <X size={16} />
-          </button>
-        </div>
-      ) : (
-        <div
-          className="flex flex-col items-center justify-center gap-2 py-7 px-4 rounded-lg cursor-pointer transition-all duration-150"
-          style={{
-            border: `2px dashed ${drag ? '#004445' : '#16685B'}`,
-            backgroundColor: drag ? 'rgba(0,68,69,0.05)' : '#FAFAF8',
-          }}
-          onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
-          onDragLeave={() => setDrag(false)}
-          onDrop={(e)    => { e.preventDefault(); setDrag(false); if (e.dataTransfer.files[0]) accept(e.dataTransfer.files[0]); }}
-          onClick={() => ref.current?.click()}
-        >
-          <Upload size={22} style={{ color: drag ? '#004445' : '#4A6B67' }} />
-          <p className="text-sm text-center" style={{ color: '#4A6B67' }}>
-            <span className="font-semibold" style={{ color: '#004445' }}>Перетащите файл</span> или нажмите для выбора
-          </p>
-          <p className="text-xs" style={{ color: '#9CA3AF' }}>JPG, PNG, PDF · до 10MB</p>
-          <input ref={ref} type="file" accept=".jpg,.jpeg,.png,.pdf" className="hidden"
-            onChange={(e) => { if (e.target.files?.[0]) accept(e.target.files[0]); }} />
-        </div>
-      )}
-    </div>
-  );
-}
 
 // ─── Policy Modal ─────────────────────────────────────────────────────────────
 function PolicyModal({ onClose }: { onClose: () => void }) {
@@ -357,11 +292,7 @@ function ApplyPageContent() {
   const [companyName, setCompanyName]     = useState('');
   const [inn, setInn]                     = useState('');
 
-  // ── Step 3 ──
-  const [docs, setDocs] = useState<Record<string, File | null>>({});
-  const setDoc = (key: string, f: File | null) => setDocs((d) => ({ ...d, [key]: f }));
-
-  // ── Step 4 ──
+  // ── Step 3 (confirmation) ──
   const [consentData, setConsentData]         = useState(false);
   const [consentAccuracy, setConsentAccuracy] = useState(false);
 
@@ -384,20 +315,15 @@ function ApplyPageContent() {
     return true;
   };
 
-  const step3Valid = () => {
-    const reqDocs = entityType === 'individual' ? DOCS_INDIVIDUAL : DOCS_LEGAL;
-    return reqDocs.filter((d) => d.req).every((d) => !!docs[d.key]);
-  };
-
-  const step4Valid = () => consentData && consentAccuracy;
+  const step3Valid = () => consentData && consentAccuracy;
 
   const currentValid = () =>
-    step === 1 ? step1Valid() : step === 2 ? step2Valid() : step === 3 ? step3Valid() : step4Valid();
+    step === 1 ? step1Valid() : step === 2 ? step2Valid() : step3Valid();
 
   const handleNext = () => {
     setShowErrors(true);
     if (!currentValid()) return;
-    if (step === 4) {
+    if (step === 3) {
       const n = `BV-${new Date().getFullYear()}-${String(Math.floor(1000 + Math.random() * 9000))}`;
       setAppNumber(n);
       setSubmitted(true);
@@ -668,33 +594,8 @@ function ApplyPageContent() {
               </div>
             )}
 
-            {/* ═══════ STEP 3 ═══════ */}
+            {/* ═══════ STEP 3 (confirmation) ═══════ */}
             {step === 3 && (
-              <div className="flex flex-col gap-6">
-                <div>
-                  <SectionHdr title="Загрузите документы" />
-                  <p className="text-sm mt-1" style={{ color: '#4A6B67' }}>
-                    Загрузите чёткие фото или сканы. Принимаются форматы JPG, PNG, PDF до 10MB.
-                  </p>
-                </div>
-
-                {showErrors && !step3Valid() && (
-                  <p className="flex items-center gap-1.5 text-sm" style={{ color: '#C62828' }}>
-                    <AlertCircle size={14} /> Загрузите все обязательные документы
-                  </p>
-                )}
-
-                <div className="flex flex-col gap-5">
-                  {(entityType === 'individual' ? DOCS_INDIVIDUAL : DOCS_LEGAL).map((d) => (
-                    <UploadZone key={d.key} label={d.label} docKey={d.key}
-                      file={docs[d.key] ?? null} onFile={setDoc} required={d.req} />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* ═══════ STEP 4 ═══════ */}
-            {step === 4 && (
               <div className="flex flex-col gap-6">
                 <SectionHdr title="Подтверждение" />
 
@@ -738,18 +639,6 @@ function ApplyPageContent() {
                   </div>
                 </div>
 
-                {/* Documents summary */}
-                {Object.entries(docs).filter(([, f]) => f).length > 0 && (
-                  <div className="flex flex-col gap-2">
-                    <p className="text-sm font-semibold" style={{ color: '#4A6B67' }}>Прикреплённые документы:</p>
-                    {Object.entries(docs).filter(([, f]) => f).map(([key, f]) => (
-                      <div key={key} className="flex items-center gap-2 text-sm" style={{ color: '#004445' }}>
-                        <Check size={14} /> {f!.name} <span style={{ color: '#9CA3AF' }}>({fmtSize(f!.size)})</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
                 {/* Consents */}
                 <div className="flex flex-col gap-3">
                   <label className="flex items-start gap-3 cursor-pointer select-none">
@@ -772,7 +661,7 @@ function ApplyPageContent() {
                       <span style={{ color: '#C62828' }}>*</span>
                     </span>
                   </label>
-                  {showErrors && !step4Valid() && (
+                  {showErrors && !step3Valid() && (
                     <Err msg="Подтвердите оба пункта для отправки заявки" />
                   )}
                 </div>
@@ -802,8 +691,8 @@ function ApplyPageContent() {
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#16685B')}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#004445')}
               >
-                {step === 4 ? 'Отправить заявку' : 'Далее'}
-                {step < 4 && <ChevronRight size={16} />}
+                {step === 3 ? 'Отправить заявку' : 'Далее'}
+                {step < 3 && <ChevronRight size={16} />}
               </button>
             </div>
           </div>
