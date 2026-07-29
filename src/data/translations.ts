@@ -43,6 +43,14 @@ export const translations = {
       expectedPrice: 'Ожидаемая стоимость (сум)',
       expectedPricePlaceholder: '50 000 000',
     },
+    tradeIn: {
+      categories: {
+        phone: 'Телефоны',
+        car: 'Автомобили',
+        realestate: 'Недвижимость',
+        other: 'Другое',
+      },
+    },
     howItWorks: {
       title: 'Как это работает',
       step1: 'Выберите товар',
@@ -176,6 +184,14 @@ export const translations = {
       expectedPrice: "Kutilayotgan narx (so'm)",
       expectedPricePlaceholder: '50 000 000',
     },
+    tradeIn: {
+      categories: {
+        phone: 'Telefonlar',
+        car: 'Avtomobillar',
+        realestate: "Ko'chmas mulk",
+        other: 'Boshqa',
+      },
+    },
     howItWorks: {
       title: 'Bu qanday ishlaydi',
       step1: 'Tovarni tanlang',
@@ -276,6 +292,7 @@ export const translations = {
   calculator: { title: string; propertyValue: string; term: string; monthlyPayment: string; applyButton: string };
   invest:     { earlyWithdrawal: string };
   applyForm:  { expectedPrice: string; expectedPricePlaceholder: string };
+  tradeIn:    { categories: { phone: string; car: string; realestate: string; other: string } };
   howItWorks: { title: string; step1: string; step2: string; step3: string };
   trust:      { badge1: string; badge2: string; badge3: string };
   stats:      { value: string; label: string }[];
