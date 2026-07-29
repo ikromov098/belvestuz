@@ -2,61 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { INVESTMENT_PLANS as PLANS } from '@/data/investments';
+import { Info } from 'lucide-react';
 
 function fmt(n: number) {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 }
-
-const PLANS = [
-  {
-    id: 'base',
-    name: 'Базовый',
-    minAmount: 5_000,
-    rate: 12,
-    termMin: 12,
-    termMax: 12,
-    recommended: false,
-    features: [
-      'Минимальная сумма от 5 000$',
-      'Ежемесячное распределение прибыли',
-      'Досрочный вывод через 2 месяца',
-      'Онлайн-управление через личный кабинет',
-    ],
-  },
-  {
-    id: 'standard',
-    name: 'Стандарт',
-    minAmount: 10_000,
-    rate: 15,
-    termMin: 12,
-    termMax: 24,
-    recommended: true,
-    features: [
-      'Минимальная сумма от 10 000$',
-      'Ежеквартальная или ежемесячная выплата',
-      'Прогнозируемая прибыль: от 15%',
-      'Персональный менеджер',
-      'Досрочный вывод через 2 месяца',
-    ],
-  },
-  {
-    id: 'premium',
-    name: 'Премиум',
-    minAmount: 50_000,
-    rate: 20,
-    termMin: 24,
-    termMax: 36,
-    recommended: false,
-    features: [
-      'Минимальная сумма от 50 000$',
-      'Прогнозируемая прибыль: до 20%',
-      'Гибкий выбор периодичности выплат',
-      'Приоритетное обслуживание',
-      'Эксклюзивные условия для VIP-клиентов',
-      'Налоговое сопровождение',
-    ],
-  },
-];
 
 const FAQS = [
   {
@@ -156,6 +107,12 @@ export default function InvestmentsPage() {
                 <div className="flex items-baseline gap-1 mb-1">
                   <span className="text-4xl font-extrabold" style={{ color: '#004445' }}>{plan.rate}%</span>
                   <span className="text-sm" style={{ color: '#4A6B67' }}>прогн. прибыль</span>
+                </div>
+                <div className="flex items-start gap-1.5 mb-3">
+                  <Info size={12} className="shrink-0 mt-0.5" style={{ color: '#548870' }} />
+                  <p className="text-[11px] leading-snug" style={{ color: '#4A6B67' }}>
+                    Это доходность проекта, а не сумма на руки — часть удерживает Belvest как управляющий партнёр, доля обсуждается индивидуально.
+                  </p>
                 </div>
                 <p className="text-xs mb-5" style={{ color: '#4A6B67' }}>
                   Срок: {plan.termMin === plan.termMax ? plan.termMax : `${plan.termMin}–${plan.termMax}`} месяцев

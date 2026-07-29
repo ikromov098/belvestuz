@@ -51,6 +51,14 @@ export const translations = {
         other: 'Другое',
       },
     },
+    investProjection: {
+      title: 'Прогнозируемый доход',
+      chartCaption: 'Прогнозируемый доход (сум)',
+      perYear: '% годовых',
+      disclaimer: 'Это предварительная оценка, а не гарантия доходности. Точные условия определяются при заключении договора.',
+      returnNote: 'Это доходность проекта, а не сумма на руки — часть удерживает Belvest как управляющий партнёр, доля обсуждается индивидуально.',
+      continue: 'Продолжить',
+    },
     howItWorks: {
       title: 'Как это работает',
       step1: 'Выберите товар',
@@ -192,6 +200,14 @@ export const translations = {
         other: 'Boshqa',
       },
     },
+    investProjection: {
+      title: 'Taxminiy daromad',
+      chartCaption: "Taxminiy daromad (so'm)",
+      perYear: '% yillik',
+      disclaimer: "Bu dastlabki baholash, daromad kafolati emas. Aniq shartlar shartnoma tuzishda belgilanadi.",
+      returnNote: "Bu loyihaning daromadi, qo'lga tegadigan summa emas — bir qismini Belvest boshqaruvchi hamkor sifatida oladi, ulush alohida kelishiladi.",
+      continue: 'Davom etish',
+    },
     howItWorks: {
       title: 'Bu qanday ishlaydi',
       step1: 'Tovarni tanlang',
@@ -293,6 +309,7 @@ export const translations = {
   invest:     { earlyWithdrawal: string };
   applyForm:  { expectedPrice: string; expectedPricePlaceholder: string };
   tradeIn:    { categories: { phone: string; car: string; realestate: string; other: string } };
+  investProjection: { title: string; chartCaption: string; perYear: string; disclaimer: string; returnNote: string; continue: string };
   howItWorks: { title: string; step1: string; step2: string; step3: string };
   trust:      { badge1: string; badge2: string; badge3: string };
   stats:      { value: string; label: string }[];

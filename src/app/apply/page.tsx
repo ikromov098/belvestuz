@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, Suspense } from 'react';
+import { INVESTMENT_PLANS } from '@/data/investments';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -283,6 +284,7 @@ function ApplyPageContent() {
   const [tiTarget, setTiTarget]           = useState('');
   const [invAmount, setInvAmount]         = useState('');
   const [invTerm, setInvTerm]             = useState(12);
+  const [investProjection, setInvestProjection] = useState(false);
 
   // ── Step 2 ──
   const [fullName, setFullName]           = useState('');
@@ -323,6 +325,12 @@ function ApplyPageContent() {
   const handleNext = () => {
     setShowErrors(true);
     if (!currentValid()) return;
+    // Investment: show the projection screen between Step 1 and Step 2
+    if (step === 1 && service === 'investment' && !investProjection) {
+      setShowErrors(false);
+      setInvestProjection(true);
+      return;
+    }
     if (step === 3) {
       const n = `BV-${new Date().getFullYear()}-${String(Math.floor(1000 + Math.random() * 9000))}`;
       setAppNumber(n);
@@ -361,7 +369,7 @@ function ApplyPageContent() {
             <ProgressBar step={step} />
 
             {/* ═══════ STEP 1 ═══════ */}
-            {step === 1 && (
+            {step === 1 && !investProjection && (
               <div className="flex flex-col gap-6">
                 <SectionHdr title="Выберите услугу и товар" />
 
@@ -532,6 +540,94 @@ function ApplyPageContent() {
               </div>
             )}
 
+            {/* ═══════ Investment projection (intermediate — investment only) ═══════ */}
+            {step === 1 && investProjection && service === 'investment' && (
+              <div className="flex flex-col gap-6">
+                <div>
+                  <SectionHdr title="Прогнозируемый доход" />
+                  <p className="text-sm mt-1" style={{ color: '#4A6B67' }}>
+                    Оценка по инвестиционным пакетам за {invTerm} мес. на сумму {fmt(Number(invAmount) || 0)} сум
+                  </p>
+                </div>
+
+                {/* Projection bars — reuse the actual package rates from /investments */}
+                <div className="rounded-xl p-5 sm:p-6" style={{ border: '1px solid #16685B', backgroundColor: '#FFFFFF' }}>
+                  {(() => {
+                    const amount = Number(invAmount) || 0;
+                    const rows = INVESTMENT_PLANS.map((p) => ({
+                      name: p.name,
+                      rate: p.rate,
+                      capped: !!p.capped,
+                      profit: Math.round(amount * (p.rate / 100) * (invTerm / 12)),
+                    }));
+                    const maxProfit = Math.max(...rows.map((r) => r.profit), 1);
+                    const MAX_BAR = 130; // px — tallest bar; the rest scale down proportionally
+                    return (
+                      <div>
+                        {/* Bars: each height scaled to its own value ÷ the highest value */}
+                        <div className="flex items-end justify-around gap-4" style={{ height: 180 }}>
+                          {rows.map((r) => (
+                            <div key={r.name} className="flex-1 flex flex-col items-center justify-end" style={{ height: '100%' }}>
+                              <span className="text-xs sm:text-sm font-extrabold mb-1 text-center leading-tight" style={{ color: '#004445' }}>
+                                {r.capped ? 'до +' : '+'}{fmt(r.profit)}
+                              </span>
+                              <div className="w-full rounded-t-lg transition-all"
+                                style={{
+                                  height: Math.max(Math.round((r.profit / maxProfit) * MAX_BAR), 6),
+                                  flexShrink: 0,
+                                  backgroundColor: '#004445',
+                                }} />
+                            </div>
+                          ))}
+                        </div>
+                        <div className="flex justify-around gap-4 mt-2">
+                          {rows.map((r) => (
+                            <div key={r.name} className="flex-1 text-center">
+                              <div className="text-xs font-bold" style={{ color: '#0D1F1D' }}>{r.name}</div>
+                              <div className="text-xs" style={{ color: '#4A6B67' }}>{r.capped ? 'до ' : ''}{r.rate}% годовых</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })()}
+                  <p className="text-xs mt-4" style={{ color: '#4A6B67' }}>Прогнозируемый доход (сум)</p>
+                </div>
+
+                {/* Managing-partner share note — this is the gross project return, not take-home */}
+                <div className="flex items-start gap-1.5 -mt-2">
+                  <Info size={12} className="shrink-0 mt-0.5" style={{ color: '#548870' }} />
+                  <p className="text-[11px] leading-snug" style={{ color: '#4A6B67' }}>
+                    Это доходность проекта, а не сумма на руки — часть удерживает Belvest как управляющий партнёр, доля обсуждается индивидуально.
+                  </p>
+                </div>
+
+                {/* Disclaimer — estimate, not a guarantee */}
+                <div className="flex items-start gap-2 rounded-lg p-3" style={{ backgroundColor: 'rgba(84,136,112,0.10)' }}>
+                  <Info size={15} className="shrink-0 mt-0.5" style={{ color: '#548870' }} />
+                  <p className="text-xs leading-relaxed" style={{ color: '#4A6B67' }}>
+                    Это предварительная оценка, а не гарантия доходности. Точные условия определяются при заключении договора.
+                  </p>
+                </div>
+
+                {/* Nav */}
+                <div className="flex items-center justify-between mt-2 pt-6" style={{ borderTop: '1px solid #16685B' }}>
+                  <button type="button" onClick={() => setInvestProjection(false)}
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all border cursor-pointer"
+                    style={{ borderColor: '#16685B', color: '#4A6B67' }}>
+                    <ChevronLeft size={16} /> Назад
+                  </button>
+                  <button type="button" onClick={() => { setInvestProjection(false); setStep(2); }}
+                    className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold cursor-pointer transition-all"
+                    style={{ backgroundColor: '#004445', color: '#FFFFFF' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#16685B')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#004445')}>
+                    Продолжить <ChevronRight size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* ═══════ STEP 2 ═══════ */}
             {step === 2 && (
               <div className="flex flex-col gap-6">
@@ -668,7 +764,8 @@ function ApplyPageContent() {
               </div>
             )}
 
-            {/* ── Navigation ── */}
+            {/* ── Navigation (hidden on the investment projection screen, which has its own) ── */}
+            {!investProjection && (
             <div className="flex items-center justify-between mt-8 pt-6" style={{ borderTop: '1px solid #16685B' }}>
               <button
                 type="button"
@@ -695,6 +792,7 @@ function ApplyPageContent() {
                 {step < 3 && <ChevronRight size={16} />}
               </button>
             </div>
+            )}
           </div>
         )}
       </div>
