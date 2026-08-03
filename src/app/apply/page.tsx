@@ -22,7 +22,7 @@ const SERVICES: { id: ServiceId; label: string; sub: string; Icon: React.Element
   { id: 'installment', label: 'Рассрочка',  sub: 'Покупка товара с оплатой частями без процентов',  Icon: ShoppingCart   },
   { id: 'leasing',     label: 'Лизинг',     sub: 'Финансовая аренда имущества для физ. и юр. лиц', Icon: RefreshCw      },
   { id: 'tradein',     label: 'Трейд-ин',   sub: 'Сдайте старый товар в счёт покупки нового',      Icon: ArrowLeftRight },
-  { id: 'investment',  label: 'Инвестиции', sub: 'Вложите средства с гарантированным доходом',     Icon: TrendingUp     },
+  { id: 'investment',  label: 'Инвестиции', sub: 'Вложите средства с прогнозируемой доходностью',     Icon: TrendingUp     },
 ];
 
 const TERMS = [3, 6, 12, 18, 24, 36];
