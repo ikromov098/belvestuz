@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react';
 import { INVESTMENT_PLANS } from '@/data/investments';
 import Portal from '@/components/Portal';
+import { useLanguage } from '@/context/LanguageContext';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -29,6 +30,22 @@ const SERVICES: { id: ServiceId; label: string; sub: string; Icon: React.Element
 const TERMS = [3, 6, 12, 18, 24, 36];
 // Investment minimum term is 12 months (2- and 6-month options removed).
 const INVESTMENT_TERMS = [12, 18, 24, 36];
+
+// Investment tier minimums ($). Sourced from the Investments-page package data
+// (INVESTMENT_PLANS) so there is a single source of truth for both selection and display.
+const MIN_BASIC    = INVESTMENT_PLANS.find(p => p.id === 'base')!.minAmount;      // $5000  — Базовый
+const MIN_STANDARD = INVESTMENT_PLANS.find(p => p.id === 'standard')!.minAmount;  // $10000 — Стандарт
+const MIN_PREMIUM  = INVESTMENT_PLANS.find(p => p.id === 'premium')!.minAmount;   // $50000 — Премиум
+
+// Maps an entered USD amount to exactly ONE package — the highest tier whose minimum
+// the amount meets or exceeds (inclusive >=). Returns null when below MIN_BASIC or invalid.
+function selectInvestmentPlan(amountUsd: number) {
+  if (!Number.isFinite(amountUsd) || amountUsd < MIN_BASIC) return null;
+  const id = amountUsd >= MIN_PREMIUM ? 'premium'
+           : amountUsd >= MIN_STANDARD ? 'standard'
+           : 'base';
+  return INVESTMENT_PLANS.find(p => p.id === id)!;
+}
 const TRADE_IN_CATS = ['Смартфон', 'Ноутбук / ПК', 'Телевизор', 'Холодильник', 'Стиральная машина', 'Кондиционер', 'Автомобиль', 'Другое'];
 
 const MOCK_PRODUCTS: MockProduct[] = [
@@ -254,6 +271,7 @@ function Panel({ children }: { children: React.ReactNode }) {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 function ApplyPageContent() {
+  const { lang } = useLanguage();
   const searchParams = useSearchParams();
   const initProductId = searchParams.get('product');
   const initService   = searchParams.get('service');
@@ -288,6 +306,13 @@ function ApplyPageContent() {
   const [invAmount, setInvAmount]         = useState('');
   const [invTerm, setInvTerm]             = useState(12);
   const [investProjection, setInvestProjection] = useState(false);
+
+  // Investment projection — derived from the current amount ($) and term on every
+  // render, so the selected package / bar / return / subtitle stay reactive.
+  const invAmountNum   = Number(invAmount);
+  const invValidAmount = Number.isFinite(invAmountNum) && invAmountNum > 0;
+  const invPlan        = selectInvestmentPlan(invAmountNum);
+  const invProfit      = invPlan ? Math.round(invAmountNum * (invPlan.rate / 100) * (invTerm / 12)) : 0;
 
   // ── Step 2 ──
   const [fullName, setFullName]           = useState('');
@@ -509,10 +534,10 @@ function ApplyPageContent() {
                 {service === 'investment' && (
                   <Panel>
                     <p className="font-bold text-sm" style={{ color: '#004445' }}>Параметры инвестиции</p>
-                    <Field label="Сумма инвестиции (сум)" value={invAmount}
+                    <Field label={lang === 'uz' ? 'Investitsiya summasi ($)' : 'Сумма инвестиции ($)'} value={invAmount}
                       onChange={(v) => setInvAmount(v.replace(/\D/g, ''))}
-                      placeholder="10 000 000" required
-                      error={showErrors && Number(invAmount) <= 0 ? 'Укажите сумму инвестиции' : ''}
+                      placeholder="20 000" required
+                      error={showErrors && Number(invAmount) <= 0 ? (lang === 'uz' ? 'Investitsiya summasini kiriting' : 'Укажите сумму инвестиции') : ''}
                       valid={Number(invAmount) > 0} />
                     <div className="flex flex-col gap-2">
                       <label className="text-sm font-semibold" style={{ color: '#0D1F1D' }}>Срок (месяцев)</label>
@@ -547,71 +572,76 @@ function ApplyPageContent() {
             {step === 1 && investProjection && service === 'investment' && (
               <div className="flex flex-col gap-6">
                 <div>
-                  <SectionHdr title="Прогнозируемый доход" />
-                  <p className="text-sm mt-1" style={{ color: '#4A6B67' }}>
-                    Оценка по инвестиционным пакетам за {invTerm} мес. на сумму {fmt(Number(invAmount) || 0)} сум
-                  </p>
+                  <SectionHdr title={lang === 'uz' ? 'Taxminiy daromad' : 'Прогнозируемый доход'} />
+                  {invPlan && (
+                    <p className="text-sm mt-1" style={{ color: '#4A6B67' }}>
+                      {lang === 'uz'
+                        ? `«${invPlan.name}» paketi bo'yicha ${invTerm} oyga $${fmt(invAmountNum)} summasiga baholash`
+                        : `Оценка по пакету «${invPlan.name}» за ${invTerm} мес. на сумму $${fmt(invAmountNum)}`}
+                    </p>
+                  )}
                 </div>
 
-                {/* Projection bars — reuse the actual package rates from /investments */}
-                <div className="rounded-xl p-5 sm:p-6" style={{ border: '1px solid #16685B', backgroundColor: '#FFFFFF' }}>
-                  {(() => {
-                    const amount = Number(invAmount) || 0;
-                    const rows = INVESTMENT_PLANS.map((p) => ({
-                      name: p.name,
-                      rate: p.rate,
-                      capped: !!p.capped,
-                      profit: Math.round(amount * (p.rate / 100) * (invTerm / 12)),
-                    }));
-                    const maxProfit = Math.max(...rows.map((r) => r.profit), 1);
-                    const MAX_BAR = 130; // px — tallest bar; the rest scale down proportionally
-                    return (
-                      <div>
-                        {/* Bars: each height scaled to its own value ÷ the highest value */}
-                        <div className="flex items-end justify-around gap-4" style={{ height: 180 }}>
-                          {rows.map((r) => (
-                            <div key={r.name} className="flex-1 flex flex-col items-center justify-end" style={{ height: '100%' }}>
-                              <span className="text-xs sm:text-sm font-extrabold mb-1 text-center leading-tight" style={{ color: '#004445' }}>
-                                {r.capped ? 'до +' : '+'}{fmt(r.profit)}
-                              </span>
-                              <div className="w-full rounded-t-lg transition-all"
-                                style={{
-                                  height: Math.max(Math.round((r.profit / maxProfit) * MAX_BAR), 6),
-                                  flexShrink: 0,
-                                  backgroundColor: '#004445',
-                                }} />
-                            </div>
-                          ))}
-                        </div>
-                        <div className="flex justify-around gap-4 mt-2">
-                          {rows.map((r) => (
-                            <div key={r.name} className="flex-1 text-center">
-                              <div className="text-xs font-bold" style={{ color: '#0D1F1D' }}>{r.name}</div>
-                              <div className="text-xs" style={{ color: '#4A6B67' }}>{r.capped ? 'до ' : ''}{r.rate}% годовых</div>
-                            </div>
-                          ))}
+                {invPlan ? (
+                  <>
+                    {/* Single selected-package bar — the highest tier the amount qualifies for */}
+                    <div className="rounded-xl p-5 sm:p-6" style={{ border: '1px solid #16685B', backgroundColor: '#FFFFFF' }}>
+                      <div className="flex items-end justify-around gap-4" style={{ height: 180 }}>
+                        <div className="flex flex-col items-center justify-end" style={{ height: '100%', width: 150, maxWidth: '65%' }}>
+                          <span className="text-xs sm:text-sm font-extrabold mb-1 text-center leading-tight" style={{ color: '#004445' }}>
+                            {invPlan.capped ? 'до +$' : '+$'}{fmt(invProfit)}
+                          </span>
+                          <div className="w-full rounded-t-lg transition-all"
+                            style={{ height: 130, flexShrink: 0, backgroundColor: '#004445' }} />
                         </div>
                       </div>
-                    );
-                  })()}
-                  <p className="text-xs mt-4" style={{ color: '#4A6B67' }}>Прогнозируемый доход (сум)</p>
-                </div>
+                      <div className="flex justify-around gap-4 mt-2">
+                        <div className="text-center" style={{ width: 150, maxWidth: '65%' }}>
+                          <div className="text-xs font-bold" style={{ color: '#0D1F1D' }}>{invPlan.name}</div>
+                          <div className="text-xs" style={{ color: '#4A6B67' }}>{invPlan.capped ? 'до ' : ''}{invPlan.rate}{lang === 'uz' ? '% yillik' : '% годовых'}</div>
+                        </div>
+                      </div>
+                      <p className="text-xs mt-4" style={{ color: '#4A6B67' }}>
+                        {lang === 'uz' ? 'Taxminiy daromad ($)' : 'Прогнозируемый доход ($)'}
+                      </p>
+                    </div>
 
-                {/* Managing-partner share note — this is the gross project return, not take-home */}
-                <div className="flex items-start gap-1.5 -mt-2">
-                  <Info size={12} className="shrink-0 mt-0.5" style={{ color: '#548870' }} />
-                  <p className="text-[11px] leading-snug" style={{ color: '#4A6B67' }}>
-                    Это доходность проекта, а не сумма на руки — часть удерживает Belvest как управляющий партнёр, доля обсуждается индивидуально.
-                  </p>
-                </div>
+                    {/* Managing-partner share note — this is the gross project return, not take-home */}
+                    <div className="flex items-start gap-1.5 -mt-2">
+                      <Info size={12} className="shrink-0 mt-0.5" style={{ color: '#548870' }} />
+                      <p className="text-[11px] leading-snug" style={{ color: '#4A6B67' }}>
+                        {lang === 'uz'
+                          ? "Bu loyihaning daromadi, qo'lga tegadigan summa emas — bir qismini Belvest boshqaruvchi hamkor sifatida oladi, ulush alohida kelishiladi."
+                          : 'Это доходность проекта, а не сумма на руки — часть удерживает Belvest как управляющий партнёр, доля обсуждается индивидуально.'}
+                      </p>
+                    </div>
 
-                {/* Disclaimer — estimate, not a guarantee */}
-                <div className="flex items-start gap-2 rounded-lg p-3" style={{ backgroundColor: 'rgba(84,136,112,0.10)' }}>
-                  <Info size={15} className="shrink-0 mt-0.5" style={{ color: '#548870' }} />
-                  <p className="text-xs leading-relaxed" style={{ color: '#4A6B67' }}>
-                    Это предварительная оценка, а не гарантия доходности. Точные условия определяются при заключении договора.
+                    {/* Disclaimer — estimate, not a guarantee */}
+                    <div className="flex items-start gap-2 rounded-lg p-3" style={{ backgroundColor: 'rgba(84,136,112,0.10)' }}>
+                      <Info size={15} className="shrink-0 mt-0.5" style={{ color: '#548870' }} />
+                      <p className="text-xs leading-relaxed" style={{ color: '#4A6B67' }}>
+                        {lang === 'uz'
+                          ? 'Bu dastlabki baholash, daromad kafolati emas. Aniq shartlar shartnoma tuzishda belgilanadi.'
+                          : 'Это предварительная оценка, а не гарантия доходности. Точные условия определяются при заключении договора.'}
+                      </p>
+                    </div>
+                  </>
+                ) : invValidAmount ? (
+                  /* Amount below the lowest minimum — helper message, no chart */
+                  <div className="flex items-start gap-2 rounded-lg p-4" style={{ backgroundColor: 'rgba(84,136,112,0.10)' }}>
+                    <Info size={16} className="shrink-0 mt-0.5" style={{ color: '#548870' }} />
+                    <p className="text-sm leading-relaxed" style={{ color: '#4A6B67' }}>
+                      {lang === 'uz'
+                        ? `Investitsiya uchun minimal summa — ${fmt(MIN_BASIC)}$ («Bazaviy» paket).`
+                        : `Минимальная сумма для инвестиций — ${fmt(MIN_BASIC)}$ (пакет «Базовый»).`}
+                    </p>
+                  </div>
+                ) : (
+                  /* Empty / non-numeric — neutral prompt, no chart, no crash */
+                  <p className="text-sm" style={{ color: '#4A6B67' }}>
+                    {lang === 'uz' ? 'Investitsiya summasini kiriting.' : 'Введите сумму инвестиции.'}
                   </p>
-                </div>
+                )}
 
                 {/* Nav */}
                 <div className="flex items-center justify-between mt-2 pt-6" style={{ borderTop: '1px solid #16685B' }}>
@@ -722,7 +752,7 @@ function ApplyPageContent() {
                           ]
                         : []),
                       ...(service === 'investment'
-                        ? [['Сумма', `${fmt(Number(invAmount))} сум`], ['Срок', `${invTerm} мес.`]]
+                        ? [['Сумма', `$${fmt(Number(invAmount) || 0)}`], ['Срок', `${invTerm} мес.`]]
                         : []),
                       ['ФИО', fullName || '—'],
                       ['Телефон', phone ? `+998 ${phone}` : '—'],
