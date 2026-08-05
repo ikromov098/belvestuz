@@ -51,7 +51,7 @@ export default function RassrochkaPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Link href="/catalog"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-sm font-bold"
+              className="depth-btn inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-sm font-bold"
               style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
               Смотреть каталог
             </Link>
@@ -142,7 +142,7 @@ export default function RassrochkaPage() {
             Более 200 товаров от ведущих брендов уже доступны — выберите нужное и оформите рассрочку онлайн
           </p>
           <Link href="/catalog"
-            className="inline-flex items-center gap-2 px-10 py-4 rounded-xl text-base font-bold"
+            className="depth-btn inline-flex items-center gap-2 px-10 py-4 rounded-xl text-base font-bold"
             style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
             Смотреть каталог
           </Link>

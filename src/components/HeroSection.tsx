@@ -63,7 +63,7 @@ export default function HeroSection() {
       <div className="absolute bottom-10 left-6 sm:left-10 z-10 flex items-center gap-5">
         <Link
           href="/apply"
-          className="px-8 py-3.5 rounded-xl text-sm font-bold"
+          className="depth-btn px-8 py-3.5 rounded-xl text-sm font-bold"
           style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
         >
           {applyLabel}

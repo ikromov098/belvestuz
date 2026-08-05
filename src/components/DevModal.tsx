@@ -2,6 +2,7 @@
 
 import { X } from 'lucide-react';
 import BelvestIcon from '@/components/BelvestIcon';
+import Portal from '@/components/Portal';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function DevModal({ onClose }: { onClose: () => void }) {
@@ -13,6 +14,7 @@ export default function DevModal({ onClose }: { onClose: () => void }) {
       : 'Страница находится в разработке. С уважением, команда Belvest';
 
   return (
+    <Portal>
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ backgroundColor: 'rgba(0,0,0,0.55)' }}
@@ -43,5 +45,6 @@ export default function DevModal({ onClose }: { onClose: () => void }) {
         </p>
       </div>
     </div>
+    </Portal>
   );
 }

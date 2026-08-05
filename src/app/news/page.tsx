@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Send, X } from 'lucide-react';
+import Portal from '@/components/Portal';
 import { useLanguage } from '@/context/LanguageContext';
 
 function InstagramIcon({ size = 18 }: { size?: number }) {
@@ -155,6 +156,7 @@ function ArticleModal({ article, onClose }: { article: Article; onClose: () => v
   }, [onClose]);
 
   return (
+    <Portal>
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ backgroundColor: 'rgba(13,31,29,0.65)', backdropFilter: 'blur(4px)' }}
@@ -190,6 +192,7 @@ function ArticleModal({ article, onClose }: { article: Article; onClose: () => v
         </div>
       </div>
     </div>
+    </Portal>
   );
 }
 

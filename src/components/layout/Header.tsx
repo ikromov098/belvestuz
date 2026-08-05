@@ -142,7 +142,7 @@ export default function Header() {
             {/* Подать заявку */}
             <Link
               href="/apply"
-              className="px-4 py-2 text-sm font-semibold rounded-full transition-all duration-150"
+              className="depth-btn px-4 py-2 text-sm font-semibold rounded-full transition-all duration-150"
               style={{ backgroundColor: '#FFF0CC', color: '#004445', letterSpacing: '0.02em' }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFF0CC')}

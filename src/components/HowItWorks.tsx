@@ -1,10 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function HowItWorks() {
   const { t } = useLanguage();
+  const reduceMotion = useReducedMotion();
 
   const steps = [
     {
@@ -50,7 +52,15 @@ export default function HowItWorks() {
           />
 
           {steps.map((s) => (
-            <div key={s.n} className="flex-1 flex flex-col items-center text-center px-4 md:px-8 relative">
+            <motion.div
+              key={s.n}
+              className="flex-1 flex flex-col items-center text-center px-4 md:px-8 relative"
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, rotateX: 8 }}
+              whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, rotateX: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: (s.n - 1) * 0.08 }}
+              style={{ transformPerspective: 1000 }}
+            >
               {/* Mobile connector */}
               {s.n < 3 && (
                 <div
@@ -77,14 +87,14 @@ export default function HowItWorks() {
               <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,240,204,0.60)' }}>
                 {s.sub}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         <div className="flex justify-center mt-12">
           <Link
             href="/apply"
-            className="px-8 py-3.5 rounded-xl text-sm font-bold"
+            className="depth-btn px-8 py-3.5 rounded-xl text-sm font-bold"
             style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
           >
             {t.header.apply}

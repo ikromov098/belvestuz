@@ -261,7 +261,7 @@ function InstallmentCalculator({ defaultProduct = 'carA' }: { defaultProduct?: P
 
   return (
     <div
-      className="rounded-2xl shadow-xl overflow-hidden"
+      className="depth-card rounded-2xl shadow-xl overflow-hidden"
       style={{ border: '1px solid #16685B', backgroundColor: '#ffffff' }}
     >
       <CardHeader icon={<ShoppingCart size={20} />} title={t.calculator.title} />
@@ -493,7 +493,7 @@ function TradeInEstimator() {
 
   return (
     <div
-      className="rounded-2xl shadow-xl overflow-hidden"
+      className="depth-card rounded-2xl shadow-xl overflow-hidden"
       style={{ border: '1px solid #16685B', backgroundColor: '#ffffff' }}
     >
       <CardHeader
@@ -637,7 +637,7 @@ export default function CalculatorSection({ defaultProduct = 'carA' }: { default
         </div>
 
         {/* Two-column grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start" style={{ perspective: '1000px' }}>
           <InstallmentCalculator defaultProduct={defaultProduct} />
           <TradeInEstimator />
         </div>

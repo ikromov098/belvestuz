@@ -2,6 +2,7 @@
 
 import { useState, Suspense } from 'react';
 import { INVESTMENT_PLANS } from '@/data/investments';
+import Portal from '@/components/Portal';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -156,6 +157,7 @@ function Field({
 // ─── Policy Modal ─────────────────────────────────────────────────────────────
 function PolicyModal({ onClose }: { onClose: () => void }) {
   return (
+    <Portal>
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ backgroundColor: 'rgba(0,0,0,0.55)' }} onClick={onClose}>
       <div className="bg-white rounded-2xl max-w-lg w-full max-h-[75vh] overflow-auto"
@@ -175,6 +177,7 @@ function PolicyModal({ onClose }: { onClose: () => void }) {
         </div>
       </div>
     </div>
+    </Portal>
   );
 }
 
@@ -380,12 +383,12 @@ function ApplyPageContent() {
                 )}
 
                 {/* Service cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3" style={{ perspective: '1000px' }}>
                   {SERVICES.map(({ id, label, sub, Icon }) => {
                     const active = service === id;
                     return (
                       <button key={id} type="button" onClick={() => setService(id)}
-                        className="flex items-start gap-4 p-4 rounded-xl text-left cursor-pointer transition-all duration-150"
+                        className="depth-card flex items-start gap-4 p-4 rounded-xl text-left cursor-pointer transition-all duration-150"
                         style={{
                           border:           `2px solid ${active ? '#004445' : '#16685B'}`,
                           backgroundColor:  active ? 'rgba(0,68,69,0.06)' : '#ffffff',

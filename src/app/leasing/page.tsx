@@ -82,7 +82,7 @@ export default function LeasingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Link href="/apply?service=leasing"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-sm font-bold"
+              className="depth-btn inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-sm font-bold"
               style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
               Подать заявку на лизинг
             </Link>
@@ -229,7 +229,7 @@ export default function LeasingPage() {
             Оставьте заявку — наш специалист свяжется с вами в течение 2 часов и подберёт оптимальные условия
           </p>
           <Link href="/apply?service=leasing"
-            className="inline-flex items-center gap-2 px-10 py-4 rounded-xl text-base font-bold"
+            className="depth-btn inline-flex items-center gap-2 px-10 py-4 rounded-xl text-base font-bold"
             style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
             Подать заявку на лизинг
           </Link>

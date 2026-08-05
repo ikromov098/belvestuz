@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
+import Portal from '@/components/Portal';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface Localized {
@@ -108,7 +109,7 @@ export default function TeamSection() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto" style={{ perspective: '1000px' }}>
           {TEAM.map((member, i) => {
             const d = member[lang];
             return (
@@ -116,7 +117,7 @@ export default function TeamSection() {
                 key={i}
                 type="button"
                 onClick={() => setActive(i)}
-                className="w-full bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer px-6 py-12 flex flex-col items-center text-center"
+                className="depth-card w-full bg-white rounded-xl shadow-sm cursor-pointer px-6 py-12 flex flex-col items-center text-center"
                 style={{ border: '1px solid #16685B' }}
               >
                 <div
@@ -134,6 +135,7 @@ export default function TeamSection() {
       </div>
 
       {activeMember && (
+        <Portal>
         <div
           onClick={close}
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -182,6 +184,7 @@ export default function TeamSection() {
             </div>
           </div>
         </div>
+        </Portal>
       )}
     </section>
   );

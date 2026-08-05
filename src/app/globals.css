@@ -105,3 +105,32 @@ h1, h2, h3, h4, h5, h6 {
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
+
+/* ── 3D depth utilities (CSS transforms only — no WebGL) ── */
+.depth-btn {
+  box-shadow: 0 4px 0 rgba(0,45,46,1), 0 6px 12px rgba(0,68,69,0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transform-style: preserve-3d;
+}
+.depth-btn:hover {
+  transform: translateY(-2px) rotateX(6deg);
+  box-shadow: 0 6px 0 rgba(0,45,46,1), 0 10px 20px rgba(0,68,69,0.3);
+}
+.depth-btn:active {
+  transform: translateY(2px) rotateX(0deg);
+  box-shadow: 0 2px 0 rgba(0,45,46,1), 0 3px 6px rgba(0,68,69,0.2);
+}
+.depth-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transform-style: preserve-3d;
+}
+.depth-card:hover {
+  transform: translateY(-6px) rotateX(4deg) rotateY(-4deg);
+  box-shadow: 0 20px 40px rgba(0,68,69,0.15), 0 6px 12px rgba(0,68,69,0.1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .depth-btn:hover, .depth-btn:active, .depth-card:hover { transform: none; }
+}
+@media (max-width: 767px) {
+  .depth-card:hover { transform: translateY(-3px); }
+}

@@ -150,7 +150,7 @@ function ProductCard({ product, onShowModal }: { product: Product; onShowModal: 
 
   return (
     <div
-      className="flex flex-col rounded-xl overflow-hidden transition-all duration-200"
+      className="depth-card flex flex-col rounded-xl overflow-hidden"
       style={{
         backgroundColor: '#ffffff',
         border: `1.5px solid ${hovered ? '#004445' : '#16685B'}`,
@@ -633,7 +633,7 @@ function CatalogPageInner() {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5" style={{ perspective: '1000px' }}>
                 {filtered.map((p) => <ProductCard key={p.id} product={p} onShowModal={() => setShowModal(true)} />)}
               </div>
             )}
