@@ -69,6 +69,9 @@ const MOCK_PRODUCTS: MockProduct[] = [
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const fmt     = (n: number) => Math.round(n).toLocaleString('ru-RU');
+// Escape user-supplied values before interpolating into the Telegram HTML message,
+// so characters like < or & can't break parse_mode: 'HTML'.
+const esc     = (s: string) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const vPhone  = (p: string) => /^\d{9}$/.test(p.replace(/\D/g, '')) ? '' : 'Введите 9 цифр номера';
 const vEmail  = (e: string) => !e || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) ? '' : 'Некорректный email';
 
@@ -281,6 +284,7 @@ function ApplyPageContent() {
   const [step, setStep] = useState(1);
   const [showErrors, setShowErrors] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
   const [appNumber, setAppNumber] = useState('');
   const [showPolicy, setShowPolicy] = useState(false);
 
@@ -351,7 +355,50 @@ function ApplyPageContent() {
   const currentValid = () =>
     step === 1 ? step1Valid() : step === 2 ? step2Valid() : step3Valid();
 
-  const handleNext = () => {
+  // Formats every collected field into the Telegram message (HTML parse mode).
+  const buildTelegramText = (n: string) => {
+    const clientType =
+      entityType === 'individual' ? 'Физическое лицо'
+      : entityType === 'legal'    ? 'Юридическое лицо'
+      : 'ИП';
+
+    const lines: string[] = [
+      `<b>🆕 Новая заявка Belvest</b>`,
+      ``,
+      `<b>Номер заявки:</b> ${esc(n)}`,
+      `<b>Услуга:</b> ${esc(serviceLabel)}`,
+    ];
+
+    if (service === 'installment' || service === 'leasing') {
+      lines.push(`<b>Товар:</b> ${esc(productName) || '—'}`);
+      lines.push(`<b>Ожидаемая стоимость:</b> ${expectedPrice ? `${fmt(Number(expectedPrice))} сум` : '—'}`);
+      lines.push(`<b>Срок:</b> ${term} мес.`);
+    } else if (service === 'tradein') {
+      lines.push(`<b>Сдаёт:</b> ${esc(tiCategory) || '—'}`);
+      lines.push(`<b>Хочет получить:</b> ${esc(tiTarget) || '—'}`);
+      lines.push(`<b>Ожидаемая стоимость:</b> ${expectedPrice ? `${fmt(Number(expectedPrice))} сум` : '—'}`);
+      lines.push(`<b>Срок:</b> ${term} мес.`);
+    } else if (service === 'investment') {
+      lines.push(`<b>Сумма инвестиции:</b> ${invAmount ? `$${fmt(Number(invAmount))}` : '—'}`);
+      lines.push(`<b>Пакет:</b> ${invPlan ? esc(invPlan.name) : '—'}`);
+      lines.push(`<b>Срок:</b> ${invTerm} мес.`);
+    }
+
+    lines.push(`<b>Тип клиента:</b> ${clientType}`);
+    if (entityType !== 'individual') {
+      lines.push(`<b>Компания:</b> ${esc(companyName) || '—'}`);
+      lines.push(`<b>ИНН:</b> ${esc(inn) || '—'}`);
+    }
+
+    lines.push(``);
+    lines.push(`<b>ФИО:</b> ${esc(fullName)}`);
+    lines.push(`<b>Телефон:</b> +998 ${esc(phone)}`);
+    lines.push(`<b>Email:</b> ${esc(email) || '—'}`);
+
+    return lines.join('\n');
+  };
+
+  const handleNext = async () => {
     setShowErrors(true);
     if (!currentValid()) return;
     // Investment: show the projection screen between Step 1 and Step 2
@@ -361,9 +408,22 @@ function ApplyPageContent() {
       return;
     }
     if (step === 3) {
+      if (sending) return; // guard against double submission
+      setSending(true);
       const n = `BV-${new Date().getFullYear()}-${String(Math.floor(1000 + Math.random() * 9000))}`;
+      try {
+        await fetch('/api/send-telegram', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: buildTelegramText(n) }),
+        });
+      } catch {
+        // Delivery failed — still show the success screen, which carries the
+        // phone fallback (+998 77 480-99-99) so the client can reach us.
+      }
       setAppNumber(n);
       setSubmitted(true);
+      setSending(false);
     } else {
       setShowErrors(false);
       setStep((s) => s + 1);
@@ -817,12 +877,13 @@ function ApplyPageContent() {
               <button
                 type="button"
                 onClick={handleNext}
+                disabled={sending}
                 className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold cursor-pointer transition-all"
                 style={{ backgroundColor: '#004445', color: '#FFFFFF' }}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#16685B')}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#004445')}
               >
-                {step === 3 ? 'Отправить заявку' : 'Далее'}
+                {step === 3 ? (sending ? 'Отправка…' : 'Отправить заявку') : 'Далее'}
                 {step < 3 && <ChevronRight size={16} />}
               </button>
             </div>

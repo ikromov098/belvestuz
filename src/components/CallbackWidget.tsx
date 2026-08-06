@@ -7,6 +7,9 @@ type Stage = 'idle' | 'open' | 'success';
 
 const SERVICES = ['Рассрочка', 'Лизинг', 'Трейд-ин', 'Инвестиции'];
 
+// Escape user input before interpolating into the Telegram HTML message.
+const esc = (s: string) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
 export default function CallbackWidget() {
   const [stage, setStage] = useState<Stage>('idle');
   const [name, setName] = useState('');
@@ -15,21 +18,26 @@ export default function CallbackWidget() {
 
   const canSubmit = name.trim().length > 1 && phone.replace(/\D/g, '').length >= 9;
 
-  // Submissions go to Formspree (email inbox delivery).
-  // Direct Telegram delivery requires a backend Telegram Bot API integration
-  // (bot token + chat ID) — to be added later.
+  // Submissions go to the team's Telegram group via /api/send-telegram
+  // (bot token + chat ID live only in server-side env vars).
   async function handleSubmit() {
     if (!canSubmit) return;
-    fetch('https://formspree.io/f/YOUR_FORM_ID', {
+
+    const text = `<b>📞 Заявка на обратный звонок / Qayta qo'ng'iroq so'rovi</b>
+
+<b>Перезвоните этому человеку / Bu odamga qayta qo'ng'iroq qiling:</b>
+
+<b>Имя / Ism:</b> ${esc(name)}
+<b>Телефон / Telefon:</b> +998 ${esc(phone)}
+<b>Интересует / Qiziqish:</b> ${esc(service) || '—'}`;
+
+    // Fire-and-forget: the user still sees the confirmation even if delivery fails.
+    fetch('/api/send-telegram', {
       method: 'POST',
-      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name,
-        phone: `+998 ${phone}`,
-        service: service || 'не указана',
-        _subject: `Заказ звонка: ${name} - +998 ${phone} - ${service || 'не указана'}`,
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
     }).catch(console.error);
+
     setStage('success');
   }
 
