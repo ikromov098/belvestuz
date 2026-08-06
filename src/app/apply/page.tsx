@@ -11,6 +11,7 @@ import {
   ShoppingCart, RefreshCw, ArrowLeftRight, TrendingUp,
   Check, X, Info, ChevronLeft, ChevronRight, AlertCircle,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type ServiceId  = 'installment' | 'leasing' | 'tradein' | 'investment';
@@ -20,7 +21,7 @@ interface MockProduct { id: number; name: string; price: number; }
 // ─── Constants ────────────────────────────────────────────────────────────────
 const STEP_LABELS = ['Услуга и товар', 'Личные данные', 'Подтверждение'];
 
-const SERVICES: { id: ServiceId; label: string; sub: string; Icon: React.ElementType }[] = [
+const SERVICES: { id: ServiceId; label: string; sub: string; Icon: LucideIcon }[] = [
   { id: 'installment', label: 'Рассрочка',  sub: 'Покупка товара с оплатой частями без процентов',  Icon: ShoppingCart   },
   { id: 'leasing',     label: 'Лизинг',     sub: 'Финансовая аренда имущества для физ. и юр. лиц', Icon: RefreshCw      },
   { id: 'tradein',     label: 'Трейд-ин',   sub: 'Сдайте старый товар в счёт покупки нового',      Icon: ArrowLeftRight },

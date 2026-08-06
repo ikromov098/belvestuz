@@ -1,8 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useLanguage } from '@/context/LanguageContext';
 import BoomerangVideoBg from '@/components/BoomerangVideoBg';
+
+// WebGL cannot render server-side — load the decorative particle scene client-only.
+// (ssr: false requires a Client Component; this file is one.)
+const HeroParticleScene = dynamic(() => import('@/components/HeroParticleScene'), { ssr: false });
 
 export default function HeroSection() {
   const { lang } = useLanguage();
@@ -31,9 +36,13 @@ export default function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(0,51,50,0.35) 0%, rgba(0,68,69,0.55) 100%)',
+            'linear-gradient(to bottom, rgba(0,51,50,0.5) 0%, rgba(0,68,69,0.65) 100%)',
         }}
       />
+
+      {/* Decorative 3D particle network — between the gradient (behind) and the text (in front).
+          pointer-events:none so it never blocks the CTAs. Desktop-only, reduced-motion aware. */}
+      <HeroParticleScene />
 
       {/* Centered hero text */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center h-[72vh] min-h-[440px] px-4">
