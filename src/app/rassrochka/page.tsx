@@ -22,11 +22,10 @@ const DOCS = [
 ];
 
 const TERMS = [
-  { months: 3,  rate: '0%' },
-  { months: 6,  rate: '0%' },
-  { months: 12, rate: '0%' },
-  { months: 18, rate: '0%' },
-  { months: 24, rate: '0%' },
+  { months: 6,  rate: '' },
+  { months: 10, rate: '' },
+  { months: 12, rate: '' },
+  { months: 24, rate: '' },
 ];
 
 export default function RassrochkaPage() {
@@ -41,7 +40,7 @@ export default function RassrochkaPage() {
             <span style={{ color: '#FFF0CC' }}>Рассрочка</span>
           </nav>
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#FFF0CC' }}>
-            Беспроцентная рассрочка
+            Рассрочка (Мурабаха)
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC', maxWidth: 580 }}>
             Рассрочка (Мурабаха) от Belvest
