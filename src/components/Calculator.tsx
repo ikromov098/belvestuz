@@ -472,6 +472,7 @@ function TradeInEstimator() {
       cta: 'Оценить точнее',
       cur: 'сум',
       disclaimer: 'Курс указан для примера (1$ = 12 700 сум, средний курс 2026 года). При заключении реальной сделки применяется актуальный курс ЦБ на день оплаты.',
+      manualNote: 'Точная сумма определяется после осмотра товара в офисе — оценка проводится по рыночной цене на момент обращения.',
     },
     uz: {
       title: 'Trade-in baholash',
@@ -485,6 +486,7 @@ function TradeInEstimator() {
       cta: 'Aniqroq baholash',
       cur: "so'm",
       disclaimer: "Kurs faqat namuna uchun ko'rsatilgan (1$ = 12 700 so'm, 2026-yil o'rtacha kursi). Haqiqiy bitim tuzilganda to'lov kunidagi amaldagi Markaziy bank kursi qo'llaniladi.",
+      manualNote: "Aniq summa tovar ofisda ko'zdan kechirilgandan so'ng belgilanadi — baholash murojaat vaqtidagi bozor narxi bo'yicha o'tkaziladi.",
     },
   }[lang];
 
@@ -534,7 +536,7 @@ function TradeInEstimator() {
           label={L.oldValue}
           value={estimate}
           min={50}
-          max={5_000}
+          max={50_000}
           step={50}
           display={`$${fmt(estimate)}`}
           fmtBound={usdBound}
@@ -578,6 +580,9 @@ function TradeInEstimator() {
         {/* Exchange-rate disclaimer */}
         <p className="text-[11px] leading-relaxed" style={{ color: '#8A9B98' }}>
           {L.disclaimer}
+        </p>
+        <p className="text-[11px] leading-relaxed" style={{ color: '#8A9B98' }}>
+          {L.manualNote}
         </p>
 
         <Link
