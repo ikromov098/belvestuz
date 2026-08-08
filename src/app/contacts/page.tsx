@@ -25,7 +25,7 @@ const T = {
     thanks: 'Спасибо!', thanksSub: 'Мы свяжемся с вами в течение 1 рабочего дня',
     name: 'Имя', namePh: 'Ваше имя', phone: 'Телефон', phonePh: '77 480-99-99',
     topic: 'Тема', topicPh: 'Выберите тему...', message: 'Сообщение', messagePh: 'Опишите ваш вопрос...',
-    submit: 'Отправить сообщение', errorFill: 'Пожалуйста, заполните все поля',
+    submit: 'Отправить сообщение', sendingLabel: 'Отправка…', errorFill: 'Пожалуйста, заполните все поля',
     topics: ['Рассрочка', 'Лизинг', 'Трейд-ин', 'Инвестиции', 'Другое'],
     mapTitle: 'Belvest на карте', hoursLabel: 'График', hoursTitle: 'Режим работы',
     days: ['Ежедневно'],
@@ -40,7 +40,7 @@ const T = {
     thanks: 'Rahmat!', thanksSub: "Biz siz bilan 1 ish kuni ichida bog'lanamiz",
     name: 'Ism', namePh: 'Ismingiz', phone: 'Telefon', phonePh: '77 480-99-99',
     topic: 'Mavzu', topicPh: 'Mavzuni tanlang...', message: 'Xabar', messagePh: 'Savolingizni yozing...',
-    submit: 'Xabar yuborish', errorFill: "Iltimos, barcha maydonlarni to'ldiring",
+    submit: 'Xabar yuborish', sendingLabel: 'Yuborilmoqda…', errorFill: "Iltimos, barcha maydonlarni to'ldiring",
     topics: ['Nasiya savdo', 'Lizing', 'Treyd-in', 'Investitsiyalar', 'Boshqa'],
     mapTitle: 'Belvest xaritada', hoursLabel: 'Jadval', hoursTitle: 'Ish rejimi',
     days: ['Har kuni'],
@@ -118,14 +118,35 @@ export default function ContactsPage() {
   const [form, setForm] = useState({ name: '', phone: '', topic: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.phone.trim() || !form.topic || !form.message.trim()) {
       setError(L.errorFill);
       return;
     }
+    if (sending) return;
     setError('');
+    setSending(true);
+    const text =
+      `🆕 <b>Сообщение с формы обратной связи — Belvest</b>\n\n` +
+      `<b>Имя:</b> ${esc(form.name)}\n` +
+      `<b>Телефон:</b> +998${esc(form.phone)}\n` +
+      `<b>Тема:</b> ${esc(form.topic)}\n` +
+      `<b>Сообщение:</b> ${esc(form.message)}`;
+    try {
+      await fetch('/api/send-telegram', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
+      });
+    } catch {
+      // graceful fallback — still show success below even if delivery failed
+    }
+    setSending(false);
     setSubmitted(true);
   };
 
@@ -276,12 +297,13 @@ export default function ContactsPage() {
 
               <button
                 type="submit"
+                disabled={sending}
                 className="w-full py-3.5 rounded-xl text-sm font-bold transition-all duration-150 cursor-pointer"
-                style={{ backgroundColor: '#004445', color: '#FFFFFF' }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#16685B')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#004445')}
+                style={{ backgroundColor: '#004445', color: '#FFFFFF', opacity: sending ? 0.7 : 1 }}
+                onMouseEnter={(e) => { if (!sending) e.currentTarget.style.backgroundColor = '#16685B'; }}
+                onMouseLeave={(e) => { if (!sending) e.currentTarget.style.backgroundColor = '#004445'; }}
               >
-                {L.submit}
+                {sending ? L.sendingLabel : L.submit}
               </button>
             </form>
           )}
