@@ -64,6 +64,10 @@ export const translations = {
       step1: 'Выберите товар',
       step2: 'Подайте заявку',
       step3: 'Получите одобрение',
+      heading: 'Три шага до вашей покупки',
+      sub1: 'Смартфоны, автомобили, недвижимость и спецтехника — выберите в каталоге.',
+      sub2: 'Заполните заявку за 5 минут — прямо с телефона.',
+      sub3: 'Менеджер перезвонит, подпишете договор — и товар ваш без лишних хлопот.',
     },
     trust: {
       badge1: '✓ Одобрение за 2 часа',
@@ -213,6 +217,10 @@ export const translations = {
       step1: 'Tovarni tanlang',
       step2: 'Ariza bering',
       step3: 'Tasdiqlash oling',
+      heading: "Xaridingizgacha uch qadam",
+      sub1: "Smartfonlar, avtomobillar, ko'chmas mulk va maxsus texnika — katalogdan tanlang.",
+      sub2: "Arizani 5 daqiqada to'ldiring — to'g'ridan-to'g'ri telefoningizdan.",
+      sub3: "Menejer qo'ng'iroq qiladi, shartnoma imzolanadi — va mahsulot sizniki.",
     },
     trust: {
       badge1: "✓ 2 soatda tasdiqlash",
@@ -310,7 +318,7 @@ export const translations = {
   applyForm:  { expectedPrice: string; expectedPricePlaceholder: string };
   tradeIn:    { categories: { phone: string; car: string; realestate: string; other: string } };
   investProjection: { title: string; chartCaption: string; perYear: string; disclaimer: string; returnNote: string; continue: string };
-  howItWorks: { title: string; step1: string; step2: string; step3: string };
+  howItWorks: { title: string; heading: string; step1: string; step2: string; step3: string; sub1: string; sub2: string; sub3: string };
   trust:      { badge1: string; badge2: string; badge3: string };
   stats:      { value: string; label: string }[];
   halal: {

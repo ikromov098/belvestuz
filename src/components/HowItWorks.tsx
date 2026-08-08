@@ -12,17 +12,17 @@ export default function HowItWorks() {
     {
       n: 1,
       title: t.howItWorks.step1,
-      sub: 'Электроника, мебель, транспорт, лизинг для бизнеса — более 200 позиций в каталоге.',
+      sub: t.howItWorks.sub1,
     },
     {
       n: 2,
       title: t.howItWorks.step2,
-      sub: 'Заполните форму за 5 минут. Документы загружаются прямо с телефона.',
+      sub: t.howItWorks.sub2,
     },
     {
       n: 3,
       title: t.howItWorks.step3,
-      sub: 'Менеджер перезвонит, подпишете договор — и товар ваш без лишних хлопот.',
+      sub: t.howItWorks.sub3,
     },
   ];
 
@@ -34,7 +34,7 @@ export default function HowItWorks() {
             {t.howItWorks.title}
           </p>
           <h2 className="text-3xl font-extrabold" style={{ color: '#FFF0CC' }}>
-            Три шага до вашей покупки
+            {t.howItWorks.heading}
           </h2>
         </div>
 

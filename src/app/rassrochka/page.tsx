@@ -5,7 +5,7 @@ import { Smartphone, Laptop, Home, Car, IdCard, Hash } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Рассрочка (Мурабаха) — Belvest',
-  description: 'Покупайте товары в рассрочку без переплат. Смартфоны, ноутбуки, бытовая техника, мебель — от 3 до 24 месяцев.',
+  description: 'Смартфоны и ноутбуки в рассрочку — от 6 до 12 месяцев. Прозрачные условия, решение за 2 часа.',
 };
 
 const CATEGORIES = [
@@ -44,10 +44,10 @@ export default function RassrochkaPage() {
             Беспроцентная рассрочка
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4" style={{ color: '#FFF0CC', maxWidth: 580 }}>
-            Рассрочка (Мурабаха) без переплат
+            Рассрочка (Мурабаха) от Belvest
           </h1>
           <p className="text-lg mb-8" style={{ color: 'rgba(255,240,204,0.75)', maxWidth: 480 }}>
-            Купите любой товар и платите частями от 3 до 24 месяцев — без процентов и скрытых комиссий
+            Оформите рассрочку на выбранный товар — с прозрачной наценкой, без скрытых комиссий
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Link href="/catalog"
@@ -139,7 +139,7 @@ export default function RassrochkaPage() {
             Выберите товар и оформите рассрочку
           </h2>
           <p className="text-base mb-8" style={{ color: 'rgba(255,240,204,0.70)' }}>
-            Более 200 товаров от ведущих брендов уже доступны — выберите нужное и оформите рассрочку онлайн
+            Выберите товар в каталоге и оформите рассрочку онлайн
           </p>
           <Link href="/catalog"
             className="depth-btn inline-flex items-center gap-2 px-10 py-4 rounded-xl text-base font-bold"
