@@ -116,10 +116,6 @@ export default function Footer() {
             © 2025 Belvest. Все права защищены.
           </p>
           <div className="flex items-center gap-4">
-            <Link href="/privacy" className="footer-link-sm text-xs">
-              Политика конфиденциальности
-            </Link>
-            <span style={{ color: 'rgba(255,240,204,0.30)' }}>•</span>
             <Link href="/terms" className="footer-link-sm text-xs">
               Условия использования
             </Link>
