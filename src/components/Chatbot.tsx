@@ -2,6 +2,26 @@
 
 import { useState, useRef, useEffect } from 'react';
 import BelvestIcon from '@/components/BelvestIcon';
+import { useLanguage } from '@/context/LanguageContext';
+
+const BOT_URL = 'https://t.me/demobelvest_bot';
+
+// Replies are plain text; make links clickable without rendering any HTML from the model.
+function linkify(text: string) {
+  return text.split(/(https?:\/\/[^\s]+)/g).map((part, i) => {
+    if (!/^https?:\/\//.test(part)) return part;
+    const url = part.replace(/[.,;:!?)»]+$/, '');
+    const tail = part.slice(url.length);
+    // Only the Belvest bot gets a link; anything else the model writes stays inert text.
+    if (!url.startsWith(BOT_URL)) return part;
+    return (
+      <span key={i}>
+        <a href={url} target="_blank" rel="noopener noreferrer" className="underline font-semibold">{url}</a>
+        {tail}
+      </span>
+    );
+  });
+}
 
 interface Message {
   role: 'user' | 'assistant';
@@ -38,6 +58,7 @@ function TypingDots() {
 }
 
 export default function Chatbot() {
+  const { lang } = useLanguage();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -176,8 +197,29 @@ export default function Chatbot() {
                       ? { backgroundColor: '#004445', color: '#FFF0CC', borderBottomLeftRadius: 4 }
                       : { backgroundColor: '#548870', color: '#FFFFFF', borderBottomRightRadius: 4 }}
                   >
-                    {msg.content}
+                    {msg.role === 'assistant' ? linkify(msg.content) : msg.content}
                   </div>
+                  {msg.role === 'assistant' && msg.content.includes(BOT_URL) && (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <button
+                        type="button"
+                        onClick={() => window.dispatchEvent(new Event('belvest:open-callback'))}
+                        className="text-xs px-3 py-1.5 rounded-full cursor-pointer font-semibold"
+                        style={{ backgroundColor: '#004445', color: '#FFF0CC' }}
+                      >
+                        {lang === 'uz' ? 'Telefon raqamini qoldirish' : 'Оставить номер'}
+                      </button>
+                      <a
+                        href={`${BOT_URL}?start=landing`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs px-3 py-1.5 rounded-full border font-semibold"
+                        style={{ borderColor: '#004445', color: '#004445' }}
+                      >
+                        {lang === 'uz' ? 'Telegram-bot' : 'Telegram-бот'}
+                      </a>
+                    </div>
+                  )}
                   <p className="text-xs mt-1 px-1" style={{ color: '#4A6B67' }}>{msg.ts}</p>
                 </div>
               </div>

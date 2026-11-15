@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { Phone, X } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
+import { getAttribution } from '@/lib/attribution';
 
 type Stage = 'idle' | 'open' | 'success';
 
@@ -11,6 +13,7 @@ const SERVICES = ['Рассрочка', 'Лизинг', 'Трейд-ин', 'Ин
 const esc = (s: string) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 export default function CallbackWidget() {
+  const { lang } = useLanguage();
   const [stage, setStage] = useState<Stage>('idle');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -18,8 +21,8 @@ export default function CallbackWidget() {
 
   const canSubmit = name.trim().length > 1 && phone.replace(/\D/g, '').length >= 9;
 
-  // Submissions go to the team's Telegram group via /api/send-telegram
-  // (bot token + chat ID live only in server-side env vars).
+  // Submissions go to the team's Telegram group and, with the structured `lead`, to the Belvest
+  // core via /api/send-telegram (tokens live only in server-side env vars).
   async function handleSubmit() {
     if (!canSubmit) return;
 
@@ -35,11 +38,30 @@ export default function CallbackWidget() {
     fetch('/api/send-telegram', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({
+        text,
+        lead: {
+          submission_id: crypto.randomUUID(),
+          occurred_at: new Date().toISOString(),
+          phone: `+998${phone}`,
+          full_name: name,
+          interest: service || 'Обратный звонок',
+          message: 'Заявка на обратный звонок',
+          locale: lang,
+          ...getAttribution(),
+        },
+      }),
     }).catch(console.error);
 
     setStage('success');
   }
+
+  // The chatbot's "leave a number" button opens this form.
+  useEffect(() => {
+    const open = () => setStage((s) => (s === 'idle' ? 'open' : s));
+    window.addEventListener('belvest:open-callback', open);
+    return () => window.removeEventListener('belvest:open-callback', open);
+  }, []);
 
   useEffect(() => {
     if (stage !== 'success') return;

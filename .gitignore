@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# the example file is committed; real values live in Vercel / .env.local
+!.env.example

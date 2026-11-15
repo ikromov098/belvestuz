@@ -4,6 +4,7 @@ import { useState, Suspense } from 'react';
 import { INVESTMENT_PLANS } from '@/data/investments';
 import Portal from '@/components/Portal';
 import { useLanguage } from '@/context/LanguageContext';
+import { getAttribution } from '@/lib/attribution';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -412,10 +413,26 @@ function ApplyPageContent() {
       setSending(true);
       const n = `BV-${new Date().getFullYear()}-${String(Math.floor(1000 + Math.random() * 9000))}`;
       try {
+        const text = buildTelegramText(n);
         await fetch('/api/send-telegram', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: buildTelegramText(n) }),
+          body: JSON.stringify({
+            text,
+            lead: {
+              submission_id: crypto.randomUUID(),
+              occurred_at: new Date().toISOString(),
+              phone: `+998${phone}`,
+              full_name: fullName,
+              interest: serviceLabel,
+              // The same summary as the Telegram message, as plain text (esc() only produces
+              // &amp; &lt; &gt; and the only tag is <b>).
+              message: text.replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'),
+              locale: lang,
+              ...getAttribution(),
+            },
+          }),
+          signal: AbortSignal.timeout(10000),
         });
       } catch {
         // Delivery failed — still show the success screen, which carries the
