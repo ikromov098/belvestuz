@@ -39,6 +39,14 @@ function stored(): Attribution | null {
 const hasUtm = (a: Attribution) => UTM.some((key) => a[key]);
 
 export function captureAttribution(): void {
+  try {
+    capture();
+  } catch {
+    /* attribution is best-effort */
+  }
+}
+
+function capture(): void {
   const current = fromLocation();
   const previous = stored();
   // Keep the first touch, unless it carried no campaign and this page does.
@@ -51,5 +59,9 @@ export function captureAttribution(): void {
 }
 
 export function getAttribution(): Attribution {
-  return stored() ?? fromLocation();
+  try {
+    return stored() ?? fromLocation();
+  } catch {
+    return {};
+  }
 }

@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server';
+import { maskPersonalData } from '@/lib/mask';
 
 // Terms are unchanged from the Claude version (owner, 16 Nov 2026: keep the UZ/RU content as it
 // is). Only the hand-off paragraph at the end is new.
@@ -28,11 +29,7 @@ function sanitize(input: unknown): Turn[] {
     if (!item || typeof item !== 'object') continue;
     const { role, content } = item as { role?: unknown; content?: unknown };
     if ((role !== 'user' && role !== 'assistant') || typeof content !== 'string') continue;
-    const text = content
-      .slice(0, MAX_CHARS)
-      .replace(/[\w.+-]+@[\w-]+\.[\w.-]+/g, '[EMAIL]')
-      .replace(/\+?\d[\d\s().-]{6,}\d/g, '[PHONE]')
-      .trim();
+    const text = maskPersonalData(content.slice(0, MAX_CHARS)).trim();
     if (text) turns.push({ role, content: text });
   }
   // The conversation must end with the visitor's message.

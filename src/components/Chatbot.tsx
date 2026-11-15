@@ -203,7 +203,7 @@ export default function Chatbot() {
                     <div className="flex flex-wrap gap-2 mt-2">
                       <button
                         type="button"
-                        onClick={() => window.dispatchEvent(new Event('belvest:open-callback'))}
+                        onClick={() => { setOpen(false); window.dispatchEvent(new Event('belvest:open-callback')); }}
                         className="text-xs px-3 py-1.5 rounded-full cursor-pointer font-semibold"
                         style={{ backgroundColor: '#004445', color: '#FFF0CC' }}
                       >

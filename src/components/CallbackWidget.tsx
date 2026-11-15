@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Phone, X } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
-import { getAttribution } from '@/lib/attribution';
+import { postLead } from '@/lib/submit-lead';
 
 type Stage = 'idle' | 'open' | 'success';
 
@@ -35,22 +35,12 @@ export default function CallbackWidget() {
 <b>Интересует / Qiziqish:</b> ${esc(service) || '—'}`;
 
     // Fire-and-forget: the user still sees the confirmation even if delivery fails.
-    fetch('/api/send-telegram', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        text,
-        lead: {
-          submission_id: crypto.randomUUID(),
-          occurred_at: new Date().toISOString(),
-          phone: `+998${phone}`,
-          full_name: name,
-          interest: service || 'Обратный звонок',
-          message: 'Заявка на обратный звонок',
-          locale: lang,
-          ...getAttribution(),
-        },
-      }),
+    postLead(text, {
+      phone, // as typed; the server normalizes it
+      full_name: name,
+      interest: service || 'Обратный звонок',
+      message: 'Заявка на обратный звонок',
+      locale: lang,
     }).catch(console.error);
 
     setStage('success');

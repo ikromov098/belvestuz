@@ -55,7 +55,7 @@ export function toE164(raw: unknown): string | null {
   const digits = raw.replace(/\D/g, '');
   if (digits.length === 9) return `+998${digits}`;
   if (digits.length === 12 && digits.startsWith('998')) return `+${digits}`;
-  if (raw.trim().startsWith('+') && /^[1-9]\d{7,14}$/.test(digits)) return `+${digits}`;
+  // Both forms are Uzbekistan-only; anything else is skipped rather than guessed.
   return null;
 }
 
