@@ -23,7 +23,7 @@ export type LeadFields = {
   locale: string;
 };
 
-export async function postLead(text: string, lead: LeadFields, timeoutMs = 10000): Promise<void> {
+export async function postLead(text: string, lead: LeadFields, timeoutMs = 10000): Promise<boolean> {
   let body: string;
   try {
     body = JSON.stringify({
@@ -42,12 +42,17 @@ export async function postLead(text: string, lead: LeadFields, timeoutMs = 10000
     controller = undefined;
   }
   try {
-    await fetch('/api/send-telegram', {
+    const res = await fetch('/api/send-telegram', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body,
       signal: controller?.signal,
     });
+    if (!res.ok) return false;
+    const data = await res.json().catch(() => null);
+    return data?.ok === true;
+  } catch {
+    return false;
   } finally {
     if (timer) clearTimeout(timer);
   }

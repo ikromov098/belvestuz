@@ -4,76 +4,7 @@ import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import Portal from '@/components/Portal';
 import { useLanguage } from '@/context/LanguageContext';
-
-interface Localized {
-  name: string;
-  role: string;
-  bio: string;
-  initials: string;
-}
-interface Member {
-  ru: Localized;
-  uz: Localized;
-}
-
-const TEAM: Member[] = [
-  {
-    ru: {
-      name: 'Умид Икрамов',
-      role: 'Представитель',
-      initials: 'УИ',
-      bio: 'Представитель акционера и советник по вопросам корпоративного управления и аудита в Belvest. Более 20 лет опыта в аудите и корпоративном управлении, включая 4 года в компаниях Большой четвёрки в России и Центральной Азии, где руководил международными командами более 30 человек. 16 лет занимал позицию главного аудитора в международной компании с мультимиллиардными активами, выступая доверенным советником CEO и совета директоров. Присяжный бухгалтер США (US CPA), штат Нью-Гэмпшир.',
-    },
-    uz: {
-      name: 'Umid Ikramov',
-      role: 'Vakili',
-      initials: 'UI',
-      bio: "Belvestda aksiyador vakili va korporativ boshqaruv hamda audit masalalari bo'yicha maslahatchi. Audit va korporativ boshqaruvda 20 yildan ortiq tajribaga ega, jumladan Rossiya va Markaziy Osiyoda Big Four kompaniyalarida 4 yil ishlab, 30 dan ortiq kishidan iborat xalqaro jamoalarga rahbarlik qilgan. Multimilliard aktivlarga ega xalqaro kompaniyada 16 yil bosh auditor lavozimida ishlab, CEO va direktorlar kengashining ishonchli maslahatchisi bo'lgan. AQSh Prisyajniy buxgalteri (US CPA), Nyu-Xempshir shtati.",
-    },
-  },
-  {
-    ru: {
-      name: 'Шерзод Иногамов',
-      role: 'Управляющий директор',
-      initials: 'ШИ',
-      bio: 'Управляющий директор Belvest, отвечает за операционную стратегию и развитие направления автофинансирования. Более 15 лет опыта в горнодобывающей, финансовой и автомобильной отраслях. Начинал карьеру в Sandvik Mining & Construction на крупных проектах в Кыргызстане и Казахстане, затем развил экспертизу в финансах и продажах. Последние годы занимал руководящую должность в Markab, углубив знание автомобильного рынка и операционной эффективности.',
-    },
-    uz: {
-      name: 'Sherzod Inogamov',
-      role: 'Boshqaruvchi direktor',
-      initials: 'SI',
-      bio: "Belvestning boshqaruvchi hamkori, operatsion strategiya va avtomoliyalashtirish yo'nalishini rivojlantirish uchun javobgar. Kon-metallurgiya, moliya va avtomobil sohalarida 15 yildan ortiq tajribaga ega. Faoliyatini Sandvik Mining & Construction kompaniyasida Qirg'iziston va Qozog'istondagi yirik loyihalarda boshlagan, so'ngra moliya va sotuvlar sohasida ekspertiza rivojlantirgan. So'nggi yillarda Markab kompaniyasida rahbarlik lavozimida ishlab, avtomobil bozori va operatsion samaradorlik bo'yicha bilimini chuqurlashtirgan.",
-    },
-  },
-  {
-    ru: {
-      name: 'София Юлдашева',
-      role: 'Партнёр',
-      initials: 'СЮ',
-      bio: 'Партнёр Belvest, консультирует по вопросам корпоративного управления, управления рисками и внутреннего аудита. Более 30 лет опыта в аудите и корпоративном управлении, включая 11 лет в компаниях Большой четвёрки (Великобритания, Центральная Азия), где руководила международными командами свыше 70 человек. 5 лет занимала позиции директора и главного аудитора в инвестиционных компаниях на Ближнем Востоке и в США. CIA, FCCA, MAcc. Заместитель председателя совета узбекского отделения Института внутренних аудиторов США (The IIA).',
-    },
-    uz: {
-      name: 'Sofiya Yuldasheva',
-      role: 'Hamkor',
-      initials: 'SY',
-      bio: "Belvestning hamkori, korporativ boshqaruv, risklarni boshqarish va ichki audit masalalari bo'yicha maslahat beradi. Audit va korporativ boshqaruvda 30 yildan ortiq tajribaga ega, jumladan Buyuk Britaniya va Markaziy Osiyoda Big Four firmalarida 11 yil ishlab, 70 dan ortiq kishidan iborat xalqaro jamoalarga rahbarlik qilgan. Yaqin Sharq va AQShdagi investitsiya kompaniyalarida 5 yil direktor va bosh auditor lavozimlarida ishlagan. CIA, FCCA, MAcc unvonlariga ega. AQSh Ichki auditorlar institutining (The IIA) o'zbek bo'limi kengash raisi o'rinbosari.",
-    },
-  },
-  {
-    ru: {
-      name: 'Абдурауф Зупаров',
-      role: 'Партнёр',
-      initials: 'АЗ',
-      bio: 'Более 25 лет в индустрии HoReCa. Руководил командами численностью свыше 300 человек, открыл несколько гостиниц уровня 4★+ и более 15 ресторанов в Узбекистане и Казахстане. В 2007, 2012, 2013 и 2014 годах реализовал проекты с наиболее высокой прибыльностью и выручкой в Астане, при этом одну из самых низких себестоимостей в отрасли. С 2014 по 2019 год стабильно входил в число лучших и самых посещаемых ресторанов столицы. Сегодня сосредоточен на развитии инновационных, энергоэффективных и устойчивых решений в гостиничном и ресторанном бизнесе, а также на инвестициях в финансовые услуги и строительство.',
-    },
-    uz: {
-      name: 'Abdurauf Zuparov',
-      role: 'Hamkor',
-      initials: 'AZ',
-      bio: "HoReCa sohasida 25 yildan ortiq tajribaga ega. 300 dan ortiq kishidan iborat jamoalarga rahbarlik qilgan, O'zbekiston va Qozog'istonda bir nechta 4★+ darajali mehmonxonalar va 15 dan ortiq restoran ochgan. 2007, 2012, 2013 va 2014-yillarda Ostonada eng yuqori daromadlilik va tushumga ega, shu bilan birga sohadagi eng past tannarxlardan biriga ega loyihalarni amalga oshirgan. 2014–2019-yillarda poytaxtning eng yaxshi va eng ko'p tashrif buyuriladigan restoranlari qatorida barqaror o'rin egallagan. Bugungi kunda mehmonxona va restoran biznesida innovatsion, energiya samarali va barqaror yechimlarni rivojlantirishga, shuningdek moliyaviy xizmatlar va qurilishga investitsiyalarga e'tibor qaratmoqda.",
-    },
-  },
-];
+import { ABOUT_TEAM } from '@/data/team';
 
 export default function TeamSection() {
   const { t, lang } = useLanguage();
@@ -98,7 +29,8 @@ export default function TeamSection() {
     };
   }, [active]);
 
-  const activeMember = active !== null ? TEAM[active][lang] : null;
+  const activeMember = active !== null ? ABOUT_TEAM[active] : null;
+  const activeLocal = activeMember ? activeMember[lang] : null;
 
   return (
     <section style={{ padding: '80px 16px 40px' }}>
@@ -110,7 +42,7 @@ export default function TeamSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto" style={{ perspective: '1000px' }}>
-          {TEAM.map((member, i) => {
+          {ABOUT_TEAM.map((member, i) => {
             const d = member[lang];
             return (
               <button
@@ -124,7 +56,7 @@ export default function TeamSection() {
                   className="w-20 h-20 rounded-full flex items-center justify-center text-xl font-bold mb-4 shrink-0"
                   style={{ backgroundColor: '#004445', color: '#FFF0CC' }}
                 >
-                  {d.initials}
+                  {member.initials}
                 </div>
                 <p className="font-bold text-base" style={{ color: '#0D1F1D' }}>{d.name}</p>
                 <p className="text-sm font-semibold mt-1" style={{ color: '#548870' }}>{d.role}</p>
@@ -134,7 +66,7 @@ export default function TeamSection() {
         </div>
       </div>
 
-      {activeMember && (
+      {activeMember && activeLocal && (
         <Portal>
         <div
           onClick={close}
@@ -173,13 +105,13 @@ export default function TeamSection() {
                 {activeMember.initials}
               </div>
               <p className="text-xl font-extrabold" style={{ color: '#0D1F1D' }}>
-                {activeMember.name}
+                {activeLocal.name}
               </p>
               <p className="text-sm font-semibold mt-1 mb-5" style={{ color: '#548870' }}>
-                {activeMember.role}
+                {activeLocal.role}
               </p>
               <p className="text-sm leading-relaxed text-left" style={{ color: '#4A6B67' }}>
-                {activeMember.bio}
+                {activeLocal.bio}
               </p>
             </div>
           </div>

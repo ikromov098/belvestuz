@@ -56,11 +56,17 @@ export default function InvestmentsPage() {
           <p className="text-lg mb-8" style={{ color: 'rgba(255,240,204,0.75)', maxWidth: 500 }}>
             Ваш капитал работает — прозрачно, документально, с ростом от 12% до 20% годовых
           </p>
-          <Link href="/apply?service=investment"
-            className="depth-btn inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-sm font-bold"
-            style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
-            Стать инвестором
-          </Link>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <Link href="/apply?service=investment"
+              className="depth-btn inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-sm font-bold"
+              style={{ backgroundColor: '#FFF0CC', color: '#004445' }}>
+              Стать инвестором
+            </Link>
+            <Link href="/en/investors" className="text-sm font-semibold underline underline-offset-4"
+              style={{ color: 'rgba(255,240,204,0.75)' }}>
+              For institutional investors — English
+            </Link>
+          </div>
         </div>
       </div>
 

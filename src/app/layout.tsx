@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import Chatbot from "@/components/Chatbot";
-import CallbackWidget from "@/components/CallbackWidget";
 import ClientProviders from "@/components/ClientProviders";
+import SiteShell from "@/components/SiteShell";
 
 export const metadata: Metadata = {
   title: "Belvest — Лизинг, рассрочка и трейд-ин в Узбекистане",
@@ -25,11 +22,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <ClientProviders>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <Chatbot />
-          <CallbackWidget />
+          <SiteShell>{children}</SiteShell>
         </ClientProviders>
       </body>
     </html>
