@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
-import type { Lang } from '@/data/translations';
+import type { SiteLang } from '@/context/LanguageContext';
 import BelvestIcon from '@/components/BelvestIcon';
 
-const LANGUAGES = ['UZ', 'RU'] as const;
-const LANG_VALUES: Lang[] = ['uz', 'ru'];
+const LANGUAGES = ['EN', 'UZ', 'RU'] as const;
+const LANG_VALUES: SiteLang[] = ['en', 'uz', 'ru'];
 
 function BelvестLogo() {
   return (
@@ -31,7 +31,7 @@ function BelvестLogo() {
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { lang, setLang, t } = useLanguage();
+  const { activeLang, switchLang, t } = useLanguage();
 
   const navLinks = [
     { label: t.nav.catalog,     href: '/catalog'     },
@@ -103,11 +103,11 @@ export default function Header() {
             <div className="flex items-center gap-1 mr-1">
               {LANG_VALUES.map((value, i) => {
                 const label = LANGUAGES[i];
-                const isActive = lang === value;
+                const isActive = activeLang === value;
                 return (
                   <button
                     key={value}
-                    onClick={() => setLang(value)}
+                    onClick={() => switchLang(value)}
                     className="px-2.5 py-1 text-xs font-semibold rounded-full border transition-all duration-150 cursor-pointer"
                     style={{
                       borderColor: 'rgba(255,240,204,0.45)',
@@ -199,11 +199,11 @@ export default function Header() {
             <div className="mt-3 pt-3 border-t border-[rgba(255,240,204,0.15)] flex items-center gap-2">
               {LANG_VALUES.map((value, i) => {
                 const label = LANGUAGES[i];
-                const isActive = lang === value;
+                const isActive = activeLang === value;
                 return (
                   <button
                     key={value}
-                    onClick={() => setLang(value)}
+                    onClick={() => switchLang(value)}
                     className="px-3 py-1 text-xs font-semibold rounded-full border cursor-pointer"
                     style={{
                       borderColor: 'rgba(255,240,204,0.45)',

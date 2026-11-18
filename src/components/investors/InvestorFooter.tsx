@@ -55,11 +55,6 @@ export default function InvestorFooter() {
             </h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
-                <Link href="/" className="footer-link">
-                  belvest.uz main site
-                </Link>
-              </li>
-              <li>
                 <Link href="/contacts" className="footer-link">
                   Contacts
                 </Link>
