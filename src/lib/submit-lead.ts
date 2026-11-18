@@ -23,13 +23,18 @@ export type LeadFields = {
   locale: string;
 };
 
-export async function postLead(text: string, lead: LeadFields, timeoutMs = 10000): Promise<boolean> {
+export async function postLead(text: string, lead?: LeadFields, timeoutMs = 10000): Promise<boolean> {
   let body: string;
   try {
-    body = JSON.stringify({
-      text,
-      lead: { ...lead, submission_id: newSubmissionId(), occurred_at: new Date().toISOString(), ...getAttribution() },
-    });
+    // Without a lead (e.g. the English investor form, which has no phone) only the Telegram message goes out.
+    body = JSON.stringify(
+      lead
+        ? {
+            text,
+            lead: { ...lead, submission_id: newSubmissionId(), occurred_at: new Date().toISOString(), ...getAttribution() },
+          }
+        : { text },
+    );
   } catch {
     body = JSON.stringify({ text });
   }

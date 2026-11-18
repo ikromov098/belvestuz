@@ -1,0 +1,11 @@
+{
+  "redirects": [
+    { "source": "/en/investor", "destination": "/en/investors/", "statusCode": 301 },
+    { "source": "/en/investor/", "destination": "/en/investors/", "statusCode": 301 },
+    { "source": "/investor", "destination": "/en/investors/", "statusCode": 301 },
+    { "source": "/investor/", "destination": "/en/investors/", "statusCode": 301 },
+    { "source": "/investors", "destination": "/en/investors/", "statusCode": 301 },
+    { "source": "/investors/", "destination": "/en/investors/", "statusCode": 301 },
+    { "source": "/en/investors", "destination": "/en/investors/", "statusCode": 301 }
+  ]
+}

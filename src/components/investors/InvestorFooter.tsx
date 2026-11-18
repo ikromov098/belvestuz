@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import BelvestIcon from '@/components/BelvestIcon';
+import { IR_EMAIL } from '@/data/investor-config';
 
 export default function InvestorFooter() {
   return (
@@ -17,8 +18,8 @@ export default function InvestorFooter() {
               <BelvestIcon className="h-7 w-auto text-[#FFF0CC]" />
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed" style={{ color: 'rgba(255,240,204,0.65)' }}>
-              AI-first halal finance for small and medium businesses in Uzbekistan. Asset-backed
-              Murabaha and Ijara, funded through Mudaraba pools.
+              Asset-backed finance in Uzbekistan, structured to Islamic standards. Contracting entity:
+              SEBZOR MOLIYA KSh, trading as Belvest.
             </p>
             <p className="mt-4 text-sm" style={{ color: 'rgba(255,240,204,0.5)' }}>
               Tashkent, Uzbekistan
@@ -31,8 +32,8 @@ export default function InvestorFooter() {
             </h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
-                <a href="mailto:info@belvest.uz?subject=Investor%20enquiry" className="footer-link">
-                  info@belvest.uz
+                <a href={`mailto:${IR_EMAIL}?subject=Investor%20enquiry`} className="footer-link">
+                  {IR_EMAIL}
                 </a>
               </li>
               <li>
@@ -55,12 +56,7 @@ export default function InvestorFooter() {
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <Link href="/" className="footer-link">
-                  Main site (RU / UZ)
-                </Link>
-              </li>
-              <li>
-                <Link href="/investments" className="footer-link">
-                  Investment products
+                  belvest.uz main site
                 </Link>
               </li>
               <li>
@@ -82,11 +78,9 @@ export default function InvestorFooter() {
           style={{ borderColor: 'rgba(255,240,204,0.18)', color: 'rgba(255,240,204,0.48)' }}
         >
           <p>
-            This page is for information only. It is not an offer, solicitation or recommendation to buy
-            or sell any security or investment product, and it does not create a client relationship.
-            Target returns are not guaranteed; investment involves risk, including loss of capital.
-            Any investment is made only under a written agreement and is intended for qualified and
-            institutional investors. Figures and terms may change without notice.
+            This page is for information only and is not an offer or solicitation to invest. Figures
+            are management data and unaudited unless stated. Past results do not indicate future
+            returns. Capital is at risk.
           </p>
           <p className="mt-3">© 2026 Belvest. All rights reserved.</p>
         </div>

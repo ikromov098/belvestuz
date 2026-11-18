@@ -2,9 +2,9 @@ import Link from 'next/link';
 import BelvestIcon from '@/components/BelvestIcon';
 
 const LINKS = [
-  { label: 'Opportunity', href: '#opportunity' },
-  { label: 'Returns', href: '#returns' },
-  { label: 'Platform', href: '#platform' },
+  { label: 'Track record', href: '#track-record' },
+  { label: 'Terms', href: '#terms' },
+  { label: 'How a deal works', href: '#process' },
   { label: 'Team', href: '#team' },
 ];
 
@@ -57,7 +57,8 @@ export default function InvestorHeader() {
             className="rounded-full px-4 py-2 text-sm font-bold transition-colors"
             style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
           >
-            Request the pack
+            <span className="sm:hidden">Investor pack</span>
+            <span className="hidden sm:inline">Request the investor pack</span>
           </a>
         </div>
       </div>

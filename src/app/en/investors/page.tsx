@@ -1,22 +1,22 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { INVESTMENT_PLANS } from '@/data/investments';
 import { LEADERSHIP_TEAM, OVERSIGHT_TEAM } from '@/data/team';
+import { AUDITOR, AUM, FX_LINE, IR_EMAIL, LICENCE_STATUS } from '@/data/investor-config';
 import InvestorHeader from '@/components/investors/InvestorHeader';
 import InvestorFooter from '@/components/investors/InvestorFooter';
 import InvestorContactForm from '@/components/investors/InvestorContactForm';
 import SetDocumentLang from '@/components/investors/SetDocumentLang';
 
+const DESCRIPTION =
+  'Belvest buys the asset first, then sells or leases it to the customer at a fixed, disclosed price. Partnership structures, track record and due-diligence materials for institutional investors in Uzbekistan.';
+
 export const metadata: Metadata = {
-  title: 'Investor relations — Belvest',
-  description:
-    'Belvest is an AI-first halal finance platform for Uzbek SMEs. Mudaraba investment tiers, asset-backed Murabaha and Ijara, the team behind the book, and portfolio data on request.',
+  title: 'Belvest — Investor relations',
+  description: DESCRIPTION,
   alternates: { canonical: 'https://belvest.uz/en/investors/' },
   robots: { index: true, follow: true },
   openGraph: {
-    title: 'Investor relations — Belvest',
-    description:
-      'AI-first halal finance for Uzbek SMEs. Mudaraba profit sharing, asset-backed Murabaha and Ijara, and a team drawn from Big Four audit and international financial institutions.',
+    title: 'Belvest — Investor relations',
+    description: DESCRIPTION,
     url: 'https://belvest.uz/en/investors/',
     siteName: 'Belvest',
     locale: 'en_US',
@@ -24,103 +24,117 @@ export const metadata: Metadata = {
   },
 };
 
-const TIER_COPY: Record<string, { name: string; features: string[] }> = {
-  base: {
-    name: 'Base',
-    features: ['Monthly profit distribution', 'Early exit after 2 months', 'Online investor account'],
-  },
-  standard: {
-    name: 'Standard',
-    features: ['Monthly or quarterly payouts', 'Personal manager', 'Early exit after 2 months'],
-  },
-  premium: {
-    name: 'Premium',
-    features: ['Flexible payout schedule', 'Priority service', 'Tax support'],
-  },
-};
+const TRACK_RECORD: { value: string; label: string; note?: string }[] = [
+  { value: '1,140+', label: 'Facilities funded' },
+  { value: '1,090+', label: 'Customers served' },
+  { value: '$2.6M+', label: 'Amount financed' },
+  { value: '$1.9M', label: 'Repayments collected' },
+  { value: '$2.0M', label: 'Receivables outstanding' },
+  { value: '300+', label: 'Facilities fully repaid', note: 'about half ahead of schedule' },
+];
+if (AUM) TRACK_RECORD.push({ value: AUM, label: 'Assets under management' });
 
-const money = (value: number) => `$${value.toLocaleString('en-US')}`;
+const TODAY_NEXT = [
+  {
+    tag: 'Today',
+    title: 'Consumer and vehicle finance',
+    body: 'Phones through a retail store and an electronics market, plus cars and a small number of homes. Every contract is secured on the financed asset; phones carry a remote lock.',
+  },
+  {
+    tag: 'Next',
+    title: 'Small-business lanes, piloted in 2027',
+    body: 'Gym equipment, delivery motorbikes, taxi vehicles and distributor inventory.',
+  },
+];
 
-const termLabel = (min: number, max: number) => (min === max ? `${max} months` : `${min}–${max} months`);
+const TERMS: [string, string][] = [
+  [
+    'Structures',
+    'Mudaraba (profit-sharing); Wakala investment agency; co-financing of specific asset pools. Wakala and co-financing are available by arrangement.',
+  ],
+  ['Contracting entity', 'SEBZOR MOLIYA KSh, trading as Belvest.'],
+  ['Currency', FX_LINE ? `USD or UZS. ${FX_LINE}` : 'USD or UZS.'],
+  ['Tenor', 'Agreed per facility. Capital is returned in instalments of up to 33% a month after notice.'],
+  [
+    'Profit',
+    'An agreed ratio of the pool’s profit. No fixed or guaranteed return. A profit equalisation reserve smooths quarterly distributions.',
+  ],
+  ['Distributions', 'Quarterly; paid out or reinvested.'],
+  ['Reporting', 'Quarterly report by the 10th of the following month; monthly portfolio data on request.'],
+  ...(AUDITOR ? ([['Auditor', AUDITOR]] as [string, string][]) : []),
+  ...(LICENCE_STATUS ? ([['Licence status', LICENCE_STATUS]] as [string, string][]) : []),
+  ['Ticket size', 'By discussion.'],
+];
 
-const MARKET_FACTS = [
+const GLOSSARY = [
+  ['Mudaraba', 'The investor supplies capital and Belvest manages it. Profit is shared at an agreed ratio; a loss falls on the capital.'],
+  ['Wakala', 'The investor appoints Belvest as its agent to deploy capital into financing.'],
+  ['Murabaha', 'Belvest buys the asset, then sells it to the customer at a fixed price disclosed up front, paid in instalments.'],
+  ['Ijara', 'Belvest owns the asset and leases it to the customer for an agreed payment.'],
+];
+
+const MARKET_FACTS: { value: string; title: string; body?: string; source: string }[] = [
   {
     value: '38%',
     title: 'avoid credit for religious reasons',
-    body: 'while 61% of businesses say they are ready to use ethical finance. Only 12% of adults borrowed from a formal lender in the past year.',
     source: 'World Bank Global Findex 2025; UNDP Uzbekistan survey 2020',
   },
   {
-    value: 'ZRU-1126',
-    title: 'signed 27 March 2026',
-    body: 'Six Islamic contracts are now legal, in force since 29 June 2026 with tax neutrality for Islamic deals. Microfinance firms have been allowed to offer ethical finance since April 2022.',
-    source: 'Law ZRU-1126; Central Bank Islamic microfinance rules, 2024',
+    value: '61%',
+    title: 'ready to use ethical finance',
+    source: 'World Bank Global Findex 2025; UNDP Uzbekistan survey 2020',
   },
   {
     value: '$2.4B',
-    title: 'forecast by 2033',
-    body: 'Islamic banking assets in Uzbekistan are forecast at $1.1B by 2028 and $2.4B by 2033 in the base case.',
+    title: 'Islamic banking assets by 2033',
+    body: 'Forecast at $1.1B by 2028 and $2.4B by 2033 in the base case.',
     source: 'EDB, IsDB Institute and LSEG, Islamic Finance in Central Asia, 2025',
   },
-];
-
-const PLATFORM_STEPS = [
   {
-    n: '01',
-    title: 'Apply',
-    body: 'Telegram, app or straight from a partner ERP. No forms.',
-  },
-  {
-    n: '02',
-    title: 'AI scoring',
-    body: 'ERP sales, stock and receivables, plus credit bureau and payment data.',
-  },
-  {
-    n: '03',
-    title: 'Halal contract',
-    body: 'Murabaha or Ijara drafted and signed digitally.',
-  },
-  {
-    n: '04',
-    title: 'Asset bought',
-    body: 'Belvest pays the supplier. The asset secures the deal.',
-  },
-  {
-    n: '05',
-    title: 'Auto-collect',
-    body: 'Auto-debit and AI voice reminders in Uzbek and Russian.',
+    value: 'ZRU-1126',
+    title: 'in force since 29 June 2026',
+    body: 'Signed 27 March 2026. Six Islamic contracts are now legal, with tax neutrality for Islamic deals.',
+    source: 'Law ZRU-1126, 2026',
   },
 ];
 
-const FLOW = [
-  {
-    label: 'Investors',
-    body: 'Mudaraba pools from 12 to 36 months, from $5,000. Investors receive 80% of profit.',
-  },
-  {
-    label: 'Belvest platform',
-    body: 'Sources, scores and services every deal. Keeps 20% of profit.',
-  },
-  {
-    label: 'SME borrowers',
-    body: 'Equipment, vehicles and stock on Murabaha or Ijara. The asset secures the deal.',
-  },
+const DEAL_STEPS = [
+  { n: '01', title: 'Apply', body: 'Telegram, phone, partner referral.' },
+  { n: '02', title: 'Review', body: 'Credit bureau and payment history, with manual approval.' },
+  { n: '03', title: 'Contract', body: 'Fixed-price sale (Murabaha) or lease (Ijara).' },
+  { n: '04', title: 'Asset', body: 'Belvest pays the supplier and owns the asset first.' },
+  { n: '05', title: 'Collect', body: 'Reminders by Telegram, SMS and phone.' },
 ];
 
-const REQUEST_ITEMS = [
-  'Deployed capital and portfolio composition',
-  'Collection performance and PAR',
-  'Unit economics and the current financial model',
-  'Current raise and allocation terms',
+const NDA_ITEMS = [
+  'Collection performance and arrears (PAR)',
+  'Vintage analysis',
+  'Unit economics and financial model',
+  'Full loan tape',
+  'Financial statements',
+  'Investor register summary',
+  'Shariah review',
+  'Current raise and terms',
 ];
+
+function Eyebrow({ children, light }: { children: React.ReactNode; light?: boolean }) {
+  return (
+    <p
+      className="text-xs font-semibold uppercase tracking-[0.18em]"
+      style={{ color: light ? 'rgba(255,240,204,0.62)' : '#16685B' }}
+    >
+      {children}
+    </p>
+  );
+}
 
 export default function InvestorsPage() {
   return (
-    <div lang="en" className="min-h-screen" style={{ backgroundColor: '#FFFFFF', color: '#0D1F1D' }}>
+    <div lang="en" className="min-h-screen overflow-x-hidden" style={{ backgroundColor: '#FFFFFF', color: '#0D1F1D' }}>
       <SetDocumentLang lang="en" />
       <InvestorHeader />
 
-      {/* Hero */}
+      {/* 1. Hero */}
       <section
         className="relative overflow-hidden"
         style={{
@@ -131,28 +145,23 @@ export default function InvestorsPage() {
           backgroundPosition: 'center right',
         }}
       >
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-28">
           <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
             <div>
-              <p
-                className="text-xs font-semibold uppercase tracking-[0.22em]"
-                style={{ color: 'rgba(255,240,204,0.7)' }}
-              >
-                Investor relations · Tashkent
-              </p>
+              <Eyebrow light>Investor relations · Tashkent</Eyebrow>
               <h1
-                className="mt-5 max-w-2xl text-4xl font-extrabold leading-[1.08] sm:text-5xl lg:text-6xl"
+                className="mt-5 max-w-2xl text-3xl font-extrabold leading-[1.1] sm:text-5xl lg:text-[3.4rem]"
                 style={{ color: '#FFF0CC' }}
               >
-                Halal finance for Uzbekistan’s SMEs, built on real business data.
+                Asset-backed finance in Uzbekistan, structured to Islamic standards.
               </h1>
               <p
                 className="mt-6 max-w-xl text-base leading-relaxed sm:text-lg"
                 style={{ color: 'rgba(255,240,204,0.78)' }}
               >
-                Belvest is an AI-first Islamic finance platform. We fund asset-backed Murabaha and
-                Ijara for small and medium businesses, and we offer Mudaraba pools to qualified and
-                institutional investors.
+                Belvest buys the asset first, then sells or leases it to the customer on a fixed,
+                disclosed price. We work with institutional partners through profit-sharing, agency
+                and co-financing structures.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -164,22 +173,22 @@ export default function InvestorsPage() {
                   Request the investor pack
                 </a>
                 <a
-                  href="#returns"
+                  href={`mailto:${IR_EMAIL}?subject=Investor%20enquiry`}
                   className="inline-flex items-center justify-center rounded-xl border px-7 py-3.5 text-sm font-bold"
                   style={{ borderColor: 'rgba(255,240,204,0.45)', color: '#FFF0CC' }}
                 >
-                  See the returns
+                  Email investor relations
                 </a>
               </div>
 
-              <p className="mt-6 max-w-xl text-xs leading-relaxed" style={{ color: 'rgba(255,240,204,0.55)' }}>
-                For qualified and institutional investors. Target returns are not guaranteed and
-                capital is at risk. This page is not an offer to invest.
+              <p className="mt-6 max-w-xl text-xs leading-relaxed" style={{ color: 'rgba(255,240,204,0.6)' }}>
+                For institutional and qualified investors. Not an offer to invest. Returns are not
+                guaranteed and capital is at risk.
               </p>
             </div>
 
             <aside
-              className="rounded-3xl p-7 backdrop-blur"
+              className="rounded-3xl p-6 backdrop-blur sm:p-7"
               style={{
                 backgroundColor: 'rgba(0,51,50,0.66)',
                 border: '1px solid rgba(255,240,204,0.22)',
@@ -191,14 +200,17 @@ export default function InvestorsPage() {
               </p>
               <dl className="mt-5 space-y-4">
                 {[
-                  ['Structure', 'Mudaraba profit sharing'],
-                  ['Term', '12–36 months'],
-                  ['Minimum', 'from $5,000'],
-                  ['Focus', 'Asset-backed SME finance'],
-                  ['Portfolio data', 'On request'],
+                  ['Structures', 'Mudaraba, Wakala, co-financing'],
+                  ['Entity', 'SEBZOR MOLIYA KSh'],
+                  ['Currency', 'USD or UZS'],
+                  ['Security', 'The financed asset'],
+                  ['Reporting', 'Quarterly'],
                 ].map(([label, value]) => (
-                  <div key={label} className="flex items-baseline justify-between gap-4 border-b pb-4 last:border-0 last:pb-0"
-                    style={{ borderColor: 'rgba(255,240,204,0.14)' }}>
+                  <div
+                    key={label}
+                    className="flex items-baseline justify-between gap-4 border-b pb-4 last:border-0 last:pb-0"
+                    style={{ borderColor: 'rgba(255,240,204,0.14)' }}
+                  >
                     <dt className="text-xs font-medium uppercase tracking-wider" style={{ color: 'rgba(255,240,204,0.55)' }}>
                       {label}
                     </dt>
@@ -208,53 +220,150 @@ export default function InvestorsPage() {
                   </div>
                 ))}
               </dl>
-              <a
-                href="#contact"
-                className="mt-6 inline-flex w-full items-center justify-center rounded-xl py-3 text-sm font-bold"
-                style={{ backgroundColor: 'rgba(255,240,204,0.12)', color: '#FFF0CC', border: '1px solid rgba(255,240,204,0.28)' }}
-              >
-                Talk to the team
-              </a>
             </aside>
           </div>
         </div>
       </section>
 
-      {/* Headline market strip */}
-      <div style={{ backgroundColor: '#003332' }}>
-        <div className="mx-auto grid max-w-6xl gap-6 border-t px-4 py-7 sm:grid-cols-3 sm:px-6 lg:px-8"
-          style={{ borderColor: 'rgba(255,240,204,0.12)' }}>
-          {[
-            ['38%', 'of businesses avoid credit for religious reasons'],
-            ['61%', 'are ready to use ethical finance'],
-            ['$2.4B', 'forecast Islamic banking assets by 2033'],
-          ].map(([value, label]) => (
-            <div key={label} className="flex items-baseline gap-3">
-              <span className="text-2xl font-extrabold" style={{ color: '#FFF0CC' }}>{value}</span>
-              <span className="text-xs leading-snug" style={{ color: 'rgba(255,240,204,0.6)' }}>{label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Opportunity */}
-      <section id="opportunity" className="scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8">
+      {/* 2. Track record */}
+      <section id="track-record" className="scroll-mt-24 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: '#16685B' }}>
-              The opportunity
-            </p>
+            <Eyebrow>Track record</Eyebrow>
             <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: '#0D1F1D' }}>
-              Demand is measured. Halal supply for businesses is only starting.
+              Portfolio to date
             </h2>
-            <p className="mt-4 text-base leading-relaxed" style={{ color: '#4A6B67' }}>
-              Uzbekistan has a large, religiously motivated demand for credit-free finance and a
-              regulatory framework that is now in place. Consumer instalments are crowded; business
-              finance is not.
+          </div>
+
+          <dl
+            className="mt-10 grid gap-px overflow-hidden rounded-2xl sm:grid-cols-2 lg:grid-cols-3"
+            style={{ backgroundColor: 'rgba(22,104,91,0.25)', border: '1px solid rgba(22,104,91,0.25)' }}
+          >
+            {TRACK_RECORD.map((item) => (
+              <div key={item.label} className="flex flex-col-reverse justify-end bg-white p-6">
+                <dt className="mt-1 text-sm font-semibold" style={{ color: '#4A6B67' }}>
+                  {item.label}
+                  {item.note && (
+                    <span className="block text-xs font-normal" style={{ color: '#7A938E' }}>
+                      {item.note}
+                    </span>
+                  )}
+                </dt>
+                <dd className="text-3xl font-extrabold tabular-nums sm:text-4xl" style={{ color: '#004445' }}>
+                  {item.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <p className="mt-6 max-w-4xl text-sm leading-relaxed" style={{ color: '#4A6B67' }}>
+            Average ticket: about $1,000 for phones and $12,000 for vehicles. Typical tenor: 6 months
+            for phones, 12 months for vehicles. Book by balance: vehicles 60%, phones 22%, housing 18%.
+          </p>
+          <p className="mt-3 max-w-4xl text-xs leading-relaxed" style={{ color: '#7A938E' }}>
+            Management data from 1C, unaudited, 20 June 2025 to 15 November 2026. Amount financed is
+            the contract sale price less the customer’s down payment. Repayments collected include
+            down payments. Receivables outstanding are scheduled instalments still due, including the
+            agreed markup, so the figures do not net against each other.
+          </p>
+        </div>
+      </section>
+
+      {/* 3. What we finance */}
+      <section id="book" className="scroll-mt-24 px-4 py-16 sm:px-6 sm:py-20 lg:px-8" style={{ backgroundColor: '#F7FBF9' }}>
+        <div className="mx-auto max-w-6xl">
+          <div className="max-w-3xl">
+            <Eyebrow>What we finance</Eyebrow>
+            <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: '#0D1F1D' }}>
+              Assets we buy and hold until they are paid for
+            </h2>
+          </div>
+
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            {TODAY_NEXT.map((item) => (
+              <article
+                key={item.tag}
+                className="flex flex-col rounded-2xl bg-white p-6"
+                style={{ border: '1px solid rgba(22,104,91,0.35)' }}
+              >
+                <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: '#548870' }}>
+                  {item.tag}
+                </p>
+                <h3 className="mt-2 text-xl font-extrabold" style={{ color: '#004445' }}>
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed" style={{ color: '#4A6B67' }}>
+                  {item.body}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Partnership terms */}
+      <section id="terms" className="scroll-mt-24 px-4 py-16 sm:px-6 sm:py-20 lg:px-8" style={{ backgroundColor: '#003332' }}>
+        <div className="mx-auto max-w-6xl">
+          <div className="max-w-3xl">
+            <Eyebrow light>Partnership terms</Eyebrow>
+            <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: '#FFF0CC' }}>
+              How we work with institutional partners
+            </h2>
+            <p className="mt-4 text-base leading-relaxed" style={{ color: 'rgba(255,240,204,0.72)' }}>
+              Amount, tenor and profit ratio are agreed with each partner and set in a written
+              agreement.
             </p>
           </div>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <dl
+            className="mt-10 rounded-2xl px-5 sm:px-6"
+            style={{ backgroundColor: 'rgba(255,240,204,0.05)', border: '1px solid rgba(255,240,204,0.18)' }}
+          >
+            {TERMS.map(([term, text], index) => (
+              <div
+                key={term}
+                className="grid gap-1 py-5 sm:grid-cols-[11rem_1fr] sm:gap-6"
+                style={index > 0 ? { borderTop: '1px solid rgba(255,240,204,0.14)' } : undefined}
+              >
+                <dt className="text-xs font-semibold uppercase tracking-[0.14em] sm:pt-0.5" style={{ color: 'rgba(255,240,204,0.6)' }}>
+                  {term}
+                </dt>
+                <dd className="text-sm leading-relaxed" style={{ color: '#FFF0CC' }}>
+                  {text}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className="mt-10">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: 'rgba(255,240,204,0.62)' }}>
+              The terms in plain language
+            </h3>
+            <dl className="mt-4 grid gap-4 sm:grid-cols-2">
+              {GLOSSARY.map(([term, text]) => (
+                <div key={term} className="rounded-2xl p-5" style={{ border: '1px solid rgba(255,240,204,0.14)' }}>
+                  <dt className="text-sm font-bold" style={{ color: '#FFF0CC' }}>{term}</dt>
+                  <dd className="mt-1.5 text-xs leading-relaxed" style={{ color: 'rgba(255,240,204,0.7)' }}>
+                    {text}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Market */}
+      <section id="market" className="scroll-mt-24 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="max-w-3xl">
+            <Eyebrow>The market</Eyebrow>
+            <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: '#0D1F1D' }}>
+              Demand for ethical finance, and a legal framework now in place
+            </h2>
+          </div>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {MARKET_FACTS.map((fact) => (
               <article
                 key={fact.value}
@@ -263,142 +372,41 @@ export default function InvestorsPage() {
               >
                 <p className="text-2xl font-extrabold" style={{ color: '#004445' }}>{fact.value}</p>
                 <h3 className="mt-2 text-sm font-bold" style={{ color: '#0D1F1D' }}>{fact.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed" style={{ color: '#4A6B67' }}>{fact.body}</p>
-                <p className="mt-4 text-[10px] leading-snug" style={{ color: '#7A938E' }}>{fact.source}</p>
+                {fact.body && (
+                  <p className="mt-2 text-xs leading-relaxed" style={{ color: '#4A6B67' }}>{fact.body}</p>
+                )}
+                <p className="mt-4 text-[11px] leading-snug" style={{ color: '#7A938E' }}>
+                  Source: {fact.source}
+                </p>
               </article>
             ))}
-            <article className="rounded-2xl p-6" style={{ backgroundColor: '#004445' }}>
-              <p className="text-2xl font-extrabold" style={{ color: '#FFF0CC' }}>No digital leader</p>
-              <h3 className="mt-2 text-sm font-bold" style={{ color: '#FFFFFF' }}>in halal SME finance</h3>
-              <p className="mt-2 text-xs leading-relaxed" style={{ color: 'rgba(255,240,204,0.68)' }}>
-                Halal consumer instalments are competitive. Halal business finance has no dominant
-                digital provider yet — the segment Belvest is built for.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* Returns */}
-      <section id="returns" className="scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8" style={{ backgroundColor: '#003332' }}>
-        <div className="mx-auto max-w-6xl">
-          <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: 'rgba(255,240,204,0.62)' }}>
-              Mudaraba
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: '#FFF0CC' }}>
-              Returns offered so far
-            </h2>
-            <p className="mt-4 text-base leading-relaxed" style={{ color: 'rgba(255,240,204,0.7)' }}>
-              The current Mudaraba offering is tiered by amount. Rates below are target annual profit
-              shares, not guaranteed. The final split, term and schedule are set in the pool agreement.
-            </p>
           </div>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {INVESTMENT_PLANS.map((plan) => {
-              const copy = TIER_COPY[plan.id];
-              const rate = plan.capped ? `up to ${plan.rate}%` : `~${plan.rate}%`;
-              return (
-                <article
-                  key={plan.id}
-                  className="relative flex flex-col rounded-2xl p-6"
-                  style={{
-                    backgroundColor: plan.recommended ? '#FFF0CC' : 'rgba(255,240,204,0.06)',
-                    border: plan.recommended ? '1px solid #FFF0CC' : '1px solid rgba(255,240,204,0.22)',
-                  }}
-                >
-                  {plan.recommended && (
-                    <span
-                      className="absolute -top-3 left-6 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider"
-                      style={{ backgroundColor: '#548870', color: '#FFFFFF' }}
-                    >
-                      Recommended
-                    </span>
-                  )}
-                  <h3 className="text-lg font-extrabold" style={{ color: plan.recommended ? '#004445' : '#FFF0CC' }}>
-                    {copy?.name ?? plan.id}
-                  </h3>
-                  <p className="mt-1 text-xs" style={{ color: plan.recommended ? '#4A6B67' : 'rgba(255,240,204,0.6)' }}>
-                    from {money(plan.minAmount)}
-                  </p>
-                  <p className="mt-6 text-4xl font-extrabold leading-none" style={{ color: plan.recommended ? '#004445' : '#FFF0CC' }}>
-                    {rate}
-                  </p>
-                  <p className="mt-1 text-xs" style={{ color: plan.recommended ? '#4A6B67' : 'rgba(255,240,204,0.6)' }}>
-                    target annual profit share
-                  </p>
-                  <p className="mt-4 text-sm font-semibold" style={{ color: plan.recommended ? '#0D1F1D' : '#FFF0CC' }}>
-                    Term: {termLabel(plan.termMin, plan.termMax)}
-                  </p>
-                  <ul className="mt-5 flex flex-1 flex-col gap-2.5">
-                    {(copy?.features ?? []).map((feature) => (
-                      <li key={feature} className="flex items-start gap-2 text-xs leading-relaxed"
-                        style={{ color: plan.recommended ? '#4A6B67' : 'rgba(255,240,204,0.68)' }}>
-                        <span aria-hidden="true" className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full"
-                          style={{ backgroundColor: plan.recommended ? '#548870' : '#FFF0CC' }} />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href="#contact"
-                    className="mt-6 inline-flex items-center justify-center rounded-xl py-2.5 text-sm font-bold"
-                    style={
-                      plan.recommended
-                        ? { backgroundColor: '#004445', color: '#FFFFFF' }
-                        : { border: '1px solid rgba(255,240,204,0.6)', color: '#FFF0CC' }
-                    }
-                  >
-                    Discuss this tier
-                  </a>
-                </article>
-              );
-            })}
-          </div>
-
-          <div
-            className="mt-6 grid gap-5 rounded-2xl p-6 md:grid-cols-[1.2fr_1fr]"
-            style={{ backgroundColor: 'rgba(255,240,204,0.06)', border: '1px solid rgba(255,240,204,0.16)' }}
+          <p
+            className="mt-5 rounded-2xl px-6 py-5 text-sm font-semibold leading-relaxed"
+            style={{ backgroundColor: '#004445', color: '#FFF0CC' }}
           >
-            <div>
-              <h3 className="text-sm font-bold" style={{ color: '#FFF0CC' }}>How the profit share works</h3>
-              <p className="mt-2 text-xs leading-relaxed" style={{ color: 'rgba(255,240,204,0.65)' }}>
-                Mudaraba is a profit-sharing partnership, not a loan. Under the current target terms,
-                investors receive 80% of profit earned by the pool and Belvest receives 20%; the final
-                split is agreed per pool. Returns depend on portfolio performance and are not guaranteed.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-bold" style={{ color: '#FFF0CC' }}>Liquidity</h3>
-              <p className="mt-2 text-xs leading-relaxed" style={{ color: 'rgba(255,240,204,0.65)' }}>
-                The minimum investment term is 12 months. Early exit is possible no earlier than two
-                months after the start, with prior notice, on the terms of the Mudaraba agreement.
-              </p>
-            </div>
-          </div>
+            Halal business finance has no dominant digital provider yet.
+            <span className="mt-1 block text-xs font-normal" style={{ color: 'rgba(255,240,204,0.65)' }}>
+              Belvest management view, November 2026.
+            </span>
+          </p>
         </div>
       </section>
 
-      {/* Platform */}
-      <section id="platform" className="scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8">
+      {/* 6. How a deal works */}
+      <section id="process" className="scroll-mt-24 px-4 py-16 sm:px-6 sm:py-20 lg:px-8" style={{ backgroundColor: '#F7FBF9' }}>
         <div className="mx-auto max-w-6xl">
           <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: '#16685B' }}>
-              The platform
-            </p>
+            <Eyebrow>How a deal works</Eyebrow>
             <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: '#0D1F1D' }}>
-              AI-first lending, humans only on exceptions
+              From application to the last instalment
             </h2>
-            <p className="mt-4 text-base leading-relaxed" style={{ color: '#4A6B67' }}>
-              Belvest underwrites on the data a business already produces, not only on a credit score.
-              Decisions take two hours today with manual review; AI modules and ERP links are rolling out.
-            </p>
           </div>
 
           <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {PLATFORM_STEPS.map((step) => (
-              <li key={step.n} className="rounded-2xl border p-5" style={{ borderColor: 'rgba(22,104,91,0.3)' }}>
+            {DEAL_STEPS.map((step) => (
+              <li key={step.n} className="rounded-2xl border bg-white p-5" style={{ borderColor: 'rgba(22,104,91,0.3)' }}>
                 <span className="text-xs font-bold tracking-widest" style={{ color: '#548870' }}>{step.n}</span>
                 <h3 className="mt-2 text-sm font-bold" style={{ color: '#0D1F1D' }}>{step.title}</h3>
                 <p className="mt-1.5 text-xs leading-relaxed" style={{ color: '#4A6B67' }}>{step.body}</p>
@@ -406,178 +414,33 @@ export default function InvestorsPage() {
             ))}
           </ol>
 
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            <article className="rounded-2xl p-6" style={{ backgroundColor: '#F7FBF9', border: '1px solid rgba(22,104,91,0.3)' }}>
-              <h3 className="text-lg font-extrabold" style={{ color: '#004445' }}>
-                What we underwrite
-              </h3>
-              <ul className="mt-4 space-y-3 text-sm leading-relaxed" style={{ color: '#4A6B67' }}>
-                <li>ERP sales, stock and receivables, with the client’s consent.</li>
-                <li>KATM credit-bureau data and payment history.</li>
-                <li>Income and tax data (ICAN Business or iHamkor).</li>
-                <li>Asset value, supplier and contract terms.</li>
-              </ul>
-            </article>
-            <article className="rounded-2xl p-6" style={{ backgroundColor: '#F7FBF9', border: '1px solid rgba(22,104,91,0.3)' }}>
-              <h3 className="text-lg font-extrabold" style={{ color: '#004445' }}>
-                Controls around each deal
-              </h3>
-              <ul className="mt-4 space-y-3 text-sm leading-relaxed" style={{ color: '#4A6B67' }}>
-                <li>Human review on exceptions and manual approval at today’s scale.</li>
-                <li>Belvest owns the asset before it reaches the borrower.</li>
-                <li>Digital Murabaha or Ijara contract with a fixed schedule.</li>
-                <li>Auto-debit and recorded reminder calls for collections.</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* Business model */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8" style={{ backgroundColor: '#F7FBF9' }}>
-        <div className="mx-auto max-w-6xl">
-          <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: '#16685B' }}>
-              Business model
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: '#0D1F1D' }}>
-              Investors fund the book. Equity funds growth.
-            </h2>
-            <p className="mt-4 text-base leading-relaxed" style={{ color: '#4A6B67' }}>
-              Investor capital is deployed through Mudaraba pools into approved, asset-backed
-              facilities. Belvest earns a share of the profit, not interest. Belvest’s own capital and
-              shareholders fund operations and growth.
-            </p>
-          </div>
-
-          <div className="mt-10 grid items-stretch gap-4 md:grid-cols-3">
-            {FLOW.map((item, index) => (
-              <div key={item.label} className="relative rounded-2xl bg-white p-6"
-                style={{ border: '1px solid #16685B' }}>
-                <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: '#548870' }}>
-                  {index + 1}
-                </p>
-                <h3 className="mt-2 text-lg font-extrabold" style={{ color: '#004445' }}>{item.label}</h3>
-                <p className="mt-2 text-sm leading-relaxed" style={{ color: '#4A6B67' }}>{item.body}</p>
-              </div>
-            ))}
-          </div>
-
-          <p className="mt-5 text-xs leading-relaxed" style={{ color: '#7A938E' }}>
-            Use of pool capital is governed by the Mudaraba agreement. The 80/20 split is the current
-            target; the final terms are set in the agreement for each pool.
+          <p className="mt-6 max-w-4xl text-sm leading-relaxed" style={{ color: '#4A6B67' }}>
+            Rolling out in 2027: ERP-based scoring, automated payments and AI-assisted collections. AI
+            handles intake and servicing work, not credit decisions.
           </p>
         </div>
       </section>
 
-      {/* Shariah governance */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: '#16685B' }}>
-                Shariah structure
-              </p>
-              <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: '#0D1F1D' }}>
-                Halal structure in every deal
-              </h2>
-              <p className="mt-4 text-base leading-relaxed" style={{ color: '#4A6B67' }}>
-                Belvest does not charge interest. Income comes from a disclosed markup on a sale
-                (Murabaha) or from lease rentals (Ijara). Both structures require Belvest to own the
-                asset, so the deal is backed by real equipment, vehicles or stock.
-              </p>
-              <p className="mt-4 text-sm leading-relaxed" style={{ color: '#4A6B67' }}>
-                Six Islamic contracts were legalised by Law ZRU-1126, in force since 29 June 2026 with
-                tax neutrality. Contract structure and Shariah documentation can be reviewed during
-                due diligence.
-              </p>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[
-                ['No interest', 'A fixed, disclosed markup or lease rental replaces interest.'],
-                ['Asset-backed', 'Belvest buys and owns the asset before it reaches the borrower.'],
-                ['Documented', 'Each contract states the asset, price, term and payment schedule.'],
-                ['Oversight', 'The team includes CIA, FCCA and US CPA credential holders, with internal audit and risk experience.'],
-              ].map(([title, body]) => (
-                <article key={title} className="rounded-2xl p-5" style={{ backgroundColor: '#F7FBF9', border: '1px solid rgba(22,104,91,0.3)' }}>
-                  <h3 className="text-sm font-bold" style={{ color: '#004445' }}>{title}</h3>
-                  <p className="mt-2 text-xs leading-relaxed" style={{ color: '#4A6B67' }}>{body}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Portfolio on request */}
-      <section className="px-4 py-20 sm:px-6 lg:px-8" style={{ backgroundColor: '#004445' }}>
-        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: 'rgba(255,240,204,0.62)' }}>
-              Portfolio and performance
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: '#FFF0CC' }}>
-              The numbers we do not publish here
-            </h2>
-            <p className="mt-4 max-w-xl text-base leading-relaxed" style={{ color: 'rgba(255,240,204,0.72)' }}>
-              Portfolio size, collection rates, PAR and unit economics are commercially sensitive and
-              can be misread without context. Qualified investors can request the current investor pack
-              under NDA, including:
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#contact"
-                className="depth-btn inline-flex items-center justify-center rounded-xl px-7 py-3.5 text-sm font-bold"
-                style={{ backgroundColor: '#FFF0CC', color: '#004445' }}
-              >
-                Request the pack
-              </a>
-              <a
-                href="mailto:info@belvest.uz?subject=Investor%20pack"
-                className="inline-flex items-center justify-center rounded-xl border px-7 py-3.5 text-sm font-bold"
-                style={{ borderColor: 'rgba(255,240,204,0.5)', color: '#FFF0CC' }}
-              >
-                Email investor relations
-              </a>
-            </div>
-          </div>
-
-          <ul className="space-y-3">
-            {REQUEST_ITEMS.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 rounded-xl px-5 py-4 text-sm"
-                style={{ backgroundColor: 'rgba(255,240,204,0.07)', border: '1px solid rgba(255,240,204,0.16)', color: '#FFF0CC' }}
-              >
-                <span aria-hidden="true" className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: '#FFF0CC' }} />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section id="team" className="scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8">
+      {/* 7. Team and oversight */}
+      <section id="team" className="scroll-mt-24 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: '#16685B' }}>
-              Team
-            </p>
+            <Eyebrow>Team and oversight</Eyebrow>
             <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: '#0D1F1D' }}>
               Audit, IFI and auto finance in one team
             </h2>
             <p className="mt-4 text-base leading-relaxed" style={{ color: '#4A6B67' }}>
-              Big Four audit, international financial institutions and operating experience — the main
-              difference between Belvest and other lenders in Uzbekistan.
+              Big Four audit, international financial institutions and operating experience.
             </p>
           </div>
 
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {LEADERSHIP_TEAM.map((member) => (
-              <article key={member.id} className="flex flex-col rounded-2xl p-6"
-                style={{ border: '1px solid #16685B', backgroundColor: '#FFFFFF' }}>
+              <article
+                key={member.id}
+                className="flex flex-col rounded-2xl p-6"
+                style={{ border: '1px solid #16685B', backgroundColor: '#FFFFFF' }}
+              >
                 <div
                   className="flex h-16 w-16 items-center justify-center rounded-full text-lg font-bold"
                   style={{ backgroundColor: '#004445', color: '#FFF0CC' }}
@@ -600,8 +463,11 @@ export default function InvestorsPage() {
             </h3>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
               {OVERSIGHT_TEAM.map((member) => (
-                <article key={member.id} className="flex gap-4 rounded-2xl p-5"
-                  style={{ backgroundColor: '#F7FBF9', border: '1px solid rgba(22,104,91,0.3)' }}>
+                <article
+                  key={member.id}
+                  className="flex gap-4 rounded-2xl bg-white p-5"
+                  style={{ border: '1px solid rgba(22,104,91,0.3)' }}
+                >
                   <div
                     className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-bold"
                     style={{ backgroundColor: '#004445', color: '#FFF0CC' }}
@@ -623,54 +489,39 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8" style={{ backgroundColor: '#F7FBF9' }}>
-        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      {/* 8. Under NDA */}
+      <section id="contact" className="scroll-mt-24 px-4 py-16 sm:px-6 sm:py-20 lg:px-8" style={{ backgroundColor: '#F7FBF9' }}>
+        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:items-start">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: '#16685B' }}>
-              Contact
-            </p>
+            <Eyebrow>Available under NDA</Eyebrow>
             <h2 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl" style={{ color: '#0D1F1D' }}>
-              Talk to the investor relations team
+              Request the investor pack
             </h2>
             <p className="mt-4 text-base leading-relaxed" style={{ color: '#4A6B67' }}>
-              Tell us what you are looking for. We will send the investor pack and arrange a call with
-              the managing director. We can sign an NDA before sharing portfolio data.
+              We do not publish performance detail on this page. After an NDA we share:
             </p>
-
-            <dl className="mt-8 space-y-5">
-              <div>
-                <dt className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: '#7A938E' }}>Email</dt>
-                <dd className="mt-1">
-                  <a href="mailto:info@belvest.uz?subject=Investor%20enquiry" className="text-sm font-semibold" style={{ color: '#004445' }}>
-                    info@belvest.uz
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: '#7A938E' }}>Phone</dt>
-                <dd className="mt-1">
-                  <a href="tel:+998774809999" className="text-sm font-semibold" style={{ color: '#004445' }}>
-                    +998 77 480-99-99
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: '#7A938E' }}>Office</dt>
-                <dd className="mt-1 text-sm" style={{ color: '#4A6B67' }}>
-                  Tashkent, Uzbekistan
-                </dd>
-              </div>
-              <div>
-                <dt className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: '#7A938E' }}>Response</dt>
-                <dd className="mt-1 text-sm" style={{ color: '#4A6B67' }}>
-                  Within one business day
-                </dd>
-              </div>
-            </dl>
-
-            <p className="mt-8 text-xs leading-relaxed" style={{ color: '#7A938E' }}>
-              Prefer the main site? <Link href="/" className="font-semibold underline" style={{ color: '#004445' }}>belvest.uz</Link>
+            <ul className="mt-5 space-y-2.5">
+              {NDA_ITEMS.map((item) => (
+                <li key={item} className="flex items-start gap-3 text-sm" style={{ color: '#0D1F1D' }}>
+                  <span
+                    aria-hidden="true"
+                    className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full"
+                    style={{ backgroundColor: '#548870' }}
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-8 text-sm" style={{ color: '#4A6B67' }}>
+              Or email{' '}
+              <a
+                href={`mailto:${IR_EMAIL}?subject=Investor%20enquiry`}
+                className="font-semibold underline"
+                style={{ color: '#004445' }}
+              >
+                {IR_EMAIL}
+              </a>
+              .
             </p>
           </div>
 
