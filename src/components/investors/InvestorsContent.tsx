@@ -9,8 +9,6 @@ const TRACK_RECORD: { value: string; label: string; note?: string }[] = [
   { value: '1,140+', label: 'Facilities funded' },
   { value: '1,090+', label: 'Customers served' },
   { value: '$2.6M+', label: 'Amount financed' },
-  { value: '$1.9M', label: 'Repayments collected' },
-  { value: '$2.0M', label: 'Receivables outstanding' },
   { value: '300+', label: 'Facilities fully repaid', note: 'about half ahead of schedule' },
 ];
 if (AUM) TRACK_RECORD.push({ value: AUM, label: 'Assets under management' });
@@ -89,6 +87,7 @@ const DEAL_STEPS = [
 
 const NDA_ITEMS = [
   'Collection performance and arrears (PAR)',
+  'Repayments collected and receivables outstanding',
   'Vintage analysis',
   'Unit economics and financial model',
   'Full loan tape',
@@ -217,7 +216,7 @@ export default function InvestorsContent() {
           </div>
 
           <dl
-            className="mt-10 grid gap-px overflow-hidden rounded-2xl sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-10 grid gap-px overflow-hidden rounded-2xl sm:grid-cols-2 lg:grid-cols-4"
             style={{ backgroundColor: 'rgba(22,104,91,0.25)', border: '1px solid rgba(22,104,91,0.25)' }}
           >
             {TRACK_RECORD.map((item) => (
@@ -243,9 +242,7 @@ export default function InvestorsContent() {
           </p>
           <p className="mt-3 max-w-4xl text-xs leading-relaxed" style={{ color: '#7A938E' }}>
             Management data from 1C, unaudited, 20 June 2025 to 15 November 2026. Amount financed is
-            the contract sale price less the customer’s down payment. Repayments collected include
-            down payments. Receivables outstanding are scheduled instalments still due, including the
-            agreed markup, so the figures do not net against each other.
+            the contract sale price less the customer’s down payment.
           </p>
         </div>
       </section>
